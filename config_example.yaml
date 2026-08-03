@@ -1,0 +1,77 @@
+# Diffusion Factor Model Configuration
+
+data:
+  # Data source: "akshare" for Chinese A-shares, "synthetic" for testing
+  source: "synthetic"
+  
+  # Universe (for akshare): "hs300", "hs500", "hs1000", "all"
+  universe: "hs300"
+  
+  # Date range
+  start_date: "2015-01-01"
+  end_date: "2024-12-31"
+  
+  # Data processing
+  winsorize_std: 5.0
+  min_history: 252
+
+  # Used only when source is "synthetic"
+  synthetic_n_stocks: 20
+  synthetic_n_days: 750
+  random_seed: 42
+  
+factors:
+  # Number of volatility factors from PCA
+  n_vol_factors: 5
+  # Causal realized-variance window used before log-volatility PCA
+  vol_window: 21
+  
+latent:
+  # Volatility factors are already estimated in log-variance space
+  use_log_variance: false
+
+diffusion:
+  # SDE parameters
+  beta_min: 0.1
+  beta_max: 20.0
+  T: 1.0
+  
+  # Architecture
+  hidden_dim: 256
+  n_layers: 6
+  dropout: 0.1
+  
+  # Training
+  n_epochs: 1000
+  batch_size: 128
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  
+residuals:
+  # GARCH model
+  model_type: "gjr_garch"
+  distribution: "student_t"
+
+sampling:
+  # Sampling method
+  solver: "dpm_solver_pp"
+  
+  # Number of steps
+  n_steps: 20
+  
+  # Number of samples to generate
+  n_samples: 1000
+
+evaluation:
+  # Metrics to compute
+  metrics:
+    - correlation_distance
+    - volatility_acf
+    - tail_dependence
+    - mean_std
+    - skewness_kurtosis
+  
+# Paths are top-level settings. Relative paths are resolved from the working directory.
+data_dir: "./data"
+model_dir: "./models"
+output_dir: "./outputs"

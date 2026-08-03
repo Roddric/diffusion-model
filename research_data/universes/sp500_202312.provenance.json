@@ -1,0 +1,10 @@
+{
+  "index": "sp500",
+  "archive_month": "2023-12",
+  "source_url": "https://yfiua.github.io/index-constituents/2023/12/constituents-sp500.csv",
+  "source_repository": "https://github.com/yfiua/index-constituents",
+  "sha256": "3dc7f3f14ce0a82a4fd5c43085059032abdbd48889ff271ea8ecfe7b4b79b502",
+  "rows": 503,
+  "retrieved_at_utc": "2026-07-30T02:30:35.262812+00:00",
+  "purpose": "Universe frozen before the 2024-01-01 confirmation boundary."
+}

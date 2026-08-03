@@ -1,0 +1,10 @@
+{
+  "index": "csi300",
+  "archive_month": "2023-12",
+  "source_url": "https://yfiua.github.io/index-constituents/2023/12/constituents-csi300.csv",
+  "source_repository": "https://github.com/yfiua/index-constituents",
+  "sha256": "fd04cb3a4be9fb6ec08c62d08073a8ae2fe53639004af8457a4813e2087a3490",
+  "rows": 300,
+  "retrieved_at_utc": "2026-07-30T02:30:33.961880+00:00",
+  "purpose": "Universe frozen before the 2024-01-01 confirmation boundary."
+}

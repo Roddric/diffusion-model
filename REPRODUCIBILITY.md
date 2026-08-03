@@ -1,0 +1,108 @@
+# Reproducibility and research-status record
+
+## Status of the evidence
+
+This is a retrospective locked-holdout study. The December 2023 universe archive,
+pre-2024 development data, model checkpoints, and scoring rule were locked on
+2026-07-30 before post-2023 observations were loaded into the scoring pipeline.
+The 2024–2026 calendar period had already occurred, and the protocol was not
+externally preregistered. The saved timestamps and hashes establish execution
+order inside this workspace; they do not establish a prospective research freeze.
+
+The original immutable result is
+`research_output/sp500_confirmation/confirmation.json`. The later
+`posthoc_dependence_robustness.json` exactly reproduces its point estimates, stores
+the origin-level losses, and adds dependence-robust inference. Later files prefixed
+`posthoc_` add path-count, expanded-baseline, and observable-risk checks. None
+redefines the original decision or creates a new holdout sample.
+
+## Audited environment
+
+- Audit date: 2026-08-03
+- Python: 3.11
+- Exact Python environment: `requirements-lock.txt`
+- Minimum supported dependencies: `requirements.txt`
+- Random training seeds: 42, 314, and 2718
+- The research runners force single-threaded PyTorch execution.
+
+This directory did not have Git history when the audit began. Consequently, no
+historical commit identifier is claimed. Git history now begins at an audited
+baseline for future work; it cannot retroactively establish the July chronology.
+Tag and disclose a commit before any new prospective evaluation.
+
+## Verify immutable artifacts
+
+From the project directory:
+
+```bash
+shasum -a 256 -c ARTIFACT_MANIFEST.sha256
+```
+
+The manifest covers the S&P universe and price caches, research configurations,
+frozen checkpoints, original result, and post-hoc audit results.
+
+## Install and test
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-lock.txt
+PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider
+```
+
+The audited suite contains 86 tests.
+
+## Reproduce the post-hoc audits
+
+Use a new output path; the runner refuses to overwrite existing evidence:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig \
+PYTHONPATH=diffusion_factor_model \
+.venv/bin/python diffusion_factor_model/research/confirm_phase2f.py \
+  --output /tmp/posthoc_dependence_robustness.json \
+  --report-role posthoc_robustness_audit
+```
+
+The rerun must report exact matches for the locked composite and co-primary ratios.
+It also reports circular block-bootstrap intervals at block lengths 2–5 and
+Newey–West inference at the automatic lag (three for 29 origins).
+
+The following commands use new output paths because every runner refuses to
+overwrite existing evidence:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/monte_carlo_sensitivity.py \
+  --path-counts 20 50 100 --replicates 1 \
+  --output /tmp/posthoc_monte_carlo_sensitivity.json
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/expanded_baseline_audit.py \
+  --paths 100 --output /tmp/posthoc_expanded_baselines.json
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/confirm_phase2f.py \
+  --output /tmp/posthoc_observable_risk_audit.json \
+  --report-role posthoc_observable_risk_audit
+```
+
+The expanded nonlinear baseline is deliberately compute-intensive. For a future
+unseen evaluation, create the protocol before outcomes are available:
+
+```bash
+PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/register_experiment.py \
+  --name prospective-study --output prospective-study.protocol.json \
+  --config research_sp500_confirmation.yaml
+```
+
+## Interpretation boundary
+
+The defensible claim is an approximately 2% retrospective holdout improvement in
+latent-state forecasts relative to Gaussian VAR. The hybrid is not conclusively
+better than Student-t VAR and does not show a consistent observable portfolio-risk,
+return-tail, or drawdown improvement. Neither the consumed S&P nor CSI 2024–2026
+sample may be used for additional selection. A stronger confirmatory claim requires
+a new market that has not influenced development or a future prospectively locked
+evaluation period.

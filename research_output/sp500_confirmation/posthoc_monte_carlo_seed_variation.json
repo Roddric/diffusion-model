@@ -1,0 +1,176 @@
+{
+  "analyzed_at": "2026-08-03T15:49:57.810736",
+  "status": "posthoc_monte_carlo_sensitivity",
+  "interpretation_boundary": "Frozen models and validation-selected weights; post-hoc path-count sensitivity on a consumed holdout, not a new confirmation.",
+  "protocol": {
+    "path_counts": [
+      20
+    ],
+    "replicates": 5,
+    "nested_paths_within_replicate": true,
+    "n_origins": 29,
+    "horizon": 20,
+    "seeds": [
+      42,
+      314,
+      2718
+    ],
+    "weights_reselected": false
+  },
+  "replicate_metrics": [
+    {
+      "20": {
+        "Phase2F-Validation-Pooled-Diffusion": {
+          "state_energy_score": 0.44871875158123953,
+          "state_rmse": 0.6151308085610255
+        },
+        "Gaussian-VAR": {
+          "state_energy_score": 0.46104984598328436,
+          "state_rmse": 0.6333776768329037
+        },
+        "Student-t-VAR": {
+          "state_energy_score": 0.461021942831794,
+          "state_rmse": 0.6319518306004996
+        }
+      }
+    },
+    {
+      "20": {
+        "Phase2F-Validation-Pooled-Diffusion": {
+          "state_energy_score": 0.4478373984038818,
+          "state_rmse": 0.6131960448016494
+        },
+        "Gaussian-VAR": {
+          "state_energy_score": 0.45688231938889057,
+          "state_rmse": 0.6262312512046256
+        },
+        "Student-t-VAR": {
+          "state_energy_score": 0.4572538207479834,
+          "state_rmse": 0.6264544736296438
+        }
+      }
+    },
+    {
+      "20": {
+        "Phase2F-Validation-Pooled-Diffusion": {
+          "state_energy_score": 0.44832388203206286,
+          "state_rmse": 0.6143669623785183
+        },
+        "Gaussian-VAR": {
+          "state_energy_score": 0.45879191729603397,
+          "state_rmse": 0.6298606540630544
+        },
+        "Student-t-VAR": {
+          "state_energy_score": 0.45516842000598823,
+          "state_rmse": 0.6256745621312266
+        }
+      }
+    },
+    {
+      "20": {
+        "Phase2F-Validation-Pooled-Diffusion": {
+          "state_energy_score": 0.4484813035681264,
+          "state_rmse": 0.6134566923290348
+        },
+        "Gaussian-VAR": {
+          "state_energy_score": 0.4621625107364856,
+          "state_rmse": 0.6333797364010294
+        },
+        "Student-t-VAR": {
+          "state_energy_score": 0.46070906142781887,
+          "state_rmse": 0.6337922217594034
+        }
+      }
+    },
+    {
+      "20": {
+        "Phase2F-Validation-Pooled-Diffusion": {
+          "state_energy_score": 0.4505756971053336,
+          "state_rmse": 0.6171032958161659
+        },
+        "Gaussian-VAR": {
+          "state_energy_score": 0.4587568937853928,
+          "state_rmse": 0.6302761471760738
+        },
+        "Student-t-VAR": {
+          "state_energy_score": 0.4534576508317234,
+          "state_rmse": 0.6220762268776624
+        }
+      }
+    }
+  ],
+  "summary": {
+    "20": {
+      "Phase2F-Validation-Pooled-Diffusion": {
+        "state_energy_score": {
+          "mean": 0.4487874065381289,
+          "std_across_mc_replicates": 0.0009395494778842093,
+          "min": 0.4478373984038818,
+          "max": 0.4505756971053336
+        },
+        "state_rmse": {
+          "mean": 0.6146507607772788,
+          "std_across_mc_replicates": 0.001404842592722141,
+          "min": 0.6131960448016494,
+          "max": 0.6171032958161659
+        }
+      },
+      "Gaussian-VAR": {
+        "state_energy_score": {
+          "mean": 0.45952869743801755,
+          "std_across_mc_replicates": 0.001865084878641289,
+          "min": 0.45688231938889057,
+          "max": 0.4621625107364856
+        },
+        "state_rmse": {
+          "mean": 0.6306250931355375,
+          "std_across_mc_replicates": 0.0026524235643324468,
+          "min": 0.6262312512046256,
+          "max": 0.6333797364010294
+        }
+      },
+      "Student-t-VAR": {
+        "state_energy_score": {
+          "mean": 0.4575221791690616,
+          "std_across_mc_replicates": 0.00298453189867706,
+          "min": 0.4534576508317234,
+          "max": 0.461021942831794
+        },
+        "state_rmse": {
+          "mean": 0.6279898629996872,
+          "std_across_mc_replicates": 0.004290773479436922,
+          "min": 0.6220762268776624,
+          "max": 0.6337922217594034
+        }
+      },
+      "ratios_vs_Gaussian-VAR": {
+        "state_energy_score": {
+          "mean": 0.9766409505825961,
+          "std_across_mc_replicates": 0.004335113902570411,
+          "min": 0.9703974103253045,
+          "max": 0.982166596751162
+        },
+        "state_rmse": {
+          "mean": 0.9746843972208653,
+          "std_across_mc_replicates": 0.004246398059463747,
+          "min": 0.9685448666463491,
+          "max": 0.9791846759836695
+        }
+      },
+      "ratios_vs_Student-t-VAR": {
+        "state_energy_score": {
+          "mean": 0.980957148288027,
+          "std_across_mc_replicates": 0.007669044886844676,
+          "min": 0.9733132198112242,
+          "max": 0.9936444920024973
+        },
+        "state_rmse": {
+          "mean": 0.9788131947065286,
+          "std_across_mc_replicates": 0.008148873032862568,
+          "min": 0.9679145171994737,
+          "max": 0.9920059136700067
+        }
+      }
+    }
+  }
+}

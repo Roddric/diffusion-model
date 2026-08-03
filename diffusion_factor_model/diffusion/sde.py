@@ -1,0 +1,43 @@
+"""Stochastic Differential Equations for diffusion models."""
+
+import torch
+import numpy as np
+from abc import ABC, abstractmethod
+
+
+class VPSDE:
+    """Variance-Preserving SDE (DDPM-like)."""
+
+    def __init__(self, beta_min=0.1, beta_max=20.0, T=1.0):
+        self.beta_min = beta_min
+        self.beta_max = beta_max
+        self.T = T
+
+    def marginal_params(self, x0: torch.Tensor, t: torch.Tensor):
+        """Compute mean and std of p(x_t | x_0)."""
+        log_mean_coeff = -0.25 * t**2 * (self.beta_max - self.beta_min) - 0.5 * t * self.beta_min
+        mean = torch.exp(log_mean_coeff.unsqueeze(-1)) * x0
+        std = torch.sqrt(1 - torch.exp(2.0 * log_mean_coeff.unsqueeze(-1)))
+        return mean, std
+
+    def marginal_std(self, t: torch.Tensor):
+        """Std of p(x_t | x_0), shaped (batch, 1) for broadcasting."""
+        log_mean_coeff = -0.25 * t**2 * (self.beta_max - self.beta_min) - 0.5 * t * self.beta_min
+        std = torch.sqrt(1 - torch.exp(2.0 * log_mean_coeff))
+        return std.clamp(min=1e-5).unsqueeze(-1)
+
+    def sample_marginal(self, x0: torch.Tensor, t: torch.Tensor):
+        """Sample from p(x_t | x_0)."""
+        mean, std = self.marginal_params(x0, t)
+        eps = torch.randn_like(x0)
+        return mean + std * eps
+
+    def drift(self, x: torch.Tensor, t: torch.Tensor):
+        """Drift coefficient."""
+        beta_t = self.beta_min + (self.beta_max - self.beta_min) * t
+        return -0.5 * beta_t.unsqueeze(-1) * x
+
+    def diffusion(self, x: torch.Tensor, t: torch.Tensor):
+        """Diffusion coefficient."""
+        beta_t = self.beta_min + (self.beta_max - self.beta_min) * t
+        return torch.sqrt(beta_t).unsqueeze(-1)

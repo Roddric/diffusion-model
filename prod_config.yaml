@@ -1,0 +1,23 @@
+data:
+  source: akshare
+  universe: hs300
+  start_date: '20200101'
+  end_date: '20241231'
+  min_history: 252
+  winsorize_std: 5.0
+data_dir: ./prod_data
+factors:
+  n_vol_factors: 5
+latent:
+  use_log_variance: false
+  standardize: true
+diffusion:
+  beta_min: 0.1
+  beta_max: 20.0
+  T: 1.0
+  n_epochs: 5000
+  batch_size: 64
+  learning_rate: 0.0002
+  hidden_dim: 128
+  n_layers: 4
+  dropout: 0.1

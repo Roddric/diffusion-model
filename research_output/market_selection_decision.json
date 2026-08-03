@@ -1,0 +1,43 @@
+{
+  "decision": "sp500",
+  "status": "development_market_selected_confirmation_not_opened",
+  "selection_rule": "lowest geometric mean of diffusion/VAR-GARCH loss ratios for state_energy_score and state_rmse",
+  "development_period": {
+    "train_end": "2020-12-31",
+    "checkpoint_validation_end": "2021-12-31",
+    "market_selection_start": "2022-01-03",
+    "market_selection_end": "2023-12-29"
+  },
+  "matched_screen": {
+    "requested_constituents_per_market": 100,
+    "seeds": [42, 314, 2718],
+    "training_steps_per_seed": 4000,
+    "paths_per_seed": 20,
+    "csi300": {
+      "eligible_assets": 64,
+      "selection_score": 1.102647960928351,
+      "state_energy_ratio_vs_var_garch": 1.1101373284020555,
+      "state_rmse_ratio_vs_var_garch": 1.0952091192983606,
+      "report": "research_output/csi300/market_selection_top100.json"
+    },
+    "sp500": {
+      "eligible_assets": 100,
+      "selection_score": 1.0186562511371855,
+      "state_energy_ratio_vs_var_garch": 1.0196010551748738,
+      "state_rmse_ratio_vs_var_garch": 1.0177123225935594,
+      "report": "research_output/sp500/market_selection_top100.json"
+    }
+  },
+  "interpretation": "S&P 500 is materially better than CSI 300 under the locked market-selection rule, but neither diffusion specification beats VAR-GARCH on the combined primary development score.",
+  "calibration_ablation": {
+    "market": "sp500",
+    "method": "validation-only separate mean-factor and volatility-factor residual amplitude",
+    "selection_score": 1.021687839867306,
+    "state_energy_ratio_vs_var_garch": 1.0524651701562562,
+    "state_rmse_ratio_vs_var_garch": 0.9918105337184175,
+    "return_rmse_ratio_vs_var_garch": 0.9965955136355776,
+    "decision": "rejected_for_primary_because_combined_prespecified_score_worsened"
+  },
+  "confirmation_boundary": "2024-01-01",
+  "confirmation_data_used_for_this_decision": false
+}

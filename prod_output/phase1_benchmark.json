@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-07-28T22:45:55.348290",
+  "protocol": {
+    "split": "strict_temporal",
+    "train_days": 1300,
+    "test_days": 500,
+    "train_start": "2017-11-02",
+    "train_end": "2023-01-03",
+    "test_start": "2023-01-04",
+    "test_end": "2024-12-30",
+    "n_assets": 87,
+    "n_latent": 1029,
+    "n_generated": 2000,
+    "diffusion_steps": 10000,
+    "seed": 0,
+    "train_only_transformations": true
+  },
+  "scores": {
+    "Empirical": {
+      "RE3": 0.7842425973686818,
+      "RE4": 1.6425969602188797,
+      "correlation_distance": 20.75140387198693,
+      "min_variance_vol": 0.007618257305421266,
+      "volatility_acf_mae": 0.17464359904905394,
+      "tail_dependence_error": 0.19164372469635635
+    },
+    "Ledoit-Wolf": {
+      "RE4": 1.6145760636762314,
+      "min_variance_vol": 0.0075268028777820215
+    },
+    "Bootstrap": {
+      "RE3": 1.0131069131564407,
+      "RE4": 1.6291980500323804,
+      "correlation_distance": 19.62945308804893,
+      "min_variance_vol": 0.011764893521639567,
+      "volatility_acf_mae": 0.00933566819919345,
+      "tail_dependence_error": 0.13094736842105262
+    },
+    "Gaussian": {
+      "RE3": 0.9151185570822337,
+      "RE4": 1.8764034180892604,
+      "correlation_distance": 21.080102240707106,
+      "min_variance_vol": 0.01176036907324885,
+      "volatility_acf_mae": 0.011930371111418278,
+      "tail_dependence_error": 0.0673684210526316
+    },
+    "VAR-GARCH": {
+      "RE3": 0.9459042231811863,
+      "RE4": 1.847754086848026,
+      "correlation_distance": 20.949268031495993,
+      "min_variance_vol": 0.011957432303384447,
+      "volatility_acf_mae": 0.009358874363275102,
+      "tail_dependence_error": 0.04310526315789476
+    },
+    "Diffusion": {
+      "RE3": 0.9974408982991272,
+      "RE4": 4.594968400686117,
+      "correlation_distance": 34.053881148309785,
+      "min_variance_vol": 0.012574287503182218,
+      "volatility_acf_mae": 0.016614009843707582,
+      "tail_dependence_error": 0.254,
+      "latent_std": 1.0806970596313477
+    }
+  },
+  "legacy_reference": {
+    "split": "temporal",
+    "train_days": 1300,
+    "N": 1049,
+    "d": 87,
+    "N_over_d": 12.057471264367816,
+    "scores": {
+      "Emp": {
+        "RE3": 0.7842425973686821,
+        "RE4": 1.64259696021888
+      },
+      "Bootstrap": {
+        "RE3": 0.8029397899578337,
+        "RE4": 2.0595412235635924,
+        "RE4_sd": 0.0
+      },
+      "Gauss": {
+        "RE3": 0.8204115856088592,
+        "RE4": 1.971395665766575,
+        "RE4_sd": 0.0
+      },
+      "Diff": {
+        "RE3": 0.8514017393879193,
+        "RE4": 4.841109277119331,
+        "RE4_sd": 0.0,
+        "latent_std": 1.1568048000335693
+      }
+    },
+    "diff_over_emp_RE4": 2.9472289273409116
+  }
+}

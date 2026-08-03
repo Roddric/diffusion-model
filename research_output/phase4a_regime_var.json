@@ -1,0 +1,1318 @@
+{
+  "created_at": "2026-07-30T16:28:52.602452",
+  "status": "regime_baseline_rejected",
+  "protocol": {
+    "phase": "4A",
+    "purpose": "pre-2024 multi-market regime-baseline development; not confirmation",
+    "confirmation_data_loaded": false,
+    "train_end": "2020-12-31",
+    "validation_end": "2021-12-31",
+    "development_period": "2022 through 2023",
+    "n_regimes": 3,
+    "regime_quantiles": [
+      0.3333333333333333,
+      0.6666666666666666
+    ],
+    "min_regime_obs": 30,
+    "markets": [
+      "sp500",
+      "csi300"
+    ]
+  },
+  "integration_decision": {
+    "accepted_for_diffusion_integration": false,
+    "checks": {
+      "pooled_state_improvement_at_least_one_percent": false,
+      "both_pooled_state_primaries_improve": false,
+      "state_energy_improves_in_every_market": false,
+      "at_least_one_market_energy_p_below_0_10": false,
+      "no_market_state_composite_worse_by_one_percent": false,
+      "no_market_return_composite_worse_by_two_percent": false
+    },
+    "pooled_state_composite": 1.0037020109228674,
+    "pooled_state_ratios": {
+      "state_energy_score": 1.0030323869491202,
+      "state_rmse": 1.0043720819372803
+    },
+    "market_state_composites": {
+      "sp500": 0.9910264351150574,
+      "csi300": 1.0165397117924986
+    },
+    "market_return_composites": {
+      "sp500": 1.035713887491897,
+      "csi300": 1.0402155758674234
+    },
+    "market_energy_p_values": {
+      "sp500": 0.2023,
+      "csi300": 0.9367
+    }
+  },
+  "markets": {
+    "sp500": {
+      "config": "research_sp500_selection.yaml",
+      "data_start": "2015-01-05",
+      "data_end": "2023-12-29",
+      "n_assets": 100,
+      "n_origins": 22,
+      "n_paths": 20,
+      "state_composite_vs_student_t": 0.9910264351150574,
+      "state_ratios_vs_student_t": {
+        "state_energy_score": 0.9905351261302332,
+        "state_rmse": 0.991517987790905
+      },
+      "return_composite_vs_student_t": 1.035713887491897,
+      "return_ratios_vs_student_t": {
+        "return_energy_score": 1.0129645614529148,
+        "return_variogram_score": 1.0520757978712532,
+        "daily_volatility_mae": 0.9899908683365669,
+        "tail_quantile_error": 1.1363899429193796,
+        "max_drawdown_error": 0.9940292080171746
+      },
+      "paired_candidate_vs_student_t": {
+        "state_rmse": {
+          "mean_difference": -0.0057562638484263155,
+          "ci_95": [
+            -0.022224600563738036,
+            0.010499143491526064
+          ],
+          "one_sided_p_diffusion_not_better": 0.2454,
+          "origin_win_rate": 0.6363636363636364,
+          "n_origins": 22
+        },
+        "mean_factor_rmse": {
+          "mean_difference": -0.008361168265786246,
+          "ci_95": [
+            -0.02730993204862264,
+            0.011699438561527263
+          ],
+          "one_sided_p_diffusion_not_better": 0.2037,
+          "origin_win_rate": 0.6818181818181818,
+          "n_origins": 22
+        },
+        "logvol_factor_rmse": {
+          "mean_difference": 0.0021617058162770268,
+          "ci_95": [
+            -0.02036643736991525,
+            0.023229164205690093
+          ],
+          "one_sided_p_diffusion_not_better": 0.5963,
+          "origin_win_rate": 0.5,
+          "n_origins": 22
+        },
+        "state_energy_score": {
+          "mean_difference": -0.004691003794026581,
+          "ci_95": [
+            -0.015755265841223998,
+            0.006555016833815606
+          ],
+          "one_sided_p_diffusion_not_better": 0.2023,
+          "origin_win_rate": 0.6363636363636364,
+          "n_origins": 22
+        },
+        "state_variogram_score": {
+          "mean_difference": 0.0018215127364893844,
+          "ci_95": [
+            -0.002426524337343262,
+            0.006270343700150155
+          ],
+          "one_sided_p_diffusion_not_better": 0.7952,
+          "origin_win_rate": 0.5454545454545454,
+          "n_origins": 22
+        },
+        "return_rmse_scaled": {
+          "mean_difference": 0.00956261802569077,
+          "ci_95": [
+            -0.005965081767471832,
+            0.025559605575129516
+          ],
+          "one_sided_p_diffusion_not_better": 0.8881,
+          "origin_win_rate": 0.5,
+          "n_origins": 22
+        },
+        "daily_volatility_mae": {
+          "mean_difference": -3.297546022804518e-05,
+          "ci_95": [
+            -0.00010167047197749762,
+            2.914574359546903e-05
+          ],
+          "one_sided_p_diffusion_not_better": 0.1614,
+          "origin_win_rate": 0.5454545454545454,
+          "n_origins": 22
+        },
+        "tail_quantile_error": {
+          "mean_difference": 0.000828564973346378,
+          "ci_95": [
+            -0.0010951643058314238,
+            0.002630181209995585
+          ],
+          "one_sided_p_diffusion_not_better": 0.8063,
+          "origin_win_rate": 0.4090909090909091,
+          "n_origins": 22
+        },
+        "max_drawdown_error": {
+          "mean_difference": -0.00013412684492936577,
+          "ci_95": [
+            -0.005716405776250871,
+            0.005517980589812538
+          ],
+          "one_sided_p_diffusion_not_better": 0.4873,
+          "origin_win_rate": 0.5,
+          "n_origins": 22
+        },
+        "return_energy_score": {
+          "mean_difference": 0.010078820520096317,
+          "ci_95": [
+            -0.0016494283157282303,
+            0.0223406746669313
+          ],
+          "one_sided_p_diffusion_not_better": 0.9523,
+          "origin_win_rate": 0.4090909090909091,
+          "n_origins": 22
+        },
+        "return_variogram_score": {
+          "mean_difference": 0.011121289085003191,
+          "ci_95": [
+            0.0002751903862555173,
+            0.023525360197352376
+          ],
+          "one_sided_p_diffusion_not_better": 0.9778,
+          "origin_win_rate": 0.3181818181818182,
+          "n_origins": 22
+        }
+      },
+      "metrics": {
+        "Regime-Student-t-VAR": {
+          "state_rmse": {
+            "mean": 0.6728874007119857,
+            "std": 0.14594488865692085
+          },
+          "mean_factor_rmse": {
+            "mean": 0.8485284076112152,
+            "std": 0.22137682805489162
+          },
+          "logvol_factor_rmse": {
+            "mean": 0.4110008875110772,
+            "std": 0.10111795620098549
+          },
+          "state_energy_score": {
+            "mean": 0.490931426950749,
+            "std": 0.10464462782116381
+          },
+          "state_variogram_score": {
+            "mean": 0.06367357695788621,
+            "std": 0.013117794358426907
+          },
+          "return_rmse_scaled": {
+            "mean": 1.0479150626587364,
+            "std": 0.033145355797084
+          },
+          "daily_volatility_mae": {
+            "mean": 0.003261562101758142,
+            "std": 0.0007222246332872639
+          },
+          "tail_quantile_error": {
+            "mean": 0.006903536159720041,
+            "std": 0.004629399710058885
+          },
+          "max_drawdown_error": {
+            "mean": 0.022329701289625862,
+            "std": 0.016030371868624566
+          },
+          "return_energy_score": {
+            "mean": 0.7874919676366541,
+            "std": 0.15400694713112462
+          },
+          "return_variogram_score": {
+            "mean": 0.22468093751320997,
+            "std": 0.03781312690418197
+          }
+        },
+        "Student-t-VAR": {
+          "state_rmse": {
+            "mean": 0.678643664560412,
+            "std": 0.14435147358332734
+          },
+          "mean_factor_rmse": {
+            "mean": 0.8568895758770014,
+            "std": 0.21722388495538228
+          },
+          "logvol_factor_rmse": {
+            "mean": 0.4088391816948001,
+            "std": 0.11913733594753571
+          },
+          "state_energy_score": {
+            "mean": 0.4956224307447755,
+            "std": 0.11074221461217613
+          },
+          "state_variogram_score": {
+            "mean": 0.0618520642213968,
+            "std": 0.016136017182458284
+          },
+          "return_rmse_scaled": {
+            "mean": 1.0383524446330457,
+            "std": 0.02081748259281681
+          },
+          "daily_volatility_mae": {
+            "mean": 0.0032945375619861873,
+            "std": 0.0007616841704328774
+          },
+          "tail_quantile_error": {
+            "mean": 0.0060749711863736615,
+            "std": 0.004592233499794358
+          },
+          "max_drawdown_error": {
+            "mean": 0.02246382813455523,
+            "std": 0.019176232713473924
+          },
+          "return_energy_score": {
+            "mean": 0.7774131471165575,
+            "std": 0.14900122074466124
+          },
+          "return_variogram_score": {
+            "mean": 0.21355964842820677,
+            "std": 0.0421398813570921
+          }
+        }
+      },
+      "regime_model": {
+        "signal": "training-fitted cross-sectional average reconstructed log variance",
+        "thresholds": [
+          -9.282942052475404,
+          -8.903090878419968
+        ],
+        "training_counts": [
+          413,
+          413,
+          412
+        ],
+        "student_df_by_regime": [
+          4.615695940280876,
+          5.484569957320002,
+          4.0710025430411765
+        ],
+        "spectral_radius": 0.9800000000000006
+      },
+      "evaluation_by_origin_regime": {
+        "1": {
+          "n_origins": 6,
+          "state_composite_vs_student_t": 0.9586786984194412,
+          "state_ratios_vs_student_t": {
+            "state_energy_score": 0.9607182246641303,
+            "state_rmse": 0.9566435019222224
+          },
+          "metrics": {
+            "Regime-Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.5869302343045902,
+                "std": 0.10710482140451744
+              },
+              "mean_factor_rmse": {
+                "mean": 0.719476579406761,
+                "std": 0.17882341054306025
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.39626928675675527,
+                "std": 0.07254913726611174
+              },
+              "state_energy_score": {
+                "mean": 0.4296539930852374,
+                "std": 0.07476643754908083
+              },
+              "state_variogram_score": {
+                "mean": 0.05812157944969662,
+                "std": 0.012690801785468879
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0391208505842344,
+                "std": 0.028564360884268204
+              },
+              "daily_volatility_mae": {
+                "mean": 0.0027519667775973843,
+                "std": 0.0005232386383300171
+              },
+              "tail_quantile_error": {
+                "mean": 0.004534201034981694,
+                "std": 0.0020382724143338943
+              },
+              "max_drawdown_error": {
+                "mean": 0.02143039230060881,
+                "std": 0.011111126415602104
+              },
+              "return_energy_score": {
+                "mean": 0.7290113609621748,
+                "std": 0.13023755238695403
+              },
+              "return_variogram_score": {
+                "mean": 0.20019238298797004,
+                "std": 0.02929745908638329
+              }
+            },
+            "Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6135307804059168,
+                "std": 0.10492238425474419
+              },
+              "mean_factor_rmse": {
+                "mean": 0.7444538090402749,
+                "std": 0.17762768062257236
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.4206728717054406,
+                "std": 0.11013046235967794
+              },
+              "state_energy_score": {
+                "mean": 0.44722165360758676,
+                "std": 0.0779473274203476
+              },
+              "state_variogram_score": {
+                "mean": 0.059077903507687594,
+                "std": 0.013379224284487267
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0462157234056864,
+                "std": 0.017091564137363877
+              },
+              "daily_volatility_mae": {
+                "mean": 0.00275907049023077,
+                "std": 0.0004519588196194258
+              },
+              "tail_quantile_error": {
+                "mean": 0.004605707246706532,
+                "std": 0.0023305324921050557
+              },
+              "max_drawdown_error": {
+                "mean": 0.02278014782176849,
+                "std": 0.0038745062341809917
+              },
+              "return_energy_score": {
+                "mean": 0.7340125328760987,
+                "std": 0.11956080732889471
+              },
+              "return_variogram_score": {
+                "mean": 0.20210316987887303,
+                "std": 0.025264060878442858
+              }
+            }
+          }
+        },
+        "2": {
+          "n_origins": 16,
+          "state_composite_vs_student_t": 1.001598430825251,
+          "state_ratios_vs_student_t": {
+            "state_energy_score": 1.0002681000239024,
+            "state_rmse": 1.0029305309322898
+          },
+          "metrics": {
+            "Regime-Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.7051213381147591,
+                "std": 0.14551914407448135
+              },
+              "mean_factor_rmse": {
+                "mean": 0.8969228431878854,
+                "std": 0.216348090260328
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.41652523779394784,
+                "std": 0.10942343900188854
+              },
+              "state_energy_score": {
+                "mean": 0.5139104646503159,
+                "std": 0.1049978320053417
+              },
+              "state_variogram_score": {
+                "mean": 0.0657555760234573,
+                "std": 0.012661559330264293
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0512128921866744,
+                "std": 0.03412838380126468
+              },
+              "daily_volatility_mae": {
+                "mean": 0.003452660348318426,
+                "std": 0.00069328440325246
+              },
+              "tail_quantile_error": {
+                "mean": 0.0077920368314969195,
+                "std": 0.005001554518039645
+              },
+              "max_drawdown_error": {
+                "mean": 0.022666942160507256,
+                "std": 0.017510687924902794
+              },
+              "return_energy_score": {
+                "mean": 0.8094221951395835,
+                "std": 0.15648748119187444
+              },
+              "return_variogram_score": {
+                "mean": 0.23386414546017495,
+                "std": 0.036536653733699416
+              }
+            },
+            "Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.7030609961183478,
+                "std": 0.14945567709915142
+              },
+              "mean_factor_rmse": {
+                "mean": 0.8990529884407737,
+                "std": 0.21570992313505938
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.40440154794080996,
+                "std": 0.12204863137305468
+              },
+              "state_energy_score": {
+                "mean": 0.5137727221712214,
+                "std": 0.11565654499422345
+              },
+              "state_variogram_score": {
+                "mean": 0.06289237448903778,
+                "std": 0.016938583034209576
+              },
+              "return_rmse_scaled": {
+                "mean": 1.035403715093305,
+                "std": 0.021317906780986304
+              },
+              "daily_volatility_mae": {
+                "mean": 0.003495337713894468,
+                "std": 0.0007571533566275394
+              },
+              "tail_quantile_error": {
+                "mean": 0.006625945163748835,
+                "std": 0.00508399154736612
+              },
+              "max_drawdown_error": {
+                "mean": 0.022345208251850254,
+                "std": 0.022359446483455604
+              },
+              "return_energy_score": {
+                "mean": 0.7936883774567296,
+                "std": 0.15554771644885537
+              },
+              "return_variogram_score": {
+                "mean": 0.21785582788420693,
+                "std": 0.04620232316518224
+              }
+            }
+          }
+        }
+      },
+      "origins": [
+        {
+          "context_end": "2022-03-29",
+          "target_start": "2022-03-30",
+          "target_end": "2022-04-27",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-04-27",
+          "target_start": "2022-04-28",
+          "target_end": "2022-05-25",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-05-25",
+          "target_start": "2022-05-26",
+          "target_end": "2022-06-24",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-06-24",
+          "target_start": "2022-06-27",
+          "target_end": "2022-07-25",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-07-25",
+          "target_start": "2022-07-26",
+          "target_end": "2022-08-22",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-08-22",
+          "target_start": "2022-08-23",
+          "target_end": "2022-09-20",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-09-20",
+          "target_start": "2022-09-21",
+          "target_end": "2022-10-18",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2022-10-18",
+          "target_start": "2022-10-19",
+          "target_end": "2022-11-15",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-11-15",
+          "target_start": "2022-11-16",
+          "target_end": "2022-12-14",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-12-14",
+          "target_start": "2022-12-15",
+          "target_end": "2023-01-13",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-01-13",
+          "target_start": "2023-01-17",
+          "target_end": "2023-02-13",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-02-13",
+          "target_start": "2023-02-14",
+          "target_end": "2023-03-14",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-03-14",
+          "target_start": "2023-03-15",
+          "target_end": "2023-04-12",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-04-12",
+          "target_start": "2023-04-13",
+          "target_end": "2023-05-10",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-05-10",
+          "target_start": "2023-05-11",
+          "target_end": "2023-06-08",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-06-08",
+          "target_start": "2023-06-09",
+          "target_end": "2023-07-10",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-07-10",
+          "target_start": "2023-07-11",
+          "target_end": "2023-08-07",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-08-07",
+          "target_start": "2023-08-08",
+          "target_end": "2023-09-05",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-09-05",
+          "target_start": "2023-09-06",
+          "target_end": "2023-10-03",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-10-03",
+          "target_start": "2023-10-04",
+          "target_end": "2023-10-31",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-10-31",
+          "target_start": "2023-11-01",
+          "target_end": "2023-11-29",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-11-29",
+          "target_start": "2023-11-30",
+          "target_end": "2023-12-28",
+          "origin_regime": 1
+        }
+      ]
+    },
+    "csi300": {
+      "config": "research_csi300_selection.yaml",
+      "data_start": "2015-01-06",
+      "data_end": "2023-12-29",
+      "n_assets": 64,
+      "n_origins": 21,
+      "n_paths": 20,
+      "state_composite_vs_student_t": 1.0165397117924986,
+      "state_ratios_vs_student_t": {
+        "state_energy_score": 1.015687321659478,
+        "state_rmse": 1.0173928172725786
+      },
+      "return_composite_vs_student_t": 1.0402155758674234,
+      "return_ratios_vs_student_t": {
+        "return_energy_score": 1.0036495319722627,
+        "return_variogram_score": 1.0014459080399185,
+        "daily_volatility_mae": 1.0013273633144657,
+        "tail_quantile_error": 1.032833365516985,
+        "max_drawdown_error": 1.171657929393005
+      },
+      "paired_candidate_vs_student_t": {
+        "state_rmse": {
+          "mean_difference": 0.011371468503295687,
+          "ci_95": [
+            -0.0015519231960417041,
+            0.024030124199266582
+          ],
+          "one_sided_p_diffusion_not_better": 0.9554,
+          "origin_win_rate": 0.3333333333333333,
+          "n_origins": 21
+        },
+        "mean_factor_rmse": {
+          "mean_difference": 0.005706861733264655,
+          "ci_95": [
+            -0.011808585355941243,
+            0.021451448397513177
+          ],
+          "one_sided_p_diffusion_not_better": 0.7568,
+          "origin_win_rate": 0.3333333333333333,
+          "n_origins": 21
+        },
+        "logvol_factor_rmse": {
+          "mean_difference": 0.02373434123062077,
+          "ci_95": [
+            0.00581177518675498,
+            0.04175833930875989
+          ],
+          "one_sided_p_diffusion_not_better": 0.9965,
+          "origin_win_rate": 0.3333333333333333,
+          "n_origins": 21
+        },
+        "state_energy_score": {
+          "mean_difference": 0.007444060821154992,
+          "ci_95": [
+            -0.002088330645859545,
+            0.016721590748332685
+          ],
+          "one_sided_p_diffusion_not_better": 0.9367,
+          "origin_win_rate": 0.38095238095238093,
+          "n_origins": 21
+        },
+        "state_variogram_score": {
+          "mean_difference": 0.00016611061017251442,
+          "ci_95": [
+            -0.0014363112957917457,
+            0.0017968831147873155
+          ],
+          "one_sided_p_diffusion_not_better": 0.5748,
+          "origin_win_rate": 0.5238095238095238,
+          "n_origins": 21
+        },
+        "return_rmse_scaled": {
+          "mean_difference": 0.004945352976102276,
+          "ci_95": [
+            -0.0045189704863560914,
+            0.015304644885031901
+          ],
+          "one_sided_p_diffusion_not_better": 0.8471,
+          "origin_win_rate": 0.42857142857142855,
+          "n_origins": 21
+        },
+        "daily_volatility_mae": {
+          "mean_difference": 5.458741599466667e-06,
+          "ci_95": [
+            -6.067449555755359e-05,
+            7.498716034093453e-05
+          ],
+          "one_sided_p_diffusion_not_better": 0.5626,
+          "origin_win_rate": 0.5238095238095238,
+          "n_origins": 21
+        },
+        "tail_quantile_error": {
+          "mean_difference": 0.0002145646047875262,
+          "ci_95": [
+            -0.0004451030384287434,
+            0.000856465240092755
+          ],
+          "one_sided_p_diffusion_not_better": 0.7342,
+          "origin_win_rate": 0.47619047619047616,
+          "n_origins": 21
+        },
+        "max_drawdown_error": {
+          "mean_difference": 0.003268227401880298,
+          "ci_95": [
+            -0.0003896829405689731,
+            0.006948708893099585
+          ],
+          "one_sided_p_diffusion_not_better": 0.9612,
+          "origin_win_rate": 0.47619047619047616,
+          "n_origins": 21
+        },
+        "return_energy_score": {
+          "mean_difference": 0.0021129892284236333,
+          "ci_95": [
+            -0.002982190625672246,
+            0.007429292874862783
+          ],
+          "one_sided_p_diffusion_not_better": 0.784,
+          "origin_win_rate": 0.38095238095238093,
+          "n_origins": 21
+        },
+        "return_variogram_score": {
+          "mean_difference": 0.0002348186785666378,
+          "ci_95": [
+            -0.0020267429457511894,
+            0.0026010849892490486
+          ],
+          "one_sided_p_diffusion_not_better": 0.584,
+          "origin_win_rate": 0.47619047619047616,
+          "n_origins": 21
+        }
+      },
+      "metrics": {
+        "Regime-Student-t-VAR": {
+          "state_rmse": {
+            "mean": 0.6651740310831932,
+            "std": 0.08388702710916068
+          },
+          "mean_factor_rmse": {
+            "mean": 0.799650218214642,
+            "std": 0.13499195890027016
+          },
+          "logvol_factor_rmse": {
+            "mean": 0.47384236847290173,
+            "std": 0.1296038551544277
+          },
+          "state_energy_score": {
+            "mean": 0.48197126073086577,
+            "std": 0.06223570485733926
+          },
+          "state_variogram_score": {
+            "mean": 0.05804715494917619,
+            "std": 0.013838970346267207
+          },
+          "return_rmse_scaled": {
+            "mean": 1.0403290741027367,
+            "std": 0.021568877583950114
+          },
+          "daily_volatility_mae": {
+            "mean": 0.0041179285831083835,
+            "std": 0.0008673685649115011
+          },
+          "tail_quantile_error": {
+            "mean": 0.006749520781501468,
+            "std": 0.004277742426918215
+          },
+          "max_drawdown_error": {
+            "mean": 0.022307414309452763,
+            "std": 0.010284910594983168
+          },
+          "return_energy_score": {
+            "mean": 0.5810883878502024,
+            "std": 0.09977424469121741
+          },
+          "return_variogram_score": {
+            "mean": 0.1626370407312753,
+            "std": 0.027976560324589988
+          }
+        },
+        "Student-t-VAR": {
+          "state_rmse": {
+            "mean": 0.6538025625798974,
+            "std": 0.08800940972131371
+          },
+          "mean_factor_rmse": {
+            "mean": 0.7939433564813773,
+            "std": 0.13903839363291273
+          },
+          "logvol_factor_rmse": {
+            "mean": 0.45010802724228105,
+            "std": 0.13465485389764295
+          },
+          "state_energy_score": {
+            "mean": 0.47452719990971076,
+            "std": 0.06679974740444809
+          },
+          "state_variogram_score": {
+            "mean": 0.05788104433900367,
+            "std": 0.013018658966038541
+          },
+          "return_rmse_scaled": {
+            "mean": 1.0353837211266341,
+            "std": 0.0200167859482402
+          },
+          "daily_volatility_mae": {
+            "mean": 0.004112469841508918,
+            "std": 0.0008947354069411095
+          },
+          "tail_quantile_error": {
+            "mean": 0.00653495617671394,
+            "std": 0.0040275220182633235
+          },
+          "max_drawdown_error": {
+            "mean": 0.019039186907572465,
+            "std": 0.012043511557364337
+          },
+          "return_energy_score": {
+            "mean": 0.5789753986217787,
+            "std": 0.10550771018044192
+          },
+          "return_variogram_score": {
+            "mean": 0.16240222205270866,
+            "std": 0.028086178865219392
+          }
+        }
+      },
+      "regime_model": {
+        "signal": "training-fitted cross-sectional average reconstructed log variance",
+        "thresholds": [
+          -8.708268391133602,
+          -8.352603441634912
+        ],
+        "training_counts": [
+          397,
+          396,
+          396
+        ],
+        "student_df_by_regime": [
+          5.6815861143634505,
+          4.067963380539188,
+          4.918803628928197
+        ],
+        "spectral_radius": 0.9799999999999999
+      },
+      "evaluation_by_origin_regime": {
+        "0": {
+          "n_origins": 5,
+          "state_composite_vs_student_t": 1.0304486131325623,
+          "state_ratios_vs_student_t": {
+            "state_energy_score": 1.0300421782580031,
+            "state_rmse": 1.0308552083785223
+          },
+          "metrics": {
+            "Regime-Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6720369889555002,
+                "std": 0.023371705894237368
+              },
+              "mean_factor_rmse": {
+                "mean": 0.7789097185757534,
+                "std": 0.06271713752447146
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.539804997324939,
+                "std": 0.04833919893382384
+              },
+              "state_energy_score": {
+                "mean": 0.4853215462046574,
+                "std": 0.016010265783273754
+              },
+              "state_variogram_score": {
+                "mean": 0.05091631311292962,
+                "std": 0.00403848756787072
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0373942660290183,
+                "std": 0.015166572130985871
+              },
+              "daily_volatility_mae": {
+                "mean": 0.0033730558177796828,
+                "std": 0.0002755847344612708
+              },
+              "tail_quantile_error": {
+                "mean": 0.0032487260596533404,
+                "std": 0.0033025350746247037
+              },
+              "max_drawdown_error": {
+                "mean": 0.029968923976214534,
+                "std": 0.006524410552420414
+              },
+              "return_energy_score": {
+                "mean": 0.5256522116370825,
+                "std": 0.04577661056374232
+              },
+              "return_variogram_score": {
+                "mean": 0.1446134301531928,
+                "std": 0.013785761538984972
+              }
+            },
+            "Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.651921805791307,
+                "std": 0.012625081713134765
+              },
+              "mean_factor_rmse": {
+                "mean": 0.7496196273163936,
+                "std": 0.06813038916381504
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.5277164663441472,
+                "std": 0.07257315393855258
+              },
+              "state_energy_score": {
+                "mean": 0.4711666730244272,
+                "std": 0.00827431415657233
+              },
+              "state_variogram_score": {
+                "mean": 0.053248406059734146,
+                "std": 0.004538058865249633
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0441751286029786,
+                "std": 0.01764742041466261
+              },
+              "daily_volatility_mae": {
+                "mean": 0.00339738068787526,
+                "std": 0.00040976338196062356
+              },
+              "tail_quantile_error": {
+                "mean": 0.0029587733437998636,
+                "std": 0.0019351996837020811
+              },
+              "max_drawdown_error": {
+                "mean": 0.016811666094304435,
+                "std": 0.01089217671103955
+              },
+              "return_energy_score": {
+                "mean": 0.5278220484351512,
+                "std": 0.044917395987937675
+              },
+              "return_variogram_score": {
+                "mean": 0.14770383662921932,
+                "std": 0.012269100754917408
+              }
+            }
+          }
+        },
+        "1": {
+          "n_origins": 10,
+          "state_composite_vs_student_t": 1.0140816012346612,
+          "state_ratios_vs_student_t": {
+            "state_energy_score": 1.0134053751796028,
+            "state_rmse": 1.014758278522453
+          },
+          "metrics": {
+            "Regime-Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6412511067324107,
+                "std": 0.08580998599010534
+              },
+              "mean_factor_rmse": {
+                "mean": 0.7927242944366537,
+                "std": 0.12501190481583618
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.4292828315757614,
+                "std": 0.0938570100783639
+              },
+              "state_energy_score": {
+                "mean": 0.4641540568125855,
+                "std": 0.0631915411509378
+              },
+              "state_variogram_score": {
+                "mean": 0.05782319287096077,
+                "std": 0.010968028686123222
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0479910870437925,
+                "std": 0.01883176250309877
+              },
+              "daily_volatility_mae": {
+                "mean": 0.0042497281895890904,
+                "std": 0.0007415763182554617
+              },
+              "tail_quantile_error": {
+                "mean": 0.00760860877774726,
+                "std": 0.003636590899070468
+              },
+              "max_drawdown_error": {
+                "mean": 0.019551412397750288,
+                "std": 0.010248321703628913
+              },
+              "return_energy_score": {
+                "mean": 0.5635919415359305,
+                "std": 0.09179667466081776
+              },
+              "return_variogram_score": {
+                "mean": 0.15670016357341385,
+                "std": 0.02298040489971748
+              }
+            },
+            "Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6319249818450455,
+                "std": 0.08566646602915463
+              },
+              "mean_factor_rmse": {
+                "mean": 0.7957554016497445,
+                "std": 0.1255481197785803
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.39403205375692363,
+                "std": 0.095318430227258
+              },
+              "state_energy_score": {
+                "mean": 0.45801420456283337,
+                "std": 0.06448312388394223
+              },
+              "state_variogram_score": {
+                "mean": 0.05667959548813467,
+                "std": 0.010998600417005039
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0345708939414389,
+                "std": 0.015574264504983452
+              },
+              "daily_volatility_mae": {
+                "mean": 0.004172372733843605,
+                "std": 0.000750399936455
+              },
+              "tail_quantile_error": {
+                "mean": 0.007400746816674082,
+                "std": 0.00338761372915179
+              },
+              "max_drawdown_error": {
+                "mean": 0.01973200185767568,
+                "std": 0.013298312487635463
+              },
+              "return_energy_score": {
+                "mean": 0.5576095660592894,
+                "std": 0.09914699657271207
+              },
+              "return_variogram_score": {
+                "mean": 0.1556076164483639,
+                "std": 0.022890516584564143
+              }
+            }
+          }
+        },
+        "2": {
+          "n_origins": 6,
+          "state_composite_vs_student_t": 1.0094017321402542,
+          "state_ratios_vs_student_t": {
+            "state_energy_score": 1.007973464869094,
+            "state_rmse": 1.0108320232220294
+          },
+          "metrics": {
+            "Regime-Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6993264401075744,
+                "std": 0.09870502623261743
+              },
+              "mean_factor_rmse": {
+                "mean": 0.8284771742103629,
+                "std": 0.18217023265305474
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.49313940592477135,
+                "std": 0.18669067610873522
+              },
+              "state_energy_score": {
+                "mean": 0.5088746960331734,
+                "std": 0.07365705640952608
+              },
+              "state_variogram_score": {
+                "mean": 0.06436279327640736,
+                "std": 0.01933591572649078
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0300047259290752,
+                "std": 0.025177323916585465
+              },
+              "daily_volatility_mae": {
+                "mean": 0.004518989876747789,
+                "std": 0.001000567686795398
+              },
+              "tail_quantile_error": {
+                "mean": 0.008235036389298586,
+                "std": 0.004389388386076468
+              },
+              "max_drawdown_error": {
+                "mean": 0.020516159439988746,
+                "std": 0.009742910079493534
+              },
+              "return_energy_score": {
+                "mean": 0.6564459452182557,
+                "std": 0.10149666628316711
+              },
+              "return_variogram_score": {
+                "mean": 0.18755151147611315,
+                "std": 0.02739865376773712
+              }
+            },
+            "Student-t-VAR": {
+              "state_rmse": {
+                "mean": 0.6918324944618096,
+                "std": 0.1117979999795537
+              },
+              "mean_factor_rmse": {
+                "mean": 0.8278597221715852,
+                "std": 0.18635781016852013
+              },
+              "logvol_factor_rmse": {
+                "mean": 0.478894283799655,
+                "std": 0.18122168282121076
+              },
+              "state_energy_score": {
+                "mean": 0.5048492978922429,
+                "std": 0.08513072660401533
+              },
+              "state_variogram_score": {
+                "mean": 0.06374399098984328,
+                "std": 0.01788177267020659
+              },
+              "return_rmse_scaled": {
+                "mean": 1.0294122602050064,
+                "std": 0.025246684758739982
+              },
+              "daily_volatility_mae": {
+                "mean": 0.004608539315645817,
+                "std": 0.001022406803615366
+              },
+              "tail_quantile_error": {
+                "mean": 0.008072124137542101,
+                "std": 0.0045006792870221435
+              },
+              "max_drawdown_error": {
+                "mean": 0.019740762668457142,
+                "std": 0.010422399306789672
+              },
+              "return_energy_score": {
+                "mean": 0.657212911381451,
+                "std": 0.10878520031692548
+              },
+              "return_variogram_score": {
+                "mean": 0.1859752192461911,
+                "std": 0.030814212475470486
+              }
+            }
+          }
+        }
+      },
+      "origins": [
+        {
+          "context_end": "2022-04-06",
+          "target_start": "2022-04-07",
+          "target_end": "2022-05-09",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-05-09",
+          "target_start": "2022-05-10",
+          "target_end": "2022-06-07",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-06-07",
+          "target_start": "2022-06-08",
+          "target_end": "2022-07-05",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2022-07-05",
+          "target_start": "2022-07-06",
+          "target_end": "2022-08-02",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-08-02",
+          "target_start": "2022-08-03",
+          "target_end": "2022-08-30",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2022-08-30",
+          "target_start": "2022-08-31",
+          "target_end": "2022-09-28",
+          "origin_regime": 0
+        },
+        {
+          "context_end": "2022-09-28",
+          "target_start": "2022-09-29",
+          "target_end": "2022-11-02",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2022-11-02",
+          "target_start": "2022-11-03",
+          "target_end": "2022-11-30",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2022-11-30",
+          "target_start": "2022-12-01",
+          "target_end": "2022-12-28",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2022-12-28",
+          "target_start": "2022-12-29",
+          "target_end": "2023-02-02",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-02-02",
+          "target_start": "2023-02-03",
+          "target_end": "2023-03-02",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-03-02",
+          "target_start": "2023-03-03",
+          "target_end": "2023-03-30",
+          "origin_regime": 0
+        },
+        {
+          "context_end": "2023-03-30",
+          "target_start": "2023-03-31",
+          "target_end": "2023-04-28",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-04-28",
+          "target_start": "2023-05-04",
+          "target_end": "2023-05-31",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-05-31",
+          "target_start": "2023-06-01",
+          "target_end": "2023-06-30",
+          "origin_regime": 2
+        },
+        {
+          "context_end": "2023-06-30",
+          "target_start": "2023-07-03",
+          "target_end": "2023-07-28",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-07-28",
+          "target_start": "2023-07-31",
+          "target_end": "2023-08-25",
+          "origin_regime": 0
+        },
+        {
+          "context_end": "2023-08-25",
+          "target_start": "2023-08-28",
+          "target_end": "2023-09-22",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-09-22",
+          "target_start": "2023-09-25",
+          "target_end": "2023-10-30",
+          "origin_regime": 0
+        },
+        {
+          "context_end": "2023-10-30",
+          "target_start": "2023-10-31",
+          "target_end": "2023-11-27",
+          "origin_regime": 1
+        },
+        {
+          "context_end": "2023-11-27",
+          "target_start": "2023-11-28",
+          "target_end": "2023-12-25",
+          "origin_regime": 0
+        }
+      ]
+    }
+  }
+}

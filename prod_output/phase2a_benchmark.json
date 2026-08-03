@@ -1,0 +1,263 @@
+{
+  "timestamp": "2026-07-29T09:33:31.165124",
+  "protocol": {
+    "context_length": 60,
+    "horizon": 20,
+    "ensemble_paths": 20,
+    "evaluation_stride": 20,
+    "n_origins": 25,
+    "n_assets": 87,
+    "state_dim": 10,
+    "train_start": "2010-01-05",
+    "train_end": "2020-06-30",
+    "validation_start": "2020-07-01",
+    "validation_end": "2022-09-28",
+    "test_start": "2022-09-29",
+    "test_end": "2024-12-30",
+    "split_contained_windows": true,
+    "train_only_transformations": true
+  },
+  "metrics": {
+    "Block-Bootstrap": {
+      "state_rmse": {
+        "mean": 0.8949207194079706,
+        "std": 0.18188653602956736
+      },
+      "mean_factor_rmse": {
+        "mean": 0.8995832771240765,
+        "std": 0.261476799317436
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.8732560424940502,
+        "std": 0.16653920623707624
+      },
+      "state_energy_score": {
+        "mean": 0.6621312172828534,
+        "std": 0.12351767590021602
+      },
+      "state_variogram_score": {
+        "mean": 0.054502025504415685,
+        "std": 0.00988982484510187
+      },
+      "return_rmse_scaled": {
+        "mean": 1.0259292073648754,
+        "std": 0.019791254643779503
+      },
+      "daily_volatility_mae": {
+        "mean": 0.003157599440284734,
+        "std": 0.000986811850893684
+      },
+      "tail_quantile_error": {
+        "mean": 0.004574906297225511,
+        "std": 0.002299825595357084
+      },
+      "max_drawdown_error": {
+        "mean": 0.015752053770871945,
+        "std": 0.007844642612852273
+      }
+    },
+    "Gaussian-VAR": {
+      "state_rmse": {
+        "mean": 0.6239387798637903,
+        "std": 0.10804163174135968
+      },
+      "mean_factor_rmse": {
+        "mean": 0.744693343246642,
+        "std": 0.13606107671992332
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.46375852365630715,
+        "std": 0.11744117709125011
+      },
+      "state_energy_score": {
+        "mean": 0.45278990638153827,
+        "std": 0.07701523661032934
+      },
+      "state_variogram_score": {
+        "mean": 0.058443172009613326,
+        "std": 0.009180818094669821
+      },
+      "return_rmse_scaled": {
+        "mean": 1.037036674764122,
+        "std": 0.021302646914581436
+      },
+      "daily_volatility_mae": {
+        "mean": 0.003102156621259757,
+        "std": 0.0007321169527821124
+      },
+      "tail_quantile_error": {
+        "mean": 0.005134548275047278,
+        "std": 0.0036951176086855594
+      },
+      "max_drawdown_error": {
+        "mean": 0.017282225142243382,
+        "std": 0.010062736961465878
+      }
+    },
+    "VAR-GARCH": {
+      "state_rmse": {
+        "mean": 0.6239387798637903,
+        "std": 0.10804163174135968
+      },
+      "mean_factor_rmse": {
+        "mean": 0.744693343246642,
+        "std": 0.13606107671992332
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.46375852365630715,
+        "std": 0.11744117709125011
+      },
+      "state_energy_score": {
+        "mean": 0.45278990638153827,
+        "std": 0.07701523661032934
+      },
+      "state_variogram_score": {
+        "mean": 0.058443172009613326,
+        "std": 0.009180818094669821
+      },
+      "return_rmse_scaled": {
+        "mean": 1.0362001443492925,
+        "std": 0.022751778085353083
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0032458157990458507,
+        "std": 0.0007987035831967758
+      },
+      "tail_quantile_error": {
+        "mean": 0.004364029991358821,
+        "std": 0.003399190429734969
+      },
+      "max_drawdown_error": {
+        "mean": 0.01724700578766684,
+        "std": 0.010194764774117529
+      }
+    }
+  },
+  "origins": [
+    {
+      "context_end": "2022-12-22",
+      "target_start": "2022-12-23",
+      "target_end": "2023-01-24"
+    },
+    {
+      "context_end": "2023-01-24",
+      "target_start": "2023-01-25",
+      "target_end": "2023-02-22"
+    },
+    {
+      "context_end": "2023-02-22",
+      "target_start": "2023-02-23",
+      "target_end": "2023-03-22"
+    },
+    {
+      "context_end": "2023-03-22",
+      "target_start": "2023-03-23",
+      "target_end": "2023-04-20"
+    },
+    {
+      "context_end": "2023-04-20",
+      "target_start": "2023-04-21",
+      "target_end": "2023-05-18"
+    },
+    {
+      "context_end": "2023-05-18",
+      "target_start": "2023-05-19",
+      "target_end": "2023-06-16"
+    },
+    {
+      "context_end": "2023-06-16",
+      "target_start": "2023-06-20",
+      "target_end": "2023-07-18"
+    },
+    {
+      "context_end": "2023-07-18",
+      "target_start": "2023-07-19",
+      "target_end": "2023-08-15"
+    },
+    {
+      "context_end": "2023-08-15",
+      "target_start": "2023-08-16",
+      "target_end": "2023-09-13"
+    },
+    {
+      "context_end": "2023-09-13",
+      "target_start": "2023-09-14",
+      "target_end": "2023-10-11"
+    },
+    {
+      "context_end": "2023-10-11",
+      "target_start": "2023-10-12",
+      "target_end": "2023-11-08"
+    },
+    {
+      "context_end": "2023-11-08",
+      "target_start": "2023-11-09",
+      "target_end": "2023-12-07"
+    },
+    {
+      "context_end": "2023-12-07",
+      "target_start": "2023-12-08",
+      "target_end": "2024-01-08"
+    },
+    {
+      "context_end": "2024-01-08",
+      "target_start": "2024-01-09",
+      "target_end": "2024-02-06"
+    },
+    {
+      "context_end": "2024-02-06",
+      "target_start": "2024-02-07",
+      "target_end": "2024-03-06"
+    },
+    {
+      "context_end": "2024-03-06",
+      "target_start": "2024-03-07",
+      "target_end": "2024-04-04"
+    },
+    {
+      "context_end": "2024-04-04",
+      "target_start": "2024-04-05",
+      "target_end": "2024-05-02"
+    },
+    {
+      "context_end": "2024-05-02",
+      "target_start": "2024-05-03",
+      "target_end": "2024-05-31"
+    },
+    {
+      "context_end": "2024-05-31",
+      "target_start": "2024-06-03",
+      "target_end": "2024-07-01"
+    },
+    {
+      "context_end": "2024-07-01",
+      "target_start": "2024-07-02",
+      "target_end": "2024-07-30"
+    },
+    {
+      "context_end": "2024-07-30",
+      "target_start": "2024-07-31",
+      "target_end": "2024-08-27"
+    },
+    {
+      "context_end": "2024-08-27",
+      "target_start": "2024-08-28",
+      "target_end": "2024-09-25"
+    },
+    {
+      "context_end": "2024-09-25",
+      "target_start": "2024-09-26",
+      "target_end": "2024-10-23"
+    },
+    {
+      "context_end": "2024-10-23",
+      "target_start": "2024-10-24",
+      "target_end": "2024-11-20"
+    },
+    {
+      "context_end": "2024-11-20",
+      "target_start": "2024-11-21",
+      "target_end": "2024-12-19"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+*.parquet
+*.log
+Diffusion Factor Models.pdf
+data/cache*/
+diffusion_factor_model/data/cache*/
+research_data/**/cache*/
+research_output/**/*.pt
+prod_output/*.pt
+models/
+research_models/
