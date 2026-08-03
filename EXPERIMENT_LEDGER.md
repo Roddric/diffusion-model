@@ -1,6 +1,6 @@
 # Experiment ledger
 
-This ledger was reconstructed on 2026-08-04 from saved artifact metadata and local
+This ledger was reconstructed on 2026-08-03 from saved artifact metadata and local
 filesystem timestamps. It was not maintained contemporaneously during the original
 research, so it improves transparency but cannot retroactively prove researcher
 blindness. Every future experiment should be entered here before execution and
@@ -30,9 +30,9 @@ linked to a version-control commit.
 | 2026-07-30 15:10–16:09 | CSI candidate lock and cross-market score | Post-primary cross-market holdout | CSI 2024–2026, same historical period as S&P | Promotion rule failed; sample consumed |
 | 2026-07-30 16:28–17:49 | Phase 4A–4C | Post-primary exploratory | Pre-2024 only | Regime VAR, shared diffusion, and adapters rejected |
 | 2026-08-03 | Dependence-robust audit | Post-hoc audit | Locked S&P origins | Exact point-estimate reproduction; block bootstrap and HAC support Gaussian-VAR comparison but not Student-t comparison |
-| 2026-08-04 | Monte Carlo path-count audit | Post-hoc audit | Locked S&P origins | Frozen weights evaluated on nested 20/50/100-path ensembles; no model selection |
-| 2026-08-04 | Expanded baseline audit | Post-hoc exploratory | Locked S&P origins | At 100 paths the pool beats Gaussian/ridge VAR, diagonal AR, boosted AR, and persistence; Student-t comparison remains inconclusive |
-| 2026-08-04 | Observable portfolio-risk audit | Post-hoc audit | Locked S&P origins | No consistent risk advantage; 5% VaR pinball loss is worse than Gaussian VAR |
+| 2026-08-03 | Monte Carlo path-count audit | Post-hoc audit | Locked S&P origins | Frozen weights evaluated on nested 20/50/100-path ensembles; no model selection |
+| 2026-08-03 | Expanded baseline audit | Post-hoc exploratory | Locked S&P origins | At 100 paths the pool beats Gaussian/ridge VAR, diagonal AR, boosted AR, and persistence; Student-t comparison remains inconclusive |
+| 2026-08-03 | Observable portfolio-risk audit | Post-hoc audit | Locked S&P origins | No consistent risk advantage; 5% VaR pinball loss is worse than Gaussian VAR |
 
 ## Trial families disclosed
 
