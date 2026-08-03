@@ -93,7 +93,11 @@ unseen evaluation, create the protocol before outcomes are available:
 ```bash
 PYTHONPATH=diffusion_factor_model .venv/bin/python \
   diffusion_factor_model/research/register_experiment.py \
-  --name prospective-study --output prospective-study.protocol.json \
+  --experiment-id prospective-study \
+  --hypothesis "The frozen candidate improves both co-primary losses" \
+  --data-boundary "Only observations after the disclosed lock date" \
+  --decision-rule "Both predeclared loss ratios must be below one" \
+  --output prospective-study.protocol.json \
   --config research_sp500_confirmation.yaml
 ```
 
