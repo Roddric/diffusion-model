@@ -56,27 +56,43 @@ def _energy_terms(paths, target):
     return float(first), float(pairwise)
 
 
-def _pit_values(paths, target):
-    """Uniformized ranks of one observation inside one ensemble."""
+def _observation_ranks(paths, target):
+    """Integer rank of each observation within its ensemble.
+
+    For an ensemble of M paths the rank counts ensemble members strictly
+    below the observation, so it lies in {0, ..., M}. Exact ties add half the
+    tied count, which is conservative; ties have measure zero in the
+    continuous state space. Under calibration the ranks are exchangeable and
+    therefore uniform over the M + 1 possible values.
+    """
     below = (paths < target).sum(axis=0)
     equal = (paths == target).sum(axis=0)
-    return (below + 0.5 * equal) / len(paths)
+    ranks = below + (equal > 0) * np.ceil(0.5 * equal)
+    return ranks.astype(int), len(paths)
 
 
-def _rank_histogram(pit_values, bins=20):
-    counts, _ = np.histogram(pit_values, bins=bins, range=(0.0, 1.0))
-    expected = np.full(bins, len(pit_values) / bins)
+def _rank_histogram(ranks, ensemble_size):
+    """Talagrand rank histogram with one bin per possible rank."""
+    bins = ensemble_size + 1
+    counts = np.bincount(ranks.reshape(-1), minlength=bins)[:bins]
+    expected = np.full(bins, len(ranks) / bins)
     statistic, p_value = chisquare(counts, expected)
+    # U-shaped under-dispersion puts mass on the two edge bins; over-dispersion
+    # concentrates it in the middle. Report both for interpretation.
+    edge_share = float((counts[0] + counts[-1]) / counts.sum())
     return {
+        "ensemble_size": int(ensemble_size),
         "bins": int(bins),
         "counts": [int(value) for value in counts],
         "expected_per_bin": float(expected[0]),
         "chi_square_statistic": float(statistic),
         "chi_square_p_uniform": float(p_value),
+        "edge_bin_share": edge_share,
+        "uniform_edge_bin_share": float(2.0 / bins),
         "max_abs_deviation_from_uniform": float(
             np.max(np.abs(counts - expected[0])) / expected[0]
         ),
-        "n_values": int(len(pit_values)),
+        "n_values": int(len(ranks)),
     }
 
 
@@ -97,6 +113,8 @@ def _score_locked_origins(
         n_paths,
         len(splits.test),
     )
+    # Per-origin, per-seed pooled ensembles: calibration diagnostics must use
+    # the same 20-path ensembles that the locked score averaged over.
     pooled_paths_by_origin = [[] for _ in range(len(splits.test))]
     seed_scores = []
     timing = {"diffusion_sampling_seconds": []}
@@ -145,9 +163,6 @@ def _score_locked_origins(
             )
             pooled_paths_by_origin[origin].append(states)
         seed_scores.append(scores)
-    pooled_paths_by_origin = [
-        np.concatenate(paths, axis=0) for paths in pooled_paths_by_origin
-    ]
     return (
         baseline_scores,
         evaluation_rows,
@@ -239,40 +254,50 @@ def run(args):
         )
 
     # --- Calibration diagnostics on the locked non-overlapping origins ---
-    state_dim = splits.train_states.shape[1]
-    pit_by_method = {name: [] for name in CALIBRATION_METHODS}
+    ranks_by_method = {name: [] for name in CALIBRATION_METHODS}
+    ensemble_size_by_method = {}
     energy_terms_by_method = {
         name: {"distance_to_observation": [], "spread": []}
         for name in CALIBRATION_METHODS
     }
     for origin, row in enumerate(evaluation_rows):
-        ensembles = {
+        ensembles_by_method = {
             MODEL_NAME: pooled_paths_by_origin[origin],
-            "Gaussian-VAR": row["baseline_state_paths"]["VAR-GARCH"],
-            "Student-t-VAR": row["baseline_state_paths"]["Student-t-VAR"],
+            "Gaussian-VAR": [row["baseline_state_paths"]["VAR-GARCH"]],
+            "Student-t-VAR": [row["baseline_state_paths"]["Student-t-VAR"]],
         }
-        for name, paths in ensembles.items():
-            pit_by_method[name].append(
-                _pit_values(paths, row["target_states"]).reshape(-1)
-            )
-            first_term, spread_term = _energy_terms(
-                paths, row["target_states"]
-            )
-            energy_terms_by_method[name]["distance_to_observation"].append(
-                first_term
-            )
-            energy_terms_by_method[name]["spread"].append(spread_term)
+        for name, ensembles in ensembles_by_method.items():
+            for paths in ensembles:
+                ranks, ensemble_size = _observation_ranks(
+                    paths, row["target_states"]
+                )
+                ranks_by_method[name].append(ranks.reshape(-1))
+                ensemble_size_by_method[name] = ensemble_size
+                first_term, spread_term = _energy_terms(
+                    paths, row["target_states"]
+                )
+                energy_terms_by_method[name][
+                    "distance_to_observation"
+                ].append(first_term)
+                energy_terms_by_method[name]["spread"].append(spread_term)
     calibration = {
         "definition": (
-            "Rank/PIT diagnostics pool all locked origins, horizons, and "
-            "state dimensions; uniform PIT values indicate a calibrated "
-            "predictive distribution. Energy terms use the same sqrt(H*d) "
+            "Rank (Talagrand) diagnostics pool all locked origins, horizons, "
+            "and state dimensions. For an ensemble of M paths the observation "
+            "rank lies in {0,...,M}; a calibrated ensemble yields a uniform "
+            "rank histogram. Edge-bin excess indicates under-dispersion "
+            "(the observation falls outside the ensemble). Pool diagnostics "
+            "use the same per-seed 20-path ensembles the locked score "
+            "averages over. Energy terms use the same sqrt(H*d) "
             "normalization as the state energy score: "
             "energy = distance_to_observation - 0.5 * spread."
         ),
         "n_origins": len(evaluation_rows),
         "rank_histograms": {
-            name: _rank_histogram(np.concatenate(pit_by_method[name]))
+            name: _rank_histogram(
+                np.concatenate(ranks_by_method[name]),
+                ensemble_size_by_method[name],
+            )
             for name in CALIBRATION_METHODS
         },
         "energy_decomposition": {
@@ -477,12 +502,12 @@ def _plot_rank_histograms(calibration, png_path):
     histograms = calibration["rank_histograms"]
     methods = list(histograms)
     bins = histograms[methods[0]]["bins"]
-    expected = histograms[methods[0]]["expected_per_bin"]
     width = 0.8 / len(methods)
     positions = np.arange(bins)
     fig, ax = plt.subplots(figsize=(8, 4))
     for method_index, method in enumerate(methods):
         counts = np.asarray(histograms[method]["counts"], dtype=float)
+        expected = histograms[method]["expected_per_bin"]
         ax.bar(
             positions + method_index * width,
             counts / expected,
@@ -490,9 +515,9 @@ def _plot_rank_histograms(calibration, png_path):
             label=method,
         )
     ax.axhline(1.0, color="black", linewidth=0.8, linestyle="--")
-    ax.set_xlabel("PIT bin")
+    ax.set_xlabel("Observation rank in ensemble (0 = below all paths)")
     ax.set_ylabel("Relative frequency (1.0 = uniform)")
-    ax.set_title("Locked S&P holdout: state forecast PIT histograms")
+    ax.set_title("Locked S&P holdout: state forecast rank histograms")
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(png_path, dpi=150)

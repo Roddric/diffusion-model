@@ -1,0 +1,31 @@
+{
+  "registered_at_utc": "2026-08-11T03:08:47.188815+00:00",
+  "status": "planned_before_execution",
+  "experiment_id": "ftse100-untouched-market-2026-08-11",
+  "hypothesis": "Transplanting the locked S&P Phase 2F validation-pooled diffusion protocol unchanged to the untouched FTSE 100 market improves latent factor-state forecasts. Primary: Gaussian-VAR-base pool composite ratio versus VAR-GARCH below 1.0 with both co-primary losses not exceeding VAR-GARCH. Prespecified secondary: Student-t-VAR-base pool versus Student-t VAR under the same rule.",
+  "data_boundary": "FTSE 100 observations: training through 2022-12-30 and 2023 validation may be used for fitting and selection; post-2023 observations are downloaded only after the protocol commit hash is externally notarized, and are scored exactly once. December 2023 universe snapshot sha256 13d55d86de45153ef68cf630549a1f054998d1a64979868a1dca0e72d04dddcf; eligible universe is the leading 100 manifest entries passing the 95 percent coverage screen dated 2022-12-30; market benchmark ISF.L.",
+  "decision_rule": "For each pool: success requires geometric-mean co-primary ratio below 1.0 and neither co-primary point estimate exceeding the pool baseline; paired origin bootstraps and dependence-robust inference are reported. The primary decision is the Gaussian-base pool against VAR-GARCH; the secondary decision is the Student-t-base pool against Student-t VAR. Results are preserved whether or not the rules pass; the consumed FTSE 2024-2026 sample cannot be reused for selection.",
+  "configs": [
+    {
+      "path": "research_ftse100_freeze.yaml",
+      "sha256": "59d03d893e90757bd23cadea4180ddeef3b1d189e1cf468b732482522e6f85a4"
+    },
+    {
+      "path": "research_ftse100_confirmation.yaml",
+      "sha256": "a22326f4be78edffbdd65cd628196adb5ec11f14ff9fb8e0440d64c95d126167"
+    },
+    {
+      "path": "research_data/universes/ftse100_202312.csv",
+      "sha256": "13d55d86de45153ef68cf630549a1f054998d1a64979868a1dca0e72d04dddcf"
+    },
+    {
+      "path": "research_data/universes/ftse100_202312.provenance.json",
+      "sha256": "e3e02ef86656b08aa10b635944b6087784244d1dc1223dd00976e3f7740b9cb1"
+    }
+  ],
+  "version_control": {
+    "commit": "99811dbb75c8d75a8092df35d9140805a3ef26a1",
+    "dirty": true
+  },
+  "integrity_note": "Do not modify this file after registration. Record outcomes in a separate result artifact, including failures."
+}
