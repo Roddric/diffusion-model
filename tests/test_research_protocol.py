@@ -34,6 +34,60 @@ def test_yahoo_manifest_normalizes_class_tickers(config, tmp_path):
     assert YFinanceDataPipeline(config)._stock_list() == ["BRK-B", "BF-B"]
 
 
+def test_yahoo_manifest_lse_convention_strips_class_suffix(config, tmp_path):
+    manifest = tmp_path / "ftse.csv"
+    manifest.write_text(
+        "Symbol,Name\nAAF.L,Airtel Africa\nAV/.L,Aviva\nBA/.L,BAE Systems\n",
+        encoding="utf-8",
+    )
+    config.data.universe_manifest = str(manifest)
+    config.data.ticker_convention = "lse"
+    assert YFinanceDataPipeline(config)._stock_list() == [
+        "AAF.L",
+        "AV.L",
+        "BA.L",
+    ]
+
+
+def test_yahoo_unknown_ticker_convention_rejected(config):
+    config.data.ticker_convention = "tokyo"
+    with pytest.raises(ValueError, match="ticker_convention"):
+        YFinanceDataPipeline(config)
+
+
+def test_yahoo_market_benchmark_is_configurable(config, tmp_path):
+    manifest = tmp_path / "ftse.csv"
+    manifest.write_text(
+        "Symbol,Name\nAAF.L,Airtel Africa\n", encoding="utf-8"
+    )
+    config.data.universe_manifest = str(manifest)
+    config.data.ticker_convention = "lse"
+    config.data.market_benchmark = "ISF.L"
+    pipeline = YFinanceDataPipeline(config)
+    assert pipeline.market_ticker == "ISF.L"
+
+    dates = pd.bdate_range("2024-01-01", periods=4)
+    prices = pd.DataFrame(
+        {
+            "AAF.L": [100.0, 101.0, 102.0, 103.0],
+            "ISF.L": [1.0, 1.01, 1.02, 1.03],
+        },
+        index=dates,
+    )
+    returns, market = pipeline.prepare_raw_returns(prices)
+    assert list(returns.columns) == ["AAF.L"]
+    assert len(returns) == 3
+    np.testing.assert_allclose(market.iloc[0], 0.01)
+
+    missing = prices.drop(columns=["ISF.L"])
+    with pytest.raises(ValueError, match="ISF.L"):
+        pipeline.prepare_raw_returns(missing)
+
+
+def test_yahoo_default_market_benchmark_is_spy(config):
+    assert YFinanceDataPipeline(config).market_ticker == "SPY"
+
+
 def test_winsorization_uses_only_prespecified_reference(config):
     config.data.winsorize_std = 1.0
     pipeline = DataPipeline(config)

@@ -31,6 +31,16 @@ SNAPSHOTS = {
         ),
         "rows": 503,
     },
+    "ftse100": {
+        "url": (
+            "https://yfiua.github.io/index-constituents/2023/12/"
+            "constituents-ftse100.csv"
+        ),
+        "sha256": (
+            "13d55d86de45153ef68cf630549a1f054998d1a64979868a1dca0e72d04dddcf"
+        ),
+        "rows": 100,
+    },
 }
 
 

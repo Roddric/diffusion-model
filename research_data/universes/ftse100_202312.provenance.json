@@ -1,0 +1,10 @@
+{
+  "index": "ftse100",
+  "archive_month": "2023-12",
+  "source_url": "https://yfiua.github.io/index-constituents/2023/12/constituents-ftse100.csv",
+  "source_repository": "https://github.com/yfiua/index-constituents",
+  "sha256": "13d55d86de45153ef68cf630549a1f054998d1a64979868a1dca0e72d04dddcf",
+  "rows": 100,
+  "retrieved_at_utc": "2026-08-10T15:16:16.672234+00:00",
+  "purpose": "Universe frozen before the 2024-01-01 confirmation boundary."
+}

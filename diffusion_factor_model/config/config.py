@@ -47,6 +47,8 @@ class DataConfig:
     universe: str = 'hs300'
     universe_manifest: Optional[str] = None
     universe_snapshot_date: Optional[str] = None
+    market_benchmark: Optional[str] = None
+    ticker_convention: str = 'us'
     start_date: str = '20150101'
     end_date: str = '20241231'
     eligibility_end_date: Optional[str] = None

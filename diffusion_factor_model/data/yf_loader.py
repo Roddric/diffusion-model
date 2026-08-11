@@ -24,6 +24,7 @@ SP100 = [
     "UNH", "UNP", "UPS", "USB", "V", "VZ", "WFC", "WMT", "XOM",
 ]
 MARKET = "SPY"
+TICKER_CONVENTIONS = ("us", "lse")
 
 
 class YFinanceDataPipeline:
@@ -38,6 +39,20 @@ class YFinanceDataPipeline:
         self.universe_manifest = config.data.universe_manifest
         self.eligibility_end_date = config.data.eligibility_end_date
         self.preprocess_fit_end_date = config.data.preprocess_fit_end_date
+        self.market_ticker = config.data.market_benchmark or MARKET
+        self.ticker_convention = config.data.ticker_convention
+        if self.ticker_convention not in TICKER_CONVENTIONS:
+            raise ValueError(
+                f"Unknown ticker_convention {self.ticker_convention!r}; "
+                f"choose one of {TICKER_CONVENTIONS}."
+            )
+
+    def _map_symbols(self, symbols):
+        if self.ticker_convention == "lse":
+            # LSEG share-class markers (e.g. AV/.L) are not part of Yahoo
+            # tickers; the exchange suffix itself must keep its dot.
+            return symbols.str.replace("/", "", regex=False)
+        return symbols.str.replace(".", "-", regex=False)
 
     def _stock_list(self):
         if not self.universe_manifest:
@@ -51,9 +66,7 @@ class YFinanceDataPipeline:
             raise ValueError(
                 f"{path} must contain a 'Symbol' or 'code' column."
             )
-        symbols = (
-            frame[column].astype(str).str.strip().str.replace(".", "-", regex=False)
-        )
+        symbols = self._map_symbols(frame[column].astype(str).str.strip())
         duplicates = symbols[symbols.duplicated()].unique().tolist()
         if duplicates:
             raise ValueError(
@@ -77,7 +90,7 @@ class YFinanceDataPipeline:
             return pd.read_parquet(cache)
 
         start, end = self._fmt(self.start_date), self._fmt(self.end_date)
-        tickers = self._stock_list() + [MARKET]
+        tickers = self._stock_list() + [self.market_ticker]
         df = yf.download(tickers, start=start, end=end,
                          auto_adjust=True, progress=False)["Close"]
 
@@ -113,8 +126,12 @@ class YFinanceDataPipeline:
 
     def prepare_raw_returns(self, prices, max_stocks=None):
         """Create an eligible, aligned panel without fitting winsorization."""
-        market = prices[MARKET].pct_change(fill_method=None).dropna()
-        stocks = prices.drop(columns=[MARKET])
+        if self.market_ticker not in prices:
+            raise ValueError(
+                f"Market benchmark {self.market_ticker} missing."
+            )
+        market = prices[self.market_ticker].pct_change(fill_method=None).dropna()
+        stocks = prices.drop(columns=[self.market_ticker])
         # yfinance commonly alphabetizes multi-ticker output. Restore the
         # archived manifest order so a prespecified leading-N screen means the
         # same thing across markets and across downloads.
@@ -165,6 +182,6 @@ class YFinanceDataPipeline:
         returns = self.winsorize(returns, reference)
 
         idx = returns.index
-        print(f"Loaded {returns.shape[1]} US stocks, {len(returns)} trading days "
+        print(f"Loaded {returns.shape[1]} stocks, {len(returns)} trading days "
               f"({idx.min().date()} -> {idx.max().date()})")
         return returns, market
