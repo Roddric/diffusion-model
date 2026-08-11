@@ -21,7 +21,15 @@ The authoritative write-up is `Research_Paper_Draft.md`. The primary result is a
   added baselines, but remains inconclusive against Student-t VAR;
 - it shows no consistent observable portfolio-risk, return-tail, or drawdown
   improvement, and 5% VaR pinball loss is worse than Gaussian VAR;
-- the CSI 300 cross-market promotion rule fails.
+- the CSI 300 cross-market promotion rule fails;
+- a post-hoc calibration/power audit reproduces the locked composite exactly,
+  shows the pool's Gaussian-relative gain comes from the ensemble-spread term
+  rather than mean-path accuracy, and finds the pool also separates from
+  Student-t VAR at 114 stride-5 overlapping origins under HAC and moving-block
+  inference (post-hoc sensitivity evidence only);
+- a preregistered FTSE 100 untouched-market evaluation is frozen at tag
+  `ftse100-preregistration-2026-08-11` and awaits external notarization of the
+  commit hash before its one-time 2024–2026 holdout run.
 
 Primary artifacts:
 
@@ -32,7 +40,9 @@ Primary artifacts:
 - `research_output/sp500_confirmation/posthoc_monte_carlo_seed_variation.json`
 - `research_output/sp500_confirmation/posthoc_expanded_baselines.json`
 - `research_output/sp500_confirmation/posthoc_observable_risk_audit.json`
+- `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`
 - `research_output/sp500_confirmation/paired_origin_robustness.png`
+- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered, not yet run)
 - `REPRODUCIBILITY.md` and `ARTIFACT_MANIFEST.sha256`
 - `PROFESSOR_BRIEF.md`
 

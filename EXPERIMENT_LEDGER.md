@@ -33,6 +33,7 @@ linked to a version-control commit.
 | 2026-08-03 | Monte Carlo path-count audit | Post-hoc audit | Locked S&P origins | Frozen weights evaluated on nested 20/50/100-path ensembles; no model selection |
 | 2026-08-03 | Expanded baseline audit | Post-hoc exploratory | Locked S&P origins | At 100 paths the pool beats Gaussian/ridge VAR, diagonal AR, boosted AR, and persistence; Student-t comparison remains inconclusive |
 | 2026-08-03 | Observable portfolio-risk audit | Post-hoc audit | Locked S&P origins | No consistent risk advantage; 5% VaR pinball loss is worse than Gaussian VAR |
+| 2026-08-11 | Calibration and overlapping-origin power audit | Post-hoc audit | Locked S&P origins; stride-5 overlapping origins | Locked composite reproduced exactly; rank histograms and energy-term decomposition show the pool gain over Gaussian VAR comes from the spread term; at 114 overlapping origins the pool improves on Gaussian VAR under HAC (p<0.00001) and also separates from Student-t VAR, but this is post-hoc sensitivity evidence only |
 
 ## Trial families disclosed
 
@@ -63,7 +64,7 @@ evidence rather than a prospectively preregistered test.
 | Registered | Experiment | Evidence class | Data role | Prespecified protocol |
 |---|---|---|---|---|
 | 2026-08-11 | FTSE 100 untouched-market evaluation (dual pool) | Preregistered untouched-market holdout | FTSE training through 2022; 2023 checkpoint and weight selection; one-time 2024–2026 scoring | Universe: December 2023 FTSE 100 snapshot (sha256 13d55d86de45…ddcf), leading 100 manifest entries passing the 95% training-era coverage screen dated 2022-12-30. Market benchmark ISF.L. All architecture, budgets, seeds (42/314/2718), path counts (20), and selection rules transplanted unchanged from the locked S&P Phase 2F protocol; no FTSE-specific tuning. Primary endpoint: Gaussian-VAR-base pool versus VAR-GARCH under the locked S&P success rule. Prespecified secondary endpoint: Student-t-VAR-base pool versus Student-t VAR under the same rule. Git commit and tag recorded before any post-2023 FTSE observation is downloaded. |
-| 2026-08-11 | S&P calibration and overlapping-origin power audit | Post-hoc audit | Locked S&P origins; locked window rescored at overlapping stride-5 origins | PIT/rank-histogram and energy-decomposition diagnostics on the locked 29 origins; stride-5 overlapping-origin scoring with HAC and moving-block inference. No model selection; the locked decision is unchanged. Artifact: `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`. |
+| 2026-08-11 | S&P calibration and overlapping-origin power audit — **executed 2026-08-11** | Post-hoc audit | Locked S&P origins; locked window rescored at overlapping stride-5 origins | Rank-histogram and energy-decomposition diagnostics on the locked 29 origins; stride-5 overlapping-origin scoring with HAC and moving-block inference. No model selection; the locked decision is unchanged. Artifact: `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`. |
 
 Known preregistration data constraint: as of 2026-08-10, seven constituents of the
 December 2023 FTSE 100 snapshot (AHT.L, BDEV.L, BTA.L, DPH.L, HL.L, PHNX.L,

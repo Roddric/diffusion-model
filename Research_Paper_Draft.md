@@ -433,6 +433,59 @@ and covariance differences are also inconclusive. More importantly, the pool's
 block-bootstrap intervals lie above zero. This negative finding limits the result
 to latent-state forecasting rather than portfolio-risk forecasting.
 
+### 6.8 Calibration and overlapping-origin sensitivity
+
+A final post-hoc audit reproduces the locked composite exactly and adds two
+diagnostics.
+
+**Energy-score decomposition.** With the same \(\sqrt{Hd}\) normalization as the
+state energy score, the score decomposes into a distance-to-observation term and
+an ensemble-spread term: \(\mathrm{ES} = \mathrm{dist} - \tfrac12\,\mathrm{spread}\).
+Averaged over the locked 29 origins and the same per-seed ensembles the locked
+score uses:
+
+| Method | Distance term ↓ | Spread term ↑ | Energy (recomposed) |
+|---|---:|---:|---:|
+| Phase 2F pool | 0.88325 | **0.86136** | 0.45257 |
+| Gaussian VAR | 0.88104 | 0.84002 | 0.46103 |
+| Student-t VAR | **0.86925** | 0.83446 | 0.45202 |
+
+The pool's advantage over Gaussian VAR comes almost entirely from the spread
+term (+0.021), while its distance term is marginally worse (+0.002). Diffusion
+contributes ensemble dispersion that covers the realized state better, not a
+better mean path; the mean-path improvement appears in state RMSE separately.
+Student-t VAR's strength is the opposite: the best distance term, with no spread
+advantage.
+
+**Rank-histogram calibration.** For each state dimension and horizon day, the
+rank of the realized state inside each 20-path ensemble is pooled across the
+locked origins. No ensemble is uniform (all chi-square tests reject at these
+sample sizes), but the pool's edge-bin share (observations falling outside all
+paths) is closest to the uniform expectation: 0.102 for the pool versus 0.095
+uniform, against 0.116 for Gaussian VAR and 0.107 for Student-t VAR. This is
+consistent with the spread-term finding.
+
+**Overlapping-origin power.** The locked analysis uses 29 non-overlapping
+origins. The audit additionally rescores the frozen model at every stride-5
+origin in the holdout (114 overlapping windows) and applies Newey–West HAC and
+circular moving-block inference at block lengths 5, 10, and 20:
+
+| Comparison | Mean difference (energy / RMSE) | HAC one-sided p | Block-bootstrap 95% intervals |
+|---|---|---|---|
+| Pool − Gaussian VAR | −0.00996 / −0.01522 | 0.00001 / 0.00000 | all below zero |
+| Pool − Student-t VAR | −0.01287 / −0.01926 | 0.00000 / 0.00000 | all below zero |
+
+The overlapping pool composite is 0.97708. Under dependence-robust inference the
+pool separates from Student-t VAR here even though the locked 29-origin
+comparison is a statistical tie. Overlapping windows share target days, however,
+so the effective sample size is far below 114; this is post-hoc sensitivity
+evidence that the near-tie with Student-t VAR is power-limited, not a new
+confirmation.
+
+**Compute cost.** Diffusion sampling costs 0.59 s per origin per seed on one CPU
+thread; the full audit, including 114 overlapping origins for all baselines,
+runs in about five minutes.
+
 ## 7. Interpretation
 
 The retrospective holdout supports three conclusions.
@@ -454,6 +507,14 @@ equal-weight portfolio audit likewise finds no consistent risk improvement and a
 worse Gaussian-relative VaR loss. The return reconstruction layer is therefore the
 principal unresolved component.
 
+Fourth, the energy-score decomposition identifies the mechanism: the pool's
+Gaussian-relative gain is carried by the ensemble-spread term, not the
+distance-to-observation term. Diffusion acts as a dispersion corrector around a
+dominant linear conditional mean. This is consistent with the negative pure-
+diffusion and innovation-diffusion results, and it suggests the right benchmark
+for future work is not point-path accuracy but multivariate coverage and
+calibration.
+
 ## 8. Limitations
 
 1. **Retrospective protocol lock.** The workflow was frozen immediately before
@@ -469,7 +530,11 @@ principal unresolved component.
 4. **Static factor loadings.** Equity loadings do not evolve inside the training
    window.
 5. **Limited holdout origins.** Twenty-nine non-overlapping origins provide
-   useful paired inference but limited power against Student-t VAR.
+   useful paired inference but limited power against Student-t VAR. A post-hoc
+   stride-5 overlapping-origin analysis (Section 6.8) raises the count to 114 and
+   separates the pool from Student-t VAR under HAC and moving-block inference,
+   but overlapping windows share target days, so it is sensitivity evidence
+   rather than independent confirmation.
 6. **Forecast pooling.** The strongest model is a VAR-dominant pool, so the
    incremental diffusion contribution is real but modest.
 7. **Return reconstruction.** Common factor-state gains are partially lost when
@@ -503,6 +568,8 @@ The principal artifacts are:
 - `research_output/sp500_confirmation/posthoc_monte_carlo_seed_variation.json`
 - `research_output/sp500_confirmation/posthoc_expanded_baselines.json`
 - `research_output/sp500_confirmation/posthoc_observable_risk_audit.json`
+- `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`
+- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered, not yet run)
 
 The locked protocol contains universe, panel, and checkpoint hashes. The original
 holdout runner and post-hoc audit runners refuse to overwrite existing results.
@@ -516,7 +583,7 @@ Tests:
 .venv/bin/pytest -q
 ```
 
-The current suite contains 86 tests.
+The current suite contains 96 tests.
 
 ## 10. Conclusion
 
@@ -532,6 +599,14 @@ The research contribution is therefore best stated as a disciplined hybrid
 result: diffusion can improve classical factor-state forecasts when its influence
 is constrained by validation, while unrestricted diffusion is not reliably
 superior.
+
+**Registered next step.** To address the single-market and retrospective-lock
+limitations, an FTSE 100 untouched-market evaluation was preregistered on
+2026-08-11 (tag `ftse100-preregistration-2026-08-11`) before any post-2023 FTSE
+observation was downloaded. The protocol transplants the locked S&P specification
+unchanged, with a prespecified Student-t-VAR-base pool as the secondary endpoint.
+Its outcome is not part of this draft and will be reported once the one-time
+holdout run completes after external notarization of the preregistration commit.
 
 ## Appendix A. Post-primary-score exploratory extensions
 

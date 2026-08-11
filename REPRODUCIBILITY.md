@@ -13,8 +13,15 @@ The original immutable result is
 `research_output/sp500_confirmation/confirmation.json`. The later
 `posthoc_dependence_robustness.json` exactly reproduces its point estimates, stores
 the origin-level losses, and adds dependence-robust inference. Later files prefixed
-`posthoc_` add path-count, expanded-baseline, and observable-risk checks. None
-redefines the original decision or creates a new holdout sample.
+`posthoc_` add path-count, expanded-baseline, observable-risk, and
+calibration/power checks. None redefines the original decision or creates a new
+holdout sample.
+
+A preregistered FTSE 100 untouched-market evaluation is frozen at tag
+`ftse100-preregistration-2026-08-11`
+(commit `feff0986843ddd454b908e7084cb80da688b9918`). Its protocol record is
+`research_output/ftse100_frozen/ftse100_external.protocol.json`; the one-time
+holdout run happens only after that commit hash is externally notarized.
 
 ## Audited environment
 
@@ -50,7 +57,7 @@ python -m pip install -r requirements-lock.txt
 PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider
 ```
 
-The audited suite contains 86 tests.
+The audited suite contains 96 tests.
 
 ## Reproduce the post-hoc audits
 
@@ -87,6 +94,20 @@ MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
   --report-role posthoc_observable_risk_audit
 ```
 
+The calibration and overlapping-origin power audit reproduces the locked
+composite exactly, then reports rank-histogram calibration and an energy-score
+decomposition on the locked origins and rescores the locked model at stride-5
+overlapping origins with HAC and moving-block inference:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/posthoc_calibration_power_audit.py \
+  --output /tmp/posthoc_calibration_power_audit.json --allow-overwrite
+```
+
+Its overlapping-origin comparison is post-hoc sensitivity evidence; it does not
+create a new confirmation sample.
+
 The expanded nonlinear baseline is deliberately compute-intensive. For a future
 unseen evaluation, create the protocol before outcomes are available:
 
@@ -110,3 +131,15 @@ return-tail, or drawdown improvement. Neither the consumed S&P nor CSI 2024–20
 sample may be used for additional selection. A stronger confirmatory claim requires
 a new market that has not influenced development or a future prospectively locked
 evaluation period.
+
+The stride-5 overlapping-origin audit reports that the pool separates from both
+Gaussian VAR and Student-t VAR under HAC and moving-block inference. This is
+post-hoc sensitivity evidence only: overlapping windows share target days, the
+analysis was specified after the locked score was known, and it does not upgrade
+the confirmatory status of the primary result. The energy-score decomposition
+indicates the pool's Gaussian-relative gain comes from the ensemble-spread term
+with the distance-to-observation term essentially unchanged.
+
+The FTSE 100 evaluation is preregistered and immutable but has not yet been run.
+No FTSE post-2023 result should be cited until the one-time holdout run completes
+after external notarization of the preregistration commit.
