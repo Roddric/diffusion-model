@@ -31,10 +31,14 @@ not improve return-tail or drawdown calibration. Post-hoc 100-path scoring suppo
 the Gaussian comparison and beats added ridge, diagonal-AR, nonlinear-AR, and
 persistence baselines, but remains inconclusive against Student-t VAR. Observable
 portfolio-risk tests show no consistent advantage and identify worse 5% VaR
-pinball loss than Gaussian VAR. The supported conclusion is therefore narrow:
-diffusion contributes useful information to latent factor-state forecasting when
-pooled conservatively with a classical model, but the evidence does not support
-superior portfolio-risk or return generation.
+pinball loss than Gaussian VAR. A preregistered, externally notarized evaluation on
+the untouched FTSE 100 market reproduces the pattern on 2024–2026: the
+Gaussian-base pool passes its prespecified primary rule with composite 0.98204
+(HAC p=0.0017 on both co-primary metrics), while the prespecified Student-t-base
+pool is again statistically tied with Student-t VAR. The supported conclusion is
+therefore narrow but cross-market: diffusion contributes useful information to
+latent factor-state forecasting when pooled conservatively with a classical model,
+but the evidence does not support superior portfolio-risk or return generation.
 
 ## 1. Introduction
 
@@ -486,9 +490,56 @@ confirmation.
 thread; the full audit, including 114 overlapping origins for all baselines,
 runs in about five minutes.
 
+### 6.9 Preregistered untouched-market evaluation: FTSE 100
+
+To test whether the S&P result generalizes beyond its development market, a
+second market that never influenced any design decision was evaluated under a
+prospective protocol. The FTSE 100 protocol was preregistered on 2026-08-11
+(immutable record `ftse100_external.protocol.json`, tag
+`ftse100-preregistration-2026-08-11`), and the preregistration commit hash was
+externally notarized before any post-2023 FTSE observation was downloaded. The
+protocol transplants the locked S&P specification unchanged — architecture,
+budgets, seeds, path counts, and success rules — with one prespecified addition:
+a Student-t-VAR-base pool as the secondary endpoint, since Student-t VAR is the
+binding baseline in Section 6.2.
+
+**Universe.** The December 2023 FTSE 100 snapshot (checksum-pinned) provides 100
+constituents. Seven no longer resolve on Yahoo Finance and six fail the 95%
+training-era coverage screen dated 2022-12-30, leaving 87 securities under the
+deterministic manifest-order rule. The market benchmark is ISF.L. No FTSE-specific
+tuning was performed.
+
+**Results (one-time scoring, 2024-01-02 through 2026-08-10, 29 origins).**
+All three seeds selected weight 0.25 for both pool bases on the 2023 validation,
+matching the S&P structure.
+
+| Decision | Composite | Energy ratio | RMSE ratio | Inference | Outcome |
+|---|---:|---:|---:|---|---|
+| Primary: Gaussian-base pool vs VAR-GARCH | **0.98204** | 0.98243 | 0.98165 | HAC p=0.0017 (both); bootstrap CIs exclude zero | PASS |
+| Secondary: Student-t-base pool vs Student-t VAR | **0.99631** | 0.99641 | 0.99622 | HAC p≈0.27-0.29; bootstrap CIs include zero | PASS by rule, statistically tied |
+
+Both prespecified success rules are satisfied: each composite is below 1.0 and
+neither co-primary point estimate exceeds its baseline. The primary improvement
+(1.8% energy, 1.8% RMSE) is statistically significant under HAC and paired
+bootstrap inference; the secondary is a rule-level pass with no statistical
+separation, reproducing the S&P near-tie with Student-t VAR on an independent
+market.
+
+Pool-over-own-base ordering persists at 5-, 10-, and 20-day horizons.
+BH-adjusted secondary endpoints are significant for the state variogram score and
+log-volatility factor RMSE, but not for return-level metrics, again matching the
+S&P pattern that latent gains do not transfer cleanly to returns.
+
+**Reading.** The FTSE result is the strongest evidence in this paper for the
+central claim, because the protocol was fixed and notarized before outcomes were
+observed and the market played no role in development. It also confirms the
+honest scope of the claim: the improvement is latent-state forecasting against
+Gaussian dynamics, roughly 2% in both markets, with Student-t VAR remaining the
+binding baseline and no confirmed economic endpoint.
+
 ## 7. Interpretation
 
-The retrospective holdout supports three conclusions.
+The evidence supports five conclusions.
 
 First, diffusion contains incremental information beyond Gaussian VAR dynamics.
 Validation selects positive diffusion weight for every seed, and the locked pool
@@ -515,18 +566,29 @@ diffusion and innovation-diffusion results, and it suggests the right benchmark
 for future work is not point-path accuracy but multivariate coverage and
 calibration.
 
+Fifth, the result generalizes across markets when the protocol is fixed in
+advance. The preregistered, externally notarized FTSE 100 evaluation reproduces
+the S&P pattern almost exactly — a statistically significant ~2% latent-state
+gain over Gaussian VAR and a statistical tie with Student-t VAR — on a market
+that played no role in development. This upgrades the central claim from a
+single-market retrospective finding to a cross-market one, while leaving the
+scope unchanged: latent-state forecasting, not economic value.
+
 ## 8. Limitations
 
-1. **Retrospective protocol lock.** The workflow was frozen immediately before
-   computational scoring on 2026-07-30, not before the 2024–2026 period occurred,
-   and it was not externally preregistered. This limits the strength of
-   confirmatory language even though the code did not load post-2023 observations
-   during development.
-2. **Historical membership conditioning.** The December 2023 universe was archived
-   in 2026 and applied retrospectively to training data.
-3. **Single successful primary market.** The primary holdout is S&P 500. A
-   subsequent CSI 300 cross-market holdout was directionally favorable but failed
-   its locked promotion rule.
+1. **Retrospective protocol lock (S&P).** The S&P workflow was frozen immediately
+   before computational scoring on 2026-07-30, not before the 2024–2026 period
+   occurred, and it was not externally preregistered. This limits the strength of
+   confirmatory language for the S&P result even though the code did not load
+   post-2023 observations during development. The FTSE 100 evaluation (Section 6.9)
+   was externally preregistered and notarized before outcomes were downloaded, so
+   this limitation applies to the S&P evidence specifically.
+2. **Historical membership conditioning.** The December 2023 universes were
+   archived in 2026 and applied retrospectively to training data.
+3. **Market coverage.** The primary holdout is S&P 500, now corroborated by the
+   preregistered FTSE 100 untouched-market evaluation (Section 6.9). A CSI 300
+   cross-market holdout was directionally favorable but failed its locked
+   promotion rule and was not reused.
 4. **Static factor loadings.** Equity loadings do not evolve inside the training
    window.
 5. **Limited holdout origins.** Twenty-nine non-overlapping origins provide
@@ -569,7 +631,9 @@ The principal artifacts are:
 - `research_output/sp500_confirmation/posthoc_expanded_baselines.json`
 - `research_output/sp500_confirmation/posthoc_observable_risk_audit.json`
 - `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`
-- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered, not yet run)
+- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered protocol)
+- `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
+- `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
 
 The locked protocol contains universe, panel, and checkpoint hashes. The original
 holdout runner and post-hoc audit runners refuse to overwrite existing results.
@@ -600,13 +664,17 @@ result: diffusion can improve classical factor-state forecasts when its influenc
 is constrained by validation, while unrestricted diffusion is not reliably
 superior.
 
-**Registered next step.** To address the single-market and retrospective-lock
+**Cross-market confirmation.** To address the single-market and retrospective-lock
 limitations, an FTSE 100 untouched-market evaluation was preregistered on
-2026-08-11 (tag `ftse100-preregistration-2026-08-11`) before any post-2023 FTSE
-observation was downloaded. The protocol transplants the locked S&P specification
-unchanged, with a prespecified Student-t-VAR-base pool as the secondary endpoint.
-Its outcome is not part of this draft and will be reported once the one-time
-holdout run completes after external notarization of the preregistration commit.
+2026-08-11 (tag `ftse100-preregistration-2026-08-11`), externally notarized, and
+run one time on 2026-08-12 (Section 6.9). The Gaussian-base pool passed its
+prespecified primary rule with composite 0.98204 (HAC p=0.0017 on both co-primary
+metrics), and the prespecified Student-t-base pool passed its rule while remaining
+statistically tied with Student-t VAR. The central finding therefore replicates on
+a market that played no role in development, under a protocol fixed before outcomes
+were observed. The limitations that remain are the ones the evidence has always
+shown: the gain is latent-state only, roughly 2%, and Student-t VAR is the binding
+baseline.
 
 ## Appendix A. Post-primary-score exploratory extensions
 

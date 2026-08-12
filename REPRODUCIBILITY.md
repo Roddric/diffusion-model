@@ -17,11 +17,14 @@ the origin-level losses, and adds dependence-robust inference. Later files prefi
 calibration/power checks. None redefines the original decision or creates a new
 holdout sample.
 
-A preregistered FTSE 100 untouched-market evaluation is frozen at tag
-`ftse100-preregistration-2026-08-11`
-(commit `feff0986843ddd454b908e7084cb80da688b9918`). Its protocol record is
+A preregistered FTSE 100 untouched-market evaluation was run one time on
+2026-08-12, after external notarization of tag `ftse100-preregistration-2026-08-11`
+(commit `feff0986843ddd454b908e7084cb80da688b9918`). The protocol record is
 `research_output/ftse100_frozen/ftse100_external.protocol.json`; the one-time
-holdout run happens only after that commit hash is externally notarized.
+freeze and 2024–2026 confirmation are
+`research_output/ftse100_frozen/frozen_protocol.json` and
+`research_output/ftse100_confirmation/confirmation.json`. The FTSE sample is now
+consumed for those two decisions and may only support post-hoc audits.
 
 ## Audited environment
 
@@ -140,6 +143,11 @@ the confirmatory status of the primary result. The energy-score decomposition
 indicates the pool's Gaussian-relative gain comes from the ensemble-spread term
 with the distance-to-observation term essentially unchanged.
 
-The FTSE 100 evaluation is preregistered and immutable but has not yet been run.
-No FTSE post-2023 result should be cited until the one-time holdout run completes
-after external notarization of the preregistration commit.
+The FTSE 100 evaluation ran one time on 2026-08-12 under the externally notarized
+preregistration. Its defensible claim mirrors the S&P one: an approximately 2%
+retrospective holdout improvement in latent-state forecasts relative to Gaussian
+VAR (composite 0.98204, HAC p=0.0017 on both co-primary metrics), with the
+Student-t-base pool statistically tied with Student-t VAR. No observable
+portfolio-risk endpoint was confirmed on FTSE; the FTSE result addresses
+latent-state generalization to an untouched market, not economic value. The
+consumed FTSE 2024–2026 sample may only support post-hoc audits.

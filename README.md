@@ -27,9 +27,12 @@ The authoritative write-up is `Research_Paper_Draft.md`. The primary result is a
   rather than mean-path accuracy, and finds the pool also separates from
   Student-t VAR at 114 stride-5 overlapping origins under HAC and moving-block
   inference (post-hoc sensitivity evidence only);
-- a preregistered FTSE 100 untouched-market evaluation is frozen at tag
-  `ftse100-preregistration-2026-08-11` and awaits external notarization of the
-  commit hash before its one-time 2024–2026 holdout run.
+- a preregistered, externally notarized FTSE 100 untouched-market evaluation
+  reproduces the pattern on 2024–2026: the Gaussian-base pool passes the primary
+  rule with composite 0.98204 versus VAR-GARCH (HAC p=0.0017 on both co-primary
+  metrics), and the Student-t-base pool passes its prespecified rule
+  (composite 0.99631) but is statistically tied with Student-t VAR, mirroring the
+  S&P result. The consumed FTSE sample may only support post-hoc audits.
 
 Primary artifacts:
 
@@ -42,11 +45,13 @@ Primary artifacts:
 - `research_output/sp500_confirmation/posthoc_observable_risk_audit.json`
 - `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`
 - `research_output/sp500_confirmation/paired_origin_robustness.png`
-- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered, not yet run)
+- `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered protocol)
+- `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
+- `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
 - `REPRODUCIBILITY.md` and `ARTIFACT_MANIFEST.sha256`
 - `PROFESSOR_BRIEF.md`
 
-Do not use the consumed S&P or CSI 2024–2026 observations for further model
+Do not use the consumed S&P, CSI, or FTSE 2024–2026 observations for further model
 selection. New confirmatory evidence requires a genuinely untouched market or a
 future prospective evaluation period.
 

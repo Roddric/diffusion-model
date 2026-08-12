@@ -34,6 +34,8 @@ linked to a version-control commit.
 | 2026-08-03 | Expanded baseline audit | Post-hoc exploratory | Locked S&P origins | At 100 paths the pool beats Gaussian/ridge VAR, diagonal AR, boosted AR, and persistence; Student-t comparison remains inconclusive |
 | 2026-08-03 | Observable portfolio-risk audit | Post-hoc audit | Locked S&P origins | No consistent risk advantage; 5% VaR pinball loss is worse than Gaussian VAR |
 | 2026-08-11 | Calibration and overlapping-origin power audit | Post-hoc audit | Locked S&P origins; stride-5 overlapping origins | Locked composite reproduced exactly; rank histograms and energy-term decomposition show the pool gain over Gaussian VAR comes from the spread term; at 114 overlapping origins the pool improves on Gaussian VAR under HAC (p<0.00001) and also separates from Student-t VAR, but this is post-hoc sensitivity evidence only |
+| 2026-08-12 | FTSE 100 untouched-market dual-pool freeze | External untouched-market holdout | FTSE training through 2022; 2023 checkpoint and weight selection | 87 eligible securities (deterministic screen); all three seeds select weight 0.25 for both bases; checkpoint steps 2250/2500/2000; post-2023 data not touched |
+| 2026-08-12 | One-time FTSE 100 dual-pool scoring | External untouched-market holdout | One-time scoring of 2024-01-02 → 2026-08-10 (29 origins) after external notarization of commit feff0986 | Primary PASS: Gaussian-base pool composite 0.982038 versus VAR-GARCH (energy ratio 0.98243, RMSE ratio 0.98165), HAC p=0.0017 on both co-primary metrics, bootstrap intervals exclude zero. Secondary PASS by rule: Student-t-base pool composite 0.996315 versus Student-t VAR, but statistically tied (HAC p≈0.27-0.29, bootstrap intervals include zero). Horizon persistence of pool-over-own-base holds at 5/10/20 days; BH-adjusted secondary endpoints significant for variogram and log-vol factor RMSE only |
 
 ## Trial families disclosed
 
@@ -63,16 +65,20 @@ evidence rather than a prospectively preregistered test.
 
 | Registered | Experiment | Evidence class | Data role | Prespecified protocol |
 |---|---|---|---|---|
-| 2026-08-11 | FTSE 100 untouched-market evaluation (dual pool) | Preregistered untouched-market holdout | FTSE training through 2022; 2023 checkpoint and weight selection; one-time 2024–2026 scoring | Universe: December 2023 FTSE 100 snapshot (sha256 13d55d86de45…ddcf), leading 100 manifest entries passing the 95% training-era coverage screen dated 2022-12-30. Market benchmark ISF.L. All architecture, budgets, seeds (42/314/2718), path counts (20), and selection rules transplanted unchanged from the locked S&P Phase 2F protocol; no FTSE-specific tuning. Primary endpoint: Gaussian-VAR-base pool versus VAR-GARCH under the locked S&P success rule. Prespecified secondary endpoint: Student-t-VAR-base pool versus Student-t VAR under the same rule. Git commit and tag recorded before any post-2023 FTSE observation is downloaded. |
+| 2026-08-11 | FTSE 100 untouched-market evaluation (dual pool) — **executed 2026-08-12; primary PASS, secondary PASS by rule but statistically tied** | Preregistered untouched-market holdout | FTSE training through 2022; 2023 checkpoint and weight selection; one-time 2024–2026 scoring | Universe: December 2023 FTSE 100 snapshot (sha256 13d55d86de45…ddcf), leading 100 manifest entries passing the 95% training-era coverage screen dated 2022-12-30. Market benchmark ISF.L. All architecture, budgets, seeds (42/314/2718), path counts (20), and selection rules transplanted unchanged from the locked S&P Phase 2F protocol; no FTSE-specific tuning. Primary endpoint: Gaussian-VAR-base pool versus VAR-GARCH under the locked S&P success rule. Prespecified secondary endpoint: Student-t-VAR-base pool versus Student-t VAR under the same rule. Commit feff0986843ddd454b908e7084cb80da688b9918 (tag ftse100-preregistration-2026-08-11) was externally notarized before any post-2023 FTSE observation was downloaded. The consumed FTSE 2024–2026 sample cannot be reused for selection. |
 | 2026-08-11 | S&P calibration and overlapping-origin power audit — **executed 2026-08-11** | Post-hoc audit | Locked S&P origins; locked window rescored at overlapping stride-5 origins | Rank-histogram and energy-decomposition diagnostics on the locked 29 origins; stride-5 overlapping-origin scoring with HAC and moving-block inference. No model selection; the locked decision is unchanged. Artifact: `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`. |
 
 Known preregistration data constraint: as of 2026-08-10, seven constituents of the
 December 2023 FTSE 100 snapshot (AHT.L, BDEV.L, BTA.L, DPH.L, HL.L, PHNX.L,
 SMDS.L) no longer resolve on Yahoo Finance, and six further constituents fail the
 95% training-era coverage screen. The eligible universe is therefore the
-deterministic manifest-order screen intersection (87 securities passed in the
-2026-08-10 pre-2024 smoke test), consistent with the CSI 300 external replication
-precedent (64 of 100 eligible).
+deterministic manifest-order screen intersection (87 securities passed in both the
+2026-08-10 pre-2024 smoke test and the 2026-08-12 one-time run), consistent with
+the CSI 300 external replication precedent (64 of 100 eligible).
+
+The FTSE 100 2024–2026 sample is now consumed for the primary and secondary
+decisions above. It may be used for post-hoc audits only, never for further model
+or weight selection.
 
 ## Rule for future work
 
