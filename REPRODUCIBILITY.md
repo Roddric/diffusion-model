@@ -111,6 +111,15 @@ MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
 Its overlapping-origin comparison is post-hoc sensitivity evidence; it does not
 create a new confirmation sample.
 
+The matching FTSE audit reproduces both locked FTSE composites and reports the
+same diagnostics for the dual pools:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/posthoc_ftse_calibration_power_audit.py \
+  --output /tmp/posthoc_ftse_calibration_power_audit.json --allow-overwrite
+```
+
 The expanded nonlinear baseline is deliberately compute-intensive. For a future
 unseen evaluation, create the protocol before outcomes are available:
 

@@ -530,6 +530,18 @@ BH-adjusted secondary endpoints are significant for the state variogram score an
 log-volatility factor RMSE, but not for return-level metrics, again matching the
 S&P pattern that latent gains do not transfer cleanly to returns.
 
+**Post-hoc audit.** The FTSE calibration and power audit reproduces both locked
+composites exactly and mirrors the S&P diagnostics. The Gaussian-base pool's
+edge-bin share equals the uniform value (0.095) while both VAR baselines are
+under-dispersed (0.112-0.114). Unlike S&P, where the Gaussian-relative gain was
+carried almost entirely by the spread term, on FTSE the pool improves both energy
+terms (distance 0.85512→0.84953 and spread 0.82342→0.82782). At 116 stride-5
+overlapping origins, the Gaussian-base pool remains significant versus Gaussian
+VAR (HAC p≈0.03 on both co-primary metrics) and tied with Student-t VAR; the
+Student-t-base pool shows borderline separation from Student-t VAR on RMSE
+(HAC p=0.033). These are post-hoc sensitivity evidence only and do not change the
+locked decisions.
+
 **Reading.** The FTSE result is the strongest evidence in this paper for the
 central claim, because the protocol was fixed and notarized before outcomes were
 observed and the market played no role in development. It also confirms the
@@ -634,6 +646,7 @@ The principal artifacts are:
 - `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered protocol)
 - `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
 - `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
+- `research_output/ftse100_confirmation/posthoc_ftse_calibration_power_audit.json`
 
 The locked protocol contains universe, panel, and checkpoint hashes. The original
 holdout runner and post-hoc audit runners refuse to overwrite existing results.

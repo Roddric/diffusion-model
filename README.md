@@ -32,7 +32,12 @@ The authoritative write-up is `Research_Paper_Draft.md`. The primary result is a
   rule with composite 0.98204 versus VAR-GARCH (HAC p=0.0017 on both co-primary
   metrics), and the Student-t-base pool passes its prespecified rule
   (composite 0.99631) but is statistically tied with Student-t VAR, mirroring the
-  S&P result. The consumed FTSE sample may only support post-hoc audits.
+  S&P result;
+- the matching FTSE post-hoc audit reproduces both locked composites exactly and
+  shows the same calibration signature (pool edge coverage at the uniform value,
+  VAR baselines under-dispersed); at 116 overlapping origins the pool stays
+  significant versus Gaussian VAR (HAC p≈0.03) and tied with Student-t VAR. The
+  consumed FTSE sample may only support post-hoc audits.
 
 Primary artifacts:
 
@@ -48,6 +53,7 @@ Primary artifacts:
 - `research_output/ftse100_frozen/ftse100_external.protocol.json` (preregistered protocol)
 - `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
 - `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
+- `research_output/ftse100_confirmation/posthoc_ftse_calibration_power_audit.json`
 - `REPRODUCIBILITY.md` and `ARTIFACT_MANIFEST.sha256`
 - `PROFESSOR_BRIEF.md`
 
