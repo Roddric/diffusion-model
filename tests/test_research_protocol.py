@@ -49,6 +49,21 @@ def test_yahoo_manifest_lse_convention_strips_class_suffix(config, tmp_path):
     ]
 
 
+def test_yahoo_manifest_hkg_convention_keeps_dot_suffix(config, tmp_path):
+    manifest = tmp_path / "hsi.csv"
+    manifest.write_text(
+        "Symbol,Name\n0101.HK,Hang Lung\n0700.HK,Tencent\n2800.HK,Tracker\n",
+        encoding="utf-8",
+    )
+    config.data.universe_manifest = str(manifest)
+    config.data.ticker_convention = "hkg"
+    assert YFinanceDataPipeline(config)._stock_list() == [
+        "0101.HK",
+        "0700.HK",
+        "2800.HK",
+    ]
+
+
 def test_yahoo_unknown_ticker_convention_rejected(config):
     config.data.ticker_convention = "tokyo"
     with pytest.raises(ValueError, match="ticker_convention"):

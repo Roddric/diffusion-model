@@ -24,7 +24,7 @@ SP100 = [
     "UNH", "UNP", "UPS", "USB", "V", "VZ", "WFC", "WMT", "XOM",
 ]
 MARKET = "SPY"
-TICKER_CONVENTIONS = ("us", "lse")
+TICKER_CONVENTIONS = ("us", "lse", "hkg")
 
 
 class YFinanceDataPipeline:
@@ -48,9 +48,9 @@ class YFinanceDataPipeline:
             )
 
     def _map_symbols(self, symbols):
-        if self.ticker_convention == "lse":
-            # LSEG share-class markers (e.g. AV/.L) are not part of Yahoo
-            # tickers; the exchange suffix itself must keep its dot.
+        if self.ticker_convention in ("lse", "hkg"):
+            # Keep the exchange-suffix dot (0101.HK); LSEG share-class
+            # markers (e.g. AV/.L) are not part of Yahoo tickers.
             return symbols.str.replace("/", "", regex=False)
         return symbols.str.replace(".", "-", regex=False)
 

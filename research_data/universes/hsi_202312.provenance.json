@@ -1,0 +1,10 @@
+{
+  "index": "hsi",
+  "archive_month": "2023-12",
+  "source_url": "https://yfiua.github.io/index-constituents/2023/12/constituents-hsi.csv",
+  "source_repository": "https://github.com/yfiua/index-constituents",
+  "sha256": "87307877e58f780cdecc58d28c7c7174c977bc9702f20f1e7d63d80cc317de42",
+  "rows": 80,
+  "retrieved_at_utc": "2026-08-12T07:46:21.216921+00:00",
+  "purpose": "Universe frozen before the 2024-01-01 confirmation boundary."
+}

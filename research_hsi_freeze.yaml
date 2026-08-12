@@ -1,0 +1,44 @@
+data:
+  source: yfinance
+  universe: hsi
+  universe_manifest: ./research_data/universes/hsi_202312.csv
+  universe_snapshot_date: '2023-12'
+  market_benchmark: 2800.HK
+  ticker_convention: hkg
+  start_date: '20150101'
+  end_date: '20240101'
+  eligibility_end_date: '20221230'
+  preprocess_fit_end_date: '20221230'
+  min_history: 756
+  min_coverage: 0.95
+  winsorize_std: 5.0
+data_dir: ./research_data/hsi
+model_dir: ./research_models/hsi_frozen
+output_dir: ./research_output/hsi_frozen
+factors:
+  n_vol_factors: 5
+latent:
+  use_log_variance: false
+  standardize: true
+residuals:
+  min_obs: 60
+temporal:
+  context_length: 60
+  horizon: 20
+  hidden_dim: 64
+  n_layers: 4
+  dropout: 0.05
+  batch_size: 64
+  learning_rate: 0.0005
+  training_steps: 8000
+  validation_interval: 250
+  early_stopping_patience: 8
+  sampling_steps: 30
+  ensemble_paths: 20
+  split_output_heads: true
+  mean_loss_weight: 1.0
+  volatility_loss_weight: 2.0
+  validation_seeds: [42, 314, 2718]
+  path_validation_paths: 8
+  path_validation_steps: 10
+  residual_scale_grid: [1.0]

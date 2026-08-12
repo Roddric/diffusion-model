@@ -41,6 +41,16 @@ SNAPSHOTS = {
         ),
         "rows": 100,
     },
+    "hsi": {
+        "url": (
+            "https://yfiua.github.io/index-constituents/2023/12/"
+            "constituents-hsi.csv"
+        ),
+        "sha256": (
+            "87307877e58f780cdecc58d28c7c7174c977bc9702f20f1e7d63d80cc317de42"
+        ),
+        "rows": 80,
+    },
 }
 
 

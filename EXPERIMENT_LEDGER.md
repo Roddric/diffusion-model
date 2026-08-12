@@ -69,6 +69,7 @@ evidence rather than a prospectively preregistered test.
 | 2026-08-11 | FTSE 100 untouched-market evaluation (dual pool) — **executed 2026-08-12; primary PASS, secondary PASS by rule but statistically tied** | Preregistered untouched-market holdout | FTSE training through 2022; 2023 checkpoint and weight selection; one-time 2024–2026 scoring | Universe: December 2023 FTSE 100 snapshot (sha256 13d55d86de45…ddcf), leading 100 manifest entries passing the 95% training-era coverage screen dated 2022-12-30. Market benchmark ISF.L. All architecture, budgets, seeds (42/314/2718), path counts (20), and selection rules transplanted unchanged from the locked S&P Phase 2F protocol; no FTSE-specific tuning. Primary endpoint: Gaussian-VAR-base pool versus VAR-GARCH under the locked S&P success rule. Prespecified secondary endpoint: Student-t-VAR-base pool versus Student-t VAR under the same rule. Commit feff0986843ddd454b908e7084cb80da688b9918 (tag ftse100-preregistration-2026-08-11) was externally notarized before any post-2023 FTSE observation was downloaded. The consumed FTSE 2024–2026 sample cannot be reused for selection. |
 | 2026-08-11 | S&P calibration and overlapping-origin power audit — **executed 2026-08-11** | Post-hoc audit | Locked S&P origins; locked window rescored at overlapping stride-5 origins | Rank-histogram and energy-decomposition diagnostics on the locked 29 origins; stride-5 overlapping-origin scoring with HAC and moving-block inference. No model selection; the locked decision is unchanged. Artifact: `research_output/sp500_confirmation/posthoc_calibration_power_audit.json`. |
 | 2026-08-12 | FTSE calibration and overlapping-origin power audit — **executed 2026-08-12** | Post-hoc audit | Locked FTSE origins; locked window rescored at overlapping stride-5 origins | Both locked composites reproduced exactly (primary 0.982038, secondary 0.996315). Gaussian-base pool edge-bin share hits the uniform value (0.095); both VAR baselines are under-dispersed (0.112-0.114). The Gaussian-relative pool gain improves both energy terms (distance and spread). At 116 overlapping origins the Gaussian-base pool stays significant versus Gaussian VAR (HAC p≈0.03) and remains tied with Student-t VAR; the Student-t-base pool shows borderline separation from Student-t VAR (RMSE HAC p=0.033). Post-hoc sensitivity evidence only; locked decisions unchanged. Artifact: `research_output/ftse100_confirmation/posthoc_ftse_calibration_power_audit.json`. |
+| 2026-08-12 | Hang Seng Index untouched-market evaluation (dual pool) | Preregistered untouched-market holdout | HSI training through 2022; 2023 checkpoint and weight selection; one-time 2024–2026 scoring | Universe: December 2023 HSI snapshot (sha256 87307877e58f…de42), leading 100 manifest entries passing the 95% training-era coverage screen dated 2022-12-30. Market benchmark 2800.HK. All architecture, budgets, seeds (42/314/2718), path counts (20), and selection rules transplanted unchanged from the locked S&P Phase 2F protocol; no HSI-specific tuning. Primary endpoint: Gaussian-VAR-base pool versus VAR-GARCH under the locked S&P success rule. Prespecified secondary endpoint: Student-t-VAR-base pool versus Student-t VAR under the same rule. Git commit and tag to be externally notarized before any post-2023 HSI observation is downloaded. |
 
 Known preregistration data constraint: as of 2026-08-10, seven constituents of the
 December 2023 FTSE 100 snapshot (AHT.L, BDEV.L, BTA.L, DPH.L, HL.L, PHNX.L,
@@ -81,6 +82,13 @@ the CSI 300 external replication precedent (64 of 100 eligible).
 The FTSE 100 2024–2026 sample is now consumed for the primary and secondary
 decisions above. It may be used for post-hoc audits only, never for further model
 or weight selection.
+
+Known preregistration data constraint (HSI): as of 2026-08-12, one constituent of
+the December 2023 HSI snapshot (0011.HK) no longer resolves on Yahoo Finance, and
+eighteen further constituents fail the 95% training-era coverage screen. The
+eligible universe is therefore the deterministic manifest-order screen intersection
+(61 securities passed in the 2026-08-12 pre-2024 smoke test), consistent with the
+CSI 300 (64 of 100) and FTSE 100 (87 of 100) precedents.
 
 ## Rule for future work
 
