@@ -10,7 +10,22 @@ over Gaussian VAR on 29 non-overlapping 20-day origins. It is tied with a strong
 Student-t VAR in the immutable 20-path result. Post-hoc 100-path scoring gives the
 pool better point estimates than all tested comparators, but remains inconclusive
 against Student-t VAR under block-bootstrap inference. It does not establish a
-portfolio-risk or return-tail improvement.
+portfolio-risk or return-tail improvement. A preregistered FTSE evaluation
+reproduces the Gaussian-relative latent-state gain, but a subsequent preregistered
+HSI evaluation fails both the Gaussian-base and Student-t-base rules. The evidence
+therefore shows cross-market heterogeneity rather than universal transfer.
+
+## External-market evidence
+
+| Market and evidence class | Gaussian-base result | Student-t-base result |
+|---|---|---|
+| FTSE 100, preregistered analysis | PASS, composite 0.98204 | Rule-level PASS, composite 0.99631; statistically tied |
+| HSI, preregistered analysis | **FAIL**, composite 1.01616 | **FAIL**, composite 1.00995 |
+
+On HSI, Gaussian-relative energy is essentially tied (ratio 0.99886), but state
+RMSE worsens 3.38%, driven by log-volatility-state error. Against Student-t VAR,
+both co-primary losses worsen. These results were preserved without rerunning or
+retuning the consumed sample.
 
 ## Workflow
 
@@ -74,20 +89,21 @@ is -0.00093. All block-bootstrap intervals cross zero; HAC one-sided values are
   volume-based liquidity measure.
 - Gaussian VAR and the artifact named VAR-GARCH have identical state forecasts;
   GARCH changes only reconstructed returns.
-- The S&P and CSI post-2023 samples are consumed and cannot support more tuning.
+- The S&P, CSI, FTSE, and HSI post-2023 samples are consumed and cannot support
+  more tuning.
 - The original score used only 20 simulated paths. Larger post-hoc ensembles are
   reassuring for the Gaussian comparison, but do not retroactively change the
   locked result.
 
 ## Acceptable conclusion
 
-> In a retrospective locked holdout, conservative pooling indicates that residual
-> diffusion adds modest information beyond Gaussian VAR for latent factor-state
-> forecasting. The gain survives dependence-robust sensitivity analysis, but the
-> hybrid is not conclusively better than Student-t VAR and shows no consistent
-> improvement in observable portfolio-risk or return-tail calibration. Prospective
-> or genuinely new-market evidence is required before a stronger confirmatory
-> claim.
+> Conservative pooling adds modest latent-state forecast information beyond
+> Gaussian VAR in the retrospective S&P holdout and a preregistered FTSE analysis,
+> but fails to transfer to a preregistered HSI analysis. The hybrid does not
+> conclusively dominate Student-t VAR and shows no consistent observable-risk or
+> return-tail improvement. The supported result is therefore market-dependent,
+> and a stronger claim requires a new protocol targeting the binding baseline and
+> economic reconstruction layer.
 
 This wording is honest about the design and should be suitable for an academic
 progress discussion. The limitations do not make the experiment useless; they

@@ -26,6 +26,16 @@ freeze and 2024–2026 confirmation are
 `research_output/ftse100_confirmation/confirmation.json`. The FTSE sample is now
 consumed for those two decisions and may only support post-hoc audits.
 
+A preregistered HSI untouched-market evaluation was run one time on 2026-08-14
+after public push of tag `hsi-preregistration-2026-08-12` (commit
+`c6085db873be3d8d730e162c0231648c895b447a`). The frozen protocol and checkpoint
+hashes were then published at commit `e694256` before outcome access. Both
+prespecified decisions failed: the Gaussian-base pool composite was 1.016159
+versus VAR-GARCH and the Student-t-base pool composite was 1.009953 versus
+Student-t VAR. The immutable result is
+`research_output/hsi_confirmation/confirmation.json`; the HSI sample is consumed
+and may only support clearly labeled post-hoc audits.
+
 ## Audited environment
 
 - Audit date: 2026-08-03
@@ -48,8 +58,8 @@ From the project directory:
 shasum -a 256 -c ARTIFACT_MANIFEST.sha256
 ```
 
-The manifest covers the S&P universe and price caches, research configurations,
-frozen checkpoints, original result, and post-hoc audit results.
+The manifest covers the S&P, FTSE, and HSI universes and price caches, research
+configurations, frozen checkpoints, original results, and post-hoc audit results.
 
 ## Install and test
 
@@ -60,7 +70,7 @@ python -m pip install -r requirements-lock.txt
 PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider
 ```
 
-The audited suite contains 96 tests.
+The audited suite contains 97 tests.
 
 ## Reproduce the post-hoc audits
 
@@ -160,3 +170,12 @@ Student-t-base pool statistically tied with Student-t VAR. No observable
 portfolio-risk endpoint was confirmed on FTSE; the FTSE result addresses
 latent-state generalization to an untouched market, not economic value. The
 consumed FTSE 2024–2026 sample may only support post-hoc audits.
+
+The HSI evaluation ran one time on 2026-08-14 under its publicly timestamped
+preregistration and frozen protocol. It does not reproduce the S&P/FTSE pattern.
+The Gaussian-base pool was effectively tied on energy but worsened state RMSE by
+3.38%, giving composite 1.016159. The Student-t-base pool worsened both co-primary
+losses, giving composite 1.009953. The HSI result therefore establishes genuine
+cross-market heterogeneity and narrows any generalization claim: pooling helps in
+S&P and FTSE under the recorded comparisons, but not reliably in HSI. The HSI
+2024–2026 sample is consumed and may only support post-hoc audits.

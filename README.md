@@ -37,7 +37,12 @@ The authoritative write-up is `Research_Paper_Draft.md`. The primary result is a
   shows the same calibration signature (pool edge coverage at the uniform value,
   VAR baselines under-dispersed); at 116 overlapping origins the pool stays
   significant versus Gaussian VAR (HAC p≈0.03) and tied with Student-t VAR. The
-  consumed FTSE sample may only support post-hoc audits.
+  consumed FTSE sample may only support post-hoc audits;
+- a preregistered, publicly timestamped HSI untouched-market evaluation was run
+  once on 2026-08-14 and **failed both prespecified rules**. The Gaussian-base
+  composite is 1.01616 (energy ratio 0.99886, RMSE ratio 1.03376); the
+  Student-t-base composite is 1.00995 (energy ratio 1.00584, RMSE ratio 1.01408).
+  The immutable failure is retained and establishes cross-market heterogeneity.
 
 Primary artifacts:
 
@@ -54,12 +59,15 @@ Primary artifacts:
 - `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
 - `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
 - `research_output/ftse100_confirmation/posthoc_ftse_calibration_power_audit.json`
+- `research_output/hsi_frozen/hsi_external.protocol.json` (preregistered protocol)
+- `research_output/hsi_frozen/frozen_protocol.json` (one-time HSI freeze)
+- `research_output/hsi_confirmation/confirmation.json` (immutable failed HSI result)
 - `REPRODUCIBILITY.md` and `ARTIFACT_MANIFEST.sha256`
 - `PROFESSOR_BRIEF.md`
 
-Do not use the consumed S&P, CSI, or FTSE 2024–2026 observations for further model
-selection. New confirmatory evidence requires a genuinely untouched market or a
-future prospective evaluation period.
+Do not use the consumed S&P, CSI, FTSE, or HSI 2024–2026 observations for further
+model selection. New confirmatory evidence requires a genuinely untouched market
+or a future prospective evaluation period.
 
 ## Implementation overview
 
@@ -590,6 +598,31 @@ Artifacts:
 - `research_output/sp500_confirmation/posthoc_expanded_baselines.json`
 - `research_output/sp500_confirmation/posthoc_observable_risk_audit.json`
 
+### Preregistered external-market evaluations
+
+The locked S&P architecture and training budgets were transplanted without
+market-specific tuning to FTSE 100 and HSI. Both analyses were registered and
+publicly timestamped before their post-2023 panels were downloaded.
+
+| Market | Assets | Origins | Gaussian-base composite | Student-t-base composite | Result |
+|---|---:|---:|---:|---:|---|
+| FTSE 100 | 87 | 29 | **0.98204** | **0.99631** | Primary PASS; secondary rule-level PASS but statistically tied |
+| HSI | 61 | 28 | 1.01616 | 1.00995 | **Primary FAIL; secondary FAIL** |
+
+HSI scoring used a 639-day panel dated 2024-01-02 through 2026-08-12; exact
+forecast targets run from 2024-03-28 through 2026-07-16 after the 60-day context.
+The Gaussian-base pool is effectively tied on energy but worsens state RMSE by
+3.38%, principally through log-volatility-state error. Both HSI pools improve the
+prespecified secondary variogram and daily-volatility metrics, but those results
+cannot override the failed primary rules. The HSI sample is consumed and no model
+or weight was retuned after the score.
+
+Artifacts:
+
+- `research_output/hsi_frozen/hsi_external.protocol.json`
+- `research_output/hsi_frozen/frozen_protocol.json`
+- `research_output/hsi_confirmation/confirmation.json`
+
 ### Phase 3: post-primary-score development
 
 Phase 3 experiments use only the pre-2024 development panel. They do not reopen,
@@ -759,6 +792,8 @@ Artifacts:
 
 ### Model Limitations
 - Latent-state improvements do not yet transfer to return-tail calibration
+- The preregistered HSI failure shows that validation-selected pooling does not
+  transfer uniformly across markets
 - Path-energy checkpoint selection still uses a small 25-window validation set
 - Factor loadings are static within each training window
 - Regime-switching and macro conditioning are not yet implemented

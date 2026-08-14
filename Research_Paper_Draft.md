@@ -31,14 +31,14 @@ not improve return-tail or drawdown calibration. Post-hoc 100-path scoring suppo
 the Gaussian comparison and beats added ridge, diagonal-AR, nonlinear-AR, and
 persistence baselines, but remains inconclusive against Student-t VAR. Observable
 portfolio-risk tests show no consistent advantage and identify worse 5% VaR
-pinball loss than Gaussian VAR. A preregistered, externally notarized evaluation on
-the untouched FTSE 100 market reproduces the pattern on 2024–2026: the
-Gaussian-base pool passes its prespecified primary rule with composite 0.98204
-(HAC p=0.0017 on both co-primary metrics), while the prespecified Student-t-base
-pool is again statistically tied with Student-t VAR. The supported conclusion is
-therefore narrow but cross-market: diffusion contributes useful information to
-latent factor-state forecasting when pooled conservatively with a classical model,
-but the evidence does not support superior portfolio-risk or return generation.
+pinball loss than Gaussian VAR. A preregistered FTSE 100 analysis reproduces the
+latent-state pattern: the Gaussian-base pool passes its primary rule with composite
+0.98204, while the Student-t-base pool remains statistically tied with Student-t
+VAR. A subsequent preregistered HSI analysis fails both rules: the Gaussian-base
+composite is 1.01616 and the Student-t-base composite is 1.00995. The supported
+conclusion is therefore market-dependent. Conservative diffusion pooling can add
+latent-state information, but it does not transfer uniformly and the evidence does
+not support superior portfolio-risk or return generation.
 
 ## 1. Introduction
 
@@ -549,6 +549,42 @@ honest scope of the claim: the improvement is latent-state forecasting against
 Gaussian dynamics, roughly 2% in both markets, with Student-t VAR remaining the
 binding baseline and no confirmed economic endpoint.
 
+### 6.10 Preregistered untouched-market evaluation: Hang Seng Index
+
+A third external-market protocol was registered and publicly timestamped at tag
+`hsi-preregistration-2026-08-12` before post-2023 HSI observations were downloaded.
+The frozen protocol and checkpoint hashes were additionally published at commit
+`e694256` before outcome access. Architecture, training budget, seeds, path counts,
+pool grids, baselines, and decision rules were transplanted unchanged. The December
+2023 HSI snapshot supplies 80 constituents; one no longer resolves on Yahoo and 18
+additional securities fail the training-era coverage rule, leaving 61 assets.
+
+The one-time panel contains 639 sessions dated 2024-01-02 through 2026-08-12 and
+28 non-overlapping origins. Because the first 60 sessions provide context, scored
+targets run from 2024-03-28 through 2026-07-16. Validation selected substantially
+larger diffusion weights than in FTSE: 0.50/0.75/0.75 for the Gaussian-base pools
+and 0.25/0.50/1.00 for the Student-t-base pools.
+
+| Decision | Composite | Energy ratio | RMSE ratio | Paired 95% intervals (energy / RMSE) | Outcome |
+|---|---:|---:|---:|---|---|
+| Primary: Gaussian-base pool vs VAR-GARCH | 1.01616 | 0.99886 | 1.03376 | [-0.0173, 0.0160] / [-0.0039, 0.0453] | **FAIL** |
+| Secondary: Student-t-base pool vs Student-t VAR | 1.00995 | 1.00584 | 1.01408 | [-0.0108, 0.0163] / [-0.0099, 0.0272] | **FAIL** |
+
+The Gaussian-base energy point estimate is essentially tied with Gaussian VAR,
+but 20-day state RMSE worsens by 3.38%. The decomposition by state family identifies
+log-volatility RMSE as the failure: it rises from 0.46839 to 0.53815, while
+mean-factor RMSE improves from 0.73171 to 0.71893. Against Student-t VAR, both
+co-primary point estimates worsen. Dependence-robust inference does not support
+either HSI pool: Gaussian-base HAC one-sided values are 0.473 for energy and 0.946
+for RMSE; Student-t-base values are 0.671 and 0.836.
+
+Performance also degrades with horizon. Both pools improve their own base at five
+days; by 20 days the Gaussian pool worsens RMSE and the Student-t pool worsens both
+co-primary losses. Prespecified secondary tests favor both pools on the variogram
+score and daily-volatility error after BH adjustment, but these endpoints cannot
+override the failed decision rules. No consistent observable portfolio-risk gain
+is supported. The immutable failures are retained, and the HSI sample is consumed.
+
 ## 7. Interpretation
 
 The evidence supports five conclusions.
@@ -578,13 +614,13 @@ diffusion and innovation-diffusion results, and it suggests the right benchmark
 for future work is not point-path accuracy but multivariate coverage and
 calibration.
 
-Fifth, the result generalizes across markets when the protocol is fixed in
-advance. The preregistered, externally notarized FTSE 100 evaluation reproduces
-the S&P pattern almost exactly — a statistically significant ~2% latent-state
-gain over Gaussian VAR and a statistical tie with Student-t VAR — on a market
-that played no role in development. This upgrades the central claim from a
-single-market retrospective finding to a cross-market one, while leaving the
-scope unchanged: latent-state forecasting, not economic value.
+Fifth, transfer is market-dependent even when the protocol is fixed in advance.
+The preregistered FTSE 100 analysis reproduces the S&P pattern almost exactly, but
+the preregistered HSI analysis fails both pool rules, with error concentrated in
+20-day log-volatility states. The external evidence therefore supports
+heterogeneity, not a universal cross-market gain. This strengthens the case for
+studying when validation-selected pooling helps and limits the scope to conditional
+latent-state forecasting rather than economic value.
 
 ## 8. Limitations
 
@@ -592,15 +628,17 @@ scope unchanged: latent-state forecasting, not economic value.
    before computational scoring on 2026-07-30, not before the 2024–2026 period
    occurred, and it was not externally preregistered. This limits the strength of
    confirmatory language for the S&P result even though the code did not load
-   post-2023 observations during development. The FTSE 100 evaluation (Section 6.9)
-   was externally preregistered and notarized before outcomes were downloaded, so
-   this limitation applies to the S&P evidence specifically.
+   post-2023 observations during development. The FTSE 100 and HSI evaluations
+   (Sections 6.9–6.10) were externally preregistered and publicly timestamped before
+   outcomes were downloaded, so this limitation applies to the S&P evidence
+   specifically.
 2. **Historical membership conditioning.** The December 2023 universes were
    archived in 2026 and applied retrospectively to training data.
-3. **Market coverage.** The primary holdout is S&P 500, now corroborated by the
-   preregistered FTSE 100 untouched-market evaluation (Section 6.9). A CSI 300
-   cross-market holdout was directionally favorable but failed its locked
-   promotion rule and was not reused.
+3. **Market coverage and heterogeneity.** The primary holdout is S&P 500 and the
+   preregistered FTSE 100 analysis corroborates its Gaussian-relative result. The
+   preregistered HSI analysis fails both prespecified rules, while a CSI 300
+   cross-market holdout was directionally favorable but failed its promotion rule.
+   All four post-2023 samples are consumed and cannot support further selection.
 4. **Static factor loadings.** Equity loadings do not evolve inside the training
    window.
 5. **Limited holdout origins.** Twenty-nine non-overlapping origins provide
@@ -647,6 +685,9 @@ The principal artifacts are:
 - `research_output/ftse100_frozen/frozen_protocol.json` (one-time FTSE freeze)
 - `research_output/ftse100_confirmation/confirmation.json` (one-time FTSE 2024–2026 result)
 - `research_output/ftse100_confirmation/posthoc_ftse_calibration_power_audit.json`
+- `research_output/hsi_frozen/hsi_external.protocol.json` (preregistered protocol)
+- `research_output/hsi_frozen/frozen_protocol.json` (one-time HSI freeze)
+- `research_output/hsi_confirmation/confirmation.json` (immutable failed HSI result)
 
 The locked protocol contains universe, panel, and checkpoint hashes. The original
 holdout runner and post-hoc audit runners refuse to overwrite existing results.
@@ -660,7 +701,7 @@ Tests:
 .venv/bin/pytest -q
 ```
 
-The current suite contains 96 tests.
+The current suite contains 97 tests.
 
 ## 10. Conclusion
 
@@ -677,17 +718,13 @@ result: diffusion can improve classical factor-state forecasts when its influenc
 is constrained by validation, while unrestricted diffusion is not reliably
 superior.
 
-**Cross-market confirmation.** To address the single-market and retrospective-lock
-limitations, an FTSE 100 untouched-market evaluation was preregistered on
-2026-08-11 (tag `ftse100-preregistration-2026-08-11`), externally notarized, and
-run one time on 2026-08-12 (Section 6.9). The Gaussian-base pool passed its
-prespecified primary rule with composite 0.98204 (HAC p=0.0017 on both co-primary
-metrics), and the prespecified Student-t-base pool passed its rule while remaining
-statistically tied with Student-t VAR. The central finding therefore replicates on
-a market that played no role in development, under a protocol fixed before outcomes
-were observed. The limitations that remain are the ones the evidence has always
-shown: the gain is latent-state only, roughly 2%, and Student-t VAR is the binding
-baseline.
+**Cross-market evidence.** The preregistered FTSE 100 analysis passes the
+Gaussian-base rule with composite 0.98204 and leaves the Student-t comparison tied.
+The subsequently preregistered HSI analysis fails both rules, with composites
+1.01616 and 1.00995. The central finding therefore replicates in FTSE but not HSI.
+The honest conclusion is not universal diffusion benefit: validation-selected
+pooling is market- and horizon-dependent, Student-t VAR remains a binding baseline,
+and economic reconstruction remains unresolved.
 
 ## Appendix A. Post-primary-score exploratory extensions
 
