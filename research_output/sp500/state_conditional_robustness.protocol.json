@@ -1,0 +1,73 @@
+{
+  "registered_at": "2026-08-15T16:00:41+08:00",
+  "status": "frozen_before_robustness_scoring",
+  "evidence_class": "post-selection pre-2024 robustness audit",
+  "development_commit": "37806e8ccb5a62bb0a430f30ad27df60c1ffa6bc",
+  "public_freeze_rule": "The commit containing this protocol and the exact audit-code hash must be publicly pushed before the audit is executed.",
+  "data": {
+    "market": "S&P 500 development panel",
+    "train_end": "2020-12-31",
+    "validation_end": "2021-12-31",
+    "audit_period": "2022-03-30 through 2023-12-28",
+    "n_non_overlapping_origins": 22,
+    "post_2023_data_allowed": false,
+    "consumed_external_samples_allowed": false
+  },
+  "candidate": {
+    "name": "State-Conditional-k32",
+    "neighbors": 32,
+    "retuning_allowed": false,
+    "selection_artifact": "research_output/sp500/state_conditional_innovations.json",
+    "selection_artifact_sha256": "cd592ceed5336f93d91ce5859be295b46db55d52ea00b52ebd191c33eb67397a"
+  },
+  "comparators": [
+    "Independent-GARCH",
+    "Unconditional-Full-Vector"
+  ],
+  "monte_carlo": {
+    "path_counts": [20, 50, 100],
+    "twenty_path_repeats": 5,
+    "seeds": [42, 314, 2718]
+  },
+  "endpoints": {
+    "return_composite_metrics": [
+      "return_energy_score",
+      "return_variogram_score",
+      "daily_volatility_mae",
+      "tail_quantile_error",
+      "max_drawdown_error"
+    ],
+    "direct_covariance": [
+      "direct_covariance_frobenius_scaled_error",
+      "direct_correlation_rmse",
+      "random_portfolio_variance_scaled_mae"
+    ],
+    "var": [
+      "portfolio_var_05_pinball",
+      "portfolio_var_05_coverage_error"
+    ],
+    "regimes": "high and low by the training-period median reconstructed log-variance signal"
+  },
+  "survival_gate": {
+    "all_requirements_must_pass": true,
+    "requirements": [
+      "return composite ratio below 1.0 at both 50 and 100 paths",
+      "return energy ratio below 1.0 at both 50 and 100 paths",
+      "paired-origin one-sided energy p-value below 0.10 at 100 paths",
+      "at least four of five 20-path repeat composites below 1.0",
+      "median 20-path repeat composite below 1.0",
+      "candidate return composite below the unconditional full-vector comparator at 100 paths",
+      "direct covariance Frobenius error ratio no greater than 1.05 at 100 paths",
+      "random-portfolio variance error ratio no greater than 1.05 at 100 paths",
+      "5% VaR pinball ratio no greater than 1.05 at 100 paths",
+      "neither high- nor low-volatility regime return composite ratio exceeds 1.02 at 100 paths"
+    ]
+  },
+  "frozen_hashes": {
+    "audit_script_sha256": "6e902796bb19eee0ecc593c4f5b255c6828e1f633e0f2affc64ce483ec5acb60",
+    "innovation_model_sha256": "23f0991042eff62e20e9bff671fb4402084e0c123815c121b137d9661d5d31db",
+    "sp500_config_sha256": "8b4699d23afe3d12780186d7b1a94c9aa7af47cc6b483fe75eda2c97746d29d8",
+    "phase2f_report_sha256": "90dc842de738d37ca62557272ccf0039fe162f6b758482ad6bd2689b66f6e376"
+  },
+  "decision_rule": "If and only if every survival requirement passes, retain k=32 for a newly preregistered untouched-market evaluation. Failure leaves it exploratory and forbids external promotion under this route."
+}

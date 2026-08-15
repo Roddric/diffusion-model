@@ -63,3 +63,14 @@ def test_sampler_rejects_invalid_neighbor_count():
 
     with pytest.raises(ValueError, match="neighbors"):
         model.sample(np.zeros((2, 3, 3)), neighbors=1)
+
+
+def test_unconditional_sampler_is_reproducible():
+    states, innovations = _training_panel()
+    model = StateConditionalInnovationModel().fit(states, innovations, 1)
+
+    first = model.sample_unconditional(8, 6, seed=21)
+    second = model.sample_unconditional(8, 6, seed=21)
+
+    assert first.shape == (8, 6, 3)
+    np.testing.assert_array_equal(first, second)

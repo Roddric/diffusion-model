@@ -74,3 +74,14 @@ class StateConditionalInnovationModel:
         return sampled.reshape(
             state_paths.shape[0], state_paths.shape[1], len(self.stocks)
         )
+
+    def sample_unconditional(self, n_paths, horizon, seed=0):
+        """Resample globally centered full innovation rows without conditioning."""
+        self._check_fitted()
+        if n_paths < 1 or horizon < 1:
+            raise ValueError("n_paths and horizon must be positive.")
+        rng = np.random.default_rng(seed)
+        indices = rng.integers(
+            0, len(self.innovations_), size=(n_paths, horizon)
+        )
+        return self.innovations_[indices]
