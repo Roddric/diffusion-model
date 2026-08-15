@@ -1,0 +1,133 @@
+{
+  "status": "completed_posthoc_synthesis",
+  "analyzed_at": "2026-08-15T11:43:31.409727+00:00",
+  "protocol": {
+    "analysis_role": "post-hoc descriptive synthesis; not preregistered",
+    "estimand": "equal-market mean log composite loss ratio",
+    "market_unit": "one locked Gaussian-base pool versus its own Gaussian VAR/VAR-GARCH baseline per market",
+    "primary_interval": "two-sided 95% Student-t interval across market log ratios",
+    "individual_market_interval": "paired nonparametric bootstrap of locked origin indices",
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 20260815,
+    "exclusions": "CSI 300 is excluded because it evaluates a different Phase 3B state-pool candidate and therefore does not share this estimand."
+  },
+  "markets": [
+    {
+      "market": "S&P 500",
+      "evidence_class": "retrospective locked holdout",
+      "pool": "Phase2F-Validation-Pooled-Diffusion",
+      "baseline": "VAR-GARCH",
+      "n_origins": 29,
+      "locked_gate_success": true,
+      "composite_ratio": 0.9801025329988469,
+      "log_composite_ratio": -0.020098087281358874,
+      "paired_origin_bootstrap_standard_error_log": 0.0075014438504394055,
+      "paired_origin_bootstrap_ci_95_composite_ratio": [
+        0.9658109538664833,
+        0.9944907961763028
+      ],
+      "horizon_composite_ratios": {
+        "5": 0.9815750748280695,
+        "10": 0.981563153436042,
+        "20": 0.9801025329988469
+      },
+      "source_result": "research_output/sp500_confirmation/confirmation.json",
+      "source_origin_scores": "research_output/sp500_confirmation/posthoc_dependence_robustness.json"
+    },
+    {
+      "market": "FTSE 100",
+      "evidence_class": "preregistered external confirmation",
+      "pool": "FTSE100-Gaussian-Base-Pool",
+      "baseline": "VAR-GARCH",
+      "n_origins": 29,
+      "locked_gate_success": true,
+      "composite_ratio": 0.9820382895635469,
+      "log_composite_ratio": -0.018124979978909175,
+      "paired_origin_bootstrap_standard_error_log": 0.007210565889804769,
+      "paired_origin_bootstrap_ci_95_composite_ratio": [
+        0.9671396565763257,
+        0.9949230372588362
+      ],
+      "horizon_composite_ratios": {
+        "5": 0.9968688440272699,
+        "10": 0.9887404530489714,
+        "20": 0.9820382895635471
+      },
+      "source_result": "research_output/ftse100_confirmation/confirmation.json",
+      "source_origin_scores": "research_output/ftse100_confirmation/confirmation.json"
+    },
+    {
+      "market": "Hang Seng",
+      "evidence_class": "preregistered external confirmation",
+      "pool": "HSI-Gaussian-Base-Pool",
+      "baseline": "VAR-GARCH",
+      "n_origins": 28,
+      "locked_gate_success": false,
+      "composite_ratio": 1.0161593032631684,
+      "log_composite_ratio": 0.016030131415671982,
+      "paired_origin_bootstrap_standard_error_log": 0.018283988593134057,
+      "paired_origin_bootstrap_ci_95_composite_ratio": [
+        0.9808111505627864,
+        1.053441605347046
+      ],
+      "horizon_composite_ratios": {
+        "5": 0.9754019199644082,
+        "10": 0.9944079983815343,
+        "20": 1.0161593032631684
+      },
+      "source_result": "research_output/hsi_confirmation/confirmation.json",
+      "source_origin_scores": "research_output/hsi_confirmation/confirmation.json"
+    }
+  ],
+  "primary_mixed_evidence_summary": {
+    "k_markets": 3,
+    "mean_log_composite": -0.007397645281532022,
+    "standard_error_across_markets": 0.011727728237490362,
+    "t_critical_95": 4.302652729749462,
+    "ci_95_log": [
+      -0.05785798719632977,
+      0.04306269663326573
+    ],
+    "composite_ratio": 0.9926296499480427,
+    "ci_95_composite_ratio": [
+      0.9437839673275623,
+      1.044003348293792
+    ]
+  },
+  "preregistered_external_only_sensitivity": {
+    "k_markets": 2,
+    "mean_log_composite": -0.0010474242816185964,
+    "standard_error_across_markets": 0.01707755569729058,
+    "t_critical_95": 12.706204736174694,
+    "ci_95_log": [
+      -0.2180383433648193,
+      0.2159434948015821
+    ],
+    "composite_ratio": 0.9989531240757233,
+    "ci_95_composite_ratio": [
+      0.8040946093824999,
+      1.241032252245771
+    ]
+  },
+  "random_effects_sensitivity": {
+    "method": "DerSimonian-Laird tau-squared; unmodified HKSJ t interval",
+    "k_markets": 3,
+    "fixed_effect_mean_log": -0.016447211397400633,
+    "cochran_q": 3.4461511626453056,
+    "i_squared": 0.419642405220328,
+    "tau_squared": 6.391294255815996e-05,
+    "random_effect_mean_log": -0.014561020241064723,
+    "hksj_standard_error": 0.00835182048175005,
+    "ci_95_log": [
+      -0.05049600343524405,
+      0.021373962953114597
+    ],
+    "composite_ratio": 0.98554447873585,
+    "ci_95_composite_ratio": [
+      0.9507577284295629,
+      1.021604022268726
+    ],
+    "interpretation": "Sensitivity analysis only; heterogeneity estimates and HKSJ intervals are unstable with three markets."
+  },
+  "claim_boundary": "The three-market point estimate is descriptive and imprecise. It cannot establish a universal pooling benefit; the external-only interval is based on two markets and includes no effect."
+}

@@ -13,7 +13,12 @@ against Student-t VAR under block-bootstrap inference. It does not establish a
 portfolio-risk or return-tail improvement. A preregistered FTSE evaluation
 reproduces the Gaussian-relative latent-state gain, but a subsequent preregistered
 HSI evaluation fails both the Gaussian-base and Student-t-base rules. The evidence
-therefore shows cross-market heterogeneity rather than universal transfer.
+therefore shows cross-market heterogeneity rather than universal transfer. A
+post-hoc equal-market synthesis estimates composite 0.99263 across the three
+comparable Gaussian-base results, but the market-level 95% interval is
+[0.94378, 1.04400]. The external-only estimate is 0.99895
+[0.80409, 1.24103]. This is publication-useful quantification of uncertainty, not
+a pooled confirmation.
 
 ## External-market evidence
 
@@ -26,6 +31,11 @@ On HSI, Gaussian-relative energy is essentially tied (ratio 0.99886), but state
 RMSE worsens 3.38%, driven by log-volatility-state error. Against Student-t VAR,
 both co-primary losses worsen. These results were preserved without rerunning or
 retuning the consumed sample.
+
+The forest plot treats each market as one replication. Individual intervals use
+paired-origin bootstrap uncertainty, while pooled intervals use Student-t
+uncertainty across only three markets. The result rules out any honest claim that
+the 86 origins constitute 86 independent cross-market replications.
 
 ## Workflow
 

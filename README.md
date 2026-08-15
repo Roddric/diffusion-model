@@ -42,7 +42,12 @@ The authoritative write-up is `Research_Paper_Draft.md`. The primary result is a
   once on 2026-08-14 and **failed both prespecified rules**. The Gaussian-base
   composite is 1.01616 (energy ratio 0.99886, RMSE ratio 1.03376); the
   Student-t-base composite is 1.00995 (energy ratio 1.00584, RMSE ratio 1.01408).
-  The immutable failure is retained and establishes cross-market heterogeneity.
+  The immutable failure is retained and establishes cross-market heterogeneity;
+- a post-hoc equal-market synthesis of the common Gaussian-base comparison gives
+  composite 0.99263 across S&P, FTSE, and HSI, with a market-level 95% interval
+  [0.94378, 1.04400]. The two preregistered external markets alone give 0.99895
+  [0.80409, 1.24103]. The market, not the origin, is the replication unit, so the
+  synthesis supports heterogeneity and uncertainty rather than a universal gain.
 
 Primary artifacts:
 
@@ -62,6 +67,9 @@ Primary artifacts:
 - `research_output/hsi_frozen/hsi_external.protocol.json` (preregistered protocol)
 - `research_output/hsi_frozen/frozen_protocol.json` (one-time HSI freeze)
 - `research_output/hsi_confirmation/confirmation.json` (immutable failed HSI result)
+- `research_output/cross_market_meta_analysis/cross_market_meta_analysis.json`
+- `research_output/cross_market_meta_analysis/cross_market_forest.png`
+- `research_output/cross_market_meta_analysis/horizon_robustness.png`
 - `REPRODUCIBILITY.md` and `ARTIFACT_MANIFEST.sha256`
 - `PROFESSOR_BRIEF.md`
 

@@ -70,7 +70,7 @@ python -m pip install -r requirements-lock.txt
 PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider
 ```
 
-The audited suite contains 97 tests.
+The audited suite contains 116 tests.
 
 ## Reproduce the post-hoc audits
 
@@ -179,6 +179,24 @@ losses, giving composite 1.009953. The HSI result therefore establishes genuine
 cross-market heterogeneity and narrows any generalization claim: pooling helps in
 S&P and FTSE under the recorded comparisons, but not reliably in HSI. The HSI
 2024–2026 sample is consumed and may only support post-hoc audits.
+
+The post-hoc cross-market synthesis uses only already locked score artifacts and
+can be reproduced with:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig .venv/bin/python \
+  diffusion_factor_model/research/cross_market_meta_analysis.py \
+  --allow-overwrite
+```
+
+It must exactly reproduce the S&P, FTSE, and HSI Gaussian-base composites before
+continuing. It then resamples paired origins within each market, estimates an
+equal-market mean log-composite with a Student-t interval across markets, reports
+an external-only and DL/HKSJ sensitivity, and regenerates the forest and horizon
+figures. Expected headline values are 0.992630 [0.943784, 1.044003] for all three
+markets and 0.998953 [0.804095, 1.241032] for the two preregistered external
+markets. CSI is excluded because its candidate does not share this estimand. This
+analysis is explicitly post-hoc and does not load prices or rescore a holdout.
 
 The reconstruction oracle-ceiling attribution is a pre-2024 diagnostic and can
 be reproduced with:

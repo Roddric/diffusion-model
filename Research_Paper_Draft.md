@@ -38,7 +38,11 @@ VAR. A subsequent preregistered HSI analysis fails both rules: the Gaussian-base
 composite is 1.01616 and the Student-t-base composite is 1.00995. The supported
 conclusion is therefore market-dependent. Conservative diffusion pooling can add
 latent-state information, but it does not transfer uniformly and the evidence does
-not support superior portfolio-risk or return generation.
+not support superior portfolio-risk or return generation. A post-hoc synthesis of
+the common Gaussian-base estimand gives an equal-market composite ratio of 0.99263
+across S&P 500, FTSE 100, and HSI, with a market-level 95% interval of
+[0.94378, 1.04400]. The external-only estimate is 0.99895 [0.80409, 1.24103].
+These wide intervals quantify rather than resolve the transfer uncertainty.
 
 ## 1. Introduction
 
@@ -59,7 +63,7 @@ the remaining multi-step residual distribution. Finally, a finite forecast pool
 uses validation data to determine how much probability mass should come from the
 diffusion component.
 
-The study makes four contributions:
+The study makes five contributions:
 
 1. It combines mean-factor and common log-volatility states in one conditional
    path distribution.
@@ -70,10 +74,39 @@ The study makes four contributions:
 4. It evaluates the locked model once on a retrospective 2024–2026 holdout against
    Gaussian, Student-t, empirical-innovation, GARCH, and historical-block
    baselines.
+5. It reports two preregistered external-market evaluations and a market-level
+   synthesis that preserves the successful FTSE and failed HSI replications as
+   evidence of transfer heterogeneity.
 
-The result is positive but deliberately constrained. The pooled model improves
-holdout factor-state forecasts relative to Gaussian VAR, and is
-competitive with Student-t VAR. Downstream return calibration is not improved.
+The evidence is deliberately constrained. The pooled model improves S&P and FTSE
+holdout factor-state forecasts relative to Gaussian VAR, but fails to transfer to
+HSI and is competitive rather than dominant against Student-t VAR. Downstream
+return calibration is not improved.
+
+### 1.1 Relation to forecast combination and diffusion forecasting
+
+Forecast combination predates modern generative models. Bates and Granger (1969)
+show that error-informed combinations can outperform their component point
+forecasts, while Timmermann (2006) emphasizes why simple combinations can remain
+competitive when estimated optimal weights are unstable. For probabilistic
+forecasts, Hall and Mitchell (2007) study data-driven linear combinations of
+density forecasts, and Geweke and Amisano (2011) show that an optimal prediction
+pool can assign positive weight to individually inferior models. The present
+method belongs to this pooling tradition: it selects from a small, fixed weight
+grid on validation data and retains the classical forecast as the dominant
+component.
+
+The diffusion contribution is architectural rather than a claim to replace this
+literature. TimeGrad models a multivariate forecast distribution autoregressively
+with denoising diffusion, whereas TimeDiff develops a non-autoregressive
+conditional alternative. Here diffusion generates a complete multi-step residual
+state path around a stable VAR forecast. This restriction is consequential:
+unrestricted diffusion and recursively generated innovation variants fail in the
+development experiments, while the conservative pool succeeds in two of three
+evaluated markets. The novel empirical question is therefore when a diffusion
+residual distribution improves a strong classical prediction pool—and whether
+that latent-state gain survives return reconstruction—not whether diffusion is a
+universally superior forecaster.
 
 ## 2. Data and point-in-time protocol
 
@@ -259,8 +292,9 @@ origin for paired inference.
 ## 5. Evaluation
 
 The co-primary metrics are state energy score and state RMSE. Energy score is a
-proper multivariate scoring rule that rewards calibration and sharpness; the
-general probabilistic-forecasting framework follows
+proper multivariate scoring rule; its general scoring-rule construction follows
+[Gneiting and Raftery (2007)](https://doi.org/10.1198/016214506000001437),
+while calibration and sharpness are interpreted following
 [Gneiting, Balabdaoui, and Raftery (2007)](https://doi.org/10.1111/j.1467-9868.2007.00587.x).
 
 For forecast paths \(X_1,\ldots,X_M\) and observation \(y\), the empirical energy
@@ -585,13 +619,56 @@ score and daily-volatility error after BH adjustment, but these endpoints cannot
 override the failed decision rules. No consistent observable portfolio-risk gain
 is supported. The immutable failures are retained, and the HSI sample is consumed.
 
+### 6.11 Post-hoc cross-market synthesis
+
+The S&P, FTSE, and HSI Gaussian-base comparisons share a common estimand: the
+geometric mean of state-energy and state-RMSE loss ratios for the pool versus its
+own Gaussian VAR/VAR-GARCH state baseline. CSI 300 is excluded because it scores a
+different Phase 3B candidate. Because all three results were known before this
+analysis was specified, this section is descriptive and not preregistered.
+
+The market—not the forecast origin—is the replication unit. For each market,
+paired-origin resampling supplies a descriptive interval around its locked point
+estimate. The primary synthesis gives each market equal weight on the log-composite
+scale and uses a Student-t interval across the three market effects:
+
+| Market/evidence class | Origins | Composite ratio | Paired-origin 95% CI | Locked gate |
+|---|---:|---:|---:|---:|
+| S&P 500 / retrospective locked | 29 | 0.98010 | [0.96581, 0.99449] | PASS |
+| FTSE 100 / preregistered external | 29 | 0.98204 | [0.96714, 0.99492] | PASS |
+| HSI / preregistered external | 28 | 1.01616 | [0.98081, 1.05344] | FAIL |
+| **All markets, equal weight** | **3 markets** | **0.99263** | **[0.94378, 1.04400]** | descriptive |
+| **Preregistered external only** | **2 markets** | **0.99895** | **[0.80409, 1.24103]** | sensitivity |
+
+The all-market point estimate corresponds to a 0.74% lower composite loss, but its
+interval includes both material benefit and harm. A DerSimonian–Laird/Hartung–
+Knapp sensitivity gives 0.98554 [0.95076, 1.02160], estimated
+\(I^2=42.0\%\); with only three markets, the heterogeneity estimate is unstable and
+does not change the conclusion. The external-only interval is especially wide
+because two markets provide one degree of freedom. These results reject a strong
+universal-effect reading and motivate market characteristics and forecast horizon
+as moderators for future prospective work.
+
+![Cross-market forest plot](research_output/cross_market_meta_analysis/cross_market_forest.png)
+
+*Figure 2. Locked Gaussian-base composite ratios. Market intervals use paired-
+origin bootstraps; pooled intervals use Student-t uncertainty across markets.
+Ratios below one favor the pool.*
+
+![Cross-market horizon robustness](research_output/cross_market_meta_analysis/horizon_robustness.png)
+
+*Figure 3. Composite ratios for cumulative 5-, 10-, and 20-day prefixes. The HSI
+advantage at five days reverses by twenty days, whereas S&P and FTSE remain below
+one. The plot is descriptive and contains no simultaneous uncertainty bands.*
+
 ## 7. Interpretation
 
-The evidence supports five conclusions.
+The evidence supports six conclusions.
 
-First, diffusion contains incremental information beyond Gaussian VAR dynamics.
-Validation selects positive diffusion weight for every seed, and the locked pool
-improves both co-primary metrics in the holdout.
+First, diffusion contains incremental information beyond Gaussian VAR dynamics in
+the S&P and FTSE comparisons. Validation selects positive diffusion weight for
+every seed, and both pools improve their co-primary point estimates. HSI prevents
+generalizing this statement to markets as a population.
 
 Second, conservative pooling is essential. Pure diffusion and innovation
 diffusion both fail. Most predictive mass in the successful model still comes
@@ -621,6 +698,12 @@ the preregistered HSI analysis fails both pool rules, with error concentrated in
 heterogeneity, not a universal cross-market gain. This strengthens the case for
 studying when validation-selected pooling helps and limits the scope to conditional
 latent-state forecasting rather than economic value.
+
+Sixth, the post-hoc market-level synthesis estimates only a small average effect
+and is statistically imprecise. Its main value is not a pooled significance claim;
+it quantifies how little can be learned about population transfer from three
+markets and shows that treating 86 forecast origins as independent replications
+would overstate the evidence.
 
 ## 8. Limitations
 
@@ -662,6 +745,11 @@ latent-state forecasting rather than economic value.
 11. **Post-hoc additions.** Expanded baselines and observable-risk metrics were
     introduced after the primary score was known. They improve diagnosis and
     transparency but cannot be treated as prospectively specified confirmation.
+12. **Cross-market synthesis.** The pooled analysis was specified after all three
+    market results were observed, mixes one retrospective and two preregistered
+    evidence classes, and has only three market-level replications. Its interval
+    is descriptive; the two-market external-only sensitivity is extremely
+    imprecise.
 
 These results are for methodological research. They do not establish a profitable
 trading strategy or support personal investment decisions.
@@ -688,6 +776,9 @@ The principal artifacts are:
 - `research_output/hsi_frozen/hsi_external.protocol.json` (preregistered protocol)
 - `research_output/hsi_frozen/frozen_protocol.json` (one-time HSI freeze)
 - `research_output/hsi_confirmation/confirmation.json` (immutable failed HSI result)
+- `research_output/cross_market_meta_analysis/cross_market_meta_analysis.json`
+- `research_output/cross_market_meta_analysis/cross_market_forest.png`
+- `research_output/cross_market_meta_analysis/horizon_robustness.png`
 
 The locked protocol contains universe, panel, and checkpoint hashes. The original
 holdout runner and post-hoc audit runners refuse to overwrite existing results.
@@ -701,7 +792,7 @@ Tests:
 .venv/bin/pytest -q
 ```
 
-The current suite contains 97 tests.
+The current suite contains 116 tests.
 
 ## 10. Conclusion
 
@@ -904,12 +995,24 @@ sample-size-dependent transfer tradeoff.
 
 ## References
 
+- Bates, J. M., and Granger, C. W. J. (1969).
+  [The Combination of Forecasts](https://doi.org/10.1057/jors.1969.103).
+  *Operational Research Quarterly*, 20(4), 451–468.
+- Geweke, J., and Amisano, G. (2011).
+  [Optimal Prediction Pools](https://doi.org/10.1016/j.jeconom.2011.02.017).
+  *Journal of Econometrics*, 164(1), 130–141.
+- Gneiting, T., and Raftery, A. E. (2007).
+  [Strictly Proper Scoring Rules, Prediction, and Estimation](https://doi.org/10.1198/016214506000001437).
+  *Journal of the American Statistical Association*, 102(477), 359–378.
 - Gneiting, T., Balabdaoui, F., and Raftery, A. E. (2007).
   [Probabilistic forecasts, calibration and sharpness](https://doi.org/10.1111/j.1467-9868.2007.00587.x).
   *Journal of the Royal Statistical Society: Series B*, 69(2), 243–268.
 - Ho, J., Jain, A., and Abbeel, P. (2020).
   [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239).
   *NeurIPS 2020*.
+- Hall, S. G., and Mitchell, J. (2007).
+  [Combining Density Forecasts](https://doi.org/10.1016/j.ijforecast.2006.08.001).
+  *International Journal of Forecasting*, 23(1), 1–13.
 - Glosten, L. R., Jagannathan, R., and Runkle, D. E. (1993).
   On the relation between the expected value and the volatility of the nominal
   excess return on stocks. *Journal of Finance*, 48(5), 1779–1801.
@@ -929,3 +1032,6 @@ sample-size-dependent transfer tradeoff.
   Poole, B. (2021).
   [Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456).
   *ICLR 2021*.
+- Timmermann, A. (2006).
+  [Forecast Combinations](https://doi.org/10.1016/S1574-0706(05)01004-9).
+  In *Handbook of Economic Forecasting*, Vol. 1, 135–196.
