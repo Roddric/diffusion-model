@@ -1,0 +1,51 @@
+{
+  "registered_at": "2026-08-15T16:32:31+08:00",
+  "status": "frozen_before_factorwise_routing_score",
+  "evidence_class": "post-diagnostic pre-2024 development",
+  "data": {
+    "market": "S&P 500",
+    "train_end": "2020-12-31",
+    "validation_end": "2021-12-31",
+    "descriptive_evaluation_period": "2022-03-30 through 2023-12-28",
+    "post_2023_data_allowed": false,
+    "consumed_external_samples_allowed": false
+  },
+  "diagnostic": "research_output/sp500/mean_state_diagnostic.json",
+  "diagnostic_sha256": "177db25148b5befa69ad56e2417f4bbf8997e11267c8e4d09e3a0533f1a6883c",
+  "selection_rule": {
+    "source_options": ["Phase2F", "Student-t-VAR"],
+    "minimum_joint_improvement": 0.02,
+    "rule": "Route a mean factor to Student-t VAR only when Student-t improves both 2021 validation RMSE and CRPS by at least 2%; otherwise retain Phase2F.",
+    "expected_student_t_factors": ["illiquidity", "market"],
+    "volatility_source": "Phase2F"
+  },
+  "evaluation": {
+    "paths_per_seed": 20,
+    "seeds": [42, 314, 2718],
+    "comparand": "Phase2F with the same GARCH innovations",
+    "primary_state_metrics": ["state_energy_score", "state_rmse"],
+    "mean_endpoint": "mean_factor_rmse",
+    "return_safety_composite_metrics": [
+      "return_energy_score",
+      "return_variogram_score",
+      "daily_volatility_mae",
+      "tail_quantile_error",
+      "max_drawdown_error"
+    ]
+  },
+  "descriptive_gate": {
+    "all_requirements_must_pass": true,
+    "requirements": [
+      "mean-factor RMSE ratio below 1.0",
+      "state energy/RMSE geometric composite below 1.0",
+      "neither co-primary state loss ratio above 1.005",
+      "paired-origin one-sided state-energy p-value below 0.10",
+      "return composite ratio no greater than 1.02"
+    ]
+  },
+  "frozen_hashes": {
+    "factorwise_routing_script_sha256": "330b14991b04b4d68ed05742a98a796829e7c45a681c0dbe0b1c9d61ec11790e",
+    "mean_diagnostic_script_sha256": "7801a5ccc752ca73a9cd001c2f4c574226d21a4ccb564bd376b7eb58484b3c84"
+  },
+  "interpretation": "Because the 2022-2023 panel informed the preceding diagnostic, this score is descriptive rather than untouched. Even a pass requires pre-2024 cross-market replication before any external freeze."
+}
