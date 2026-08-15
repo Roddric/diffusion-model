@@ -700,6 +700,36 @@ The imbalanced 1/21 regime split limits interpretation but does not change the
 prespecified decision. `k=32` remains exploratory, cannot advance to an external
 evaluation under this route, and was not retuned after failure.
 
+### Mean-state diagnostic and factorwise routing
+
+The next pre-2024 diagnostic decomposes Phase 2F error across the five mean
+factors and three horizon bands. Market returns contribute 30.7% of mean-state
+MSE but have small bias, approximately unit RMSE, and only 81.7% coverage for the
+nominal 90% interval. Phase 2F is substantially better than Student-t VAR for
+momentum and reversal, while Student-t is slightly better for market and
+illiquidity. This points to factor-specific calibration rather than a new global
+nonlinear transition.
+
+The frozen routing rule sends a factor to Student-t VAR only when Student-t
+improves both 2021 validation RMSE and CRPS by at least 2%. It therefore routes
+market and illiquidity to Student-t while retaining Phase 2F for momentum,
+reversal, dispersion, and every volatility state. On the post-diagnostic
+2022–2023 panel:
+
+| Descriptive result ↓ | Ratio to Phase 2F |
+|---|---:|
+| Mean-factor RMSE | **0.99456** |
+| State energy | **0.99660** |
+| State RMSE | **0.99587** |
+| Five-metric return composite | 1.01034 |
+| Tail-quantile error | 1.04274 |
+
+The mean-RMSE difference has paired one-sided p=0.0536, but state energy narrowly
+misses the frozen support threshold (p=0.1058 versus required p<0.10). The
+descriptive gate fails. Factor routing is retained as a useful diagnosis—latent
+mean calibration improves modestly—but it does not proceed to cross-market or
+external evaluation, and return-tail reconstruction remains unresolved.
+
 Phase 3B therefore replaced the Gaussian VAR portion of the finite pool with
 either Student-t VAR or empirical-innovation VAR, with the classical component
 and diffusion weights selected on 2021. Validation selected Student-t VAR and
@@ -758,6 +788,12 @@ MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
 
 MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
   diffusion_factor_model/research/state_conditional_robustness_audit.py
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/mean_state_diagnostic.py
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/factorwise_mean_routing.py
 ```
 
 Artifacts:
@@ -768,6 +804,9 @@ Artifacts:
 - `research_output/sp500/state_conditional_innovations.json`
 - `research_output/sp500/state_conditional_robustness.protocol.json`
 - `research_output/sp500/state_conditional_robustness.json`
+- `research_output/sp500/mean_state_diagnostic.json`
+- `research_output/sp500/factorwise_mean_routing.protocol.json`
+- `research_output/sp500/factorwise_mean_routing.json`
 - `research_output/csi300_external/frozen_protocol.json`
 - `research_output/csi300_external/replication.json`
 

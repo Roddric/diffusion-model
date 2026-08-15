@@ -789,6 +789,24 @@ the regime diagnosis unstable, but the rule was frozen before scoring and is not
 redefined post hoc. The candidate therefore remains exploratory and is not taken
 to a new external market under this route.
 
+The next diagnostic decomposes mean-state errors by factor and horizon. The market
+factor accounts for 30.7% of Phase 2F mean-state MSE, but its bias is small and
+its RMSE remains near one standardized unit across horizons. Phase 2F strongly
+improves the smoother momentum and reversal summaries relative to Student-t VAR,
+whereas Student-t is modestly better for market and illiquidity. This pattern
+suggests factor-specific distributional calibration rather than a universally
+more nonlinear transition.
+
+A frozen routing rule therefore replaces Phase 2F with Student-t paths only when
+Student-t improves both 2021 validation RMSE and CRPS by at least 2%. Market and
+illiquidity satisfy that rule; momentum, reversal, dispersion, and all volatility
+states remain Phase2F. On the post-diagnostic 2022--2023 panel, mean-factor RMSE,
+state energy, and state RMSE ratios are 0.9946, 0.9966, and 0.9959. The paired
+mean-RMSE result has one-sided `p=0.0536`, but state energy narrowly misses the
+frozen support threshold (`p=0.1058`). Return reconstruction worsens: the
+five-metric composite is 1.0103 and tail-error ratio is 1.0427. The descriptive
+gate fails, so routing is not replicated cross-market or externally promoted.
+
 Second, the Gaussian VAR component of the diffusion pool was allowed to be
 replaced by Student-t VAR or empirical-innovation VAR. Validation selected
 Student-t VAR with diffusion weight 0.25 for all seeds. On the untouched

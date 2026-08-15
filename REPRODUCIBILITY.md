@@ -224,3 +224,21 @@ improving 20-path composites, 50-path composite 0.971888 with energy ratio
 status is `robustness_failed`: the 50-path energy and low-volatility regime
 requirements fail, so external promotion is prohibited. No post-2023 external
 sample is loaded.
+
+The pre-2024 mean-state diagnostic and frozen factorwise routing experiment are
+reproduced with:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/mean_state_diagnostic.py --overwrite
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/factorwise_mean_routing.py --overwrite
+```
+
+The diagnostic must identify market as the largest Phase2F mean-state MSE
+contributor (share 0.30657). The frozen validation rule must route market and
+illiquidity to Student-t VAR. The descriptive score must reproduce mean-factor
+RMSE ratio 0.994558, state composite 0.996236, return composite 1.010342, and a
+failed gate because paired state-energy p=0.1058 is not below 0.10. Neither script
+loads post-2023 external observations.

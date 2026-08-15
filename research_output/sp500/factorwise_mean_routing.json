@@ -1,0 +1,471 @@
+{
+  "created_at": "2026-08-15T16:52:07.570602",
+  "status": "descriptive_gate_failed",
+  "protocol": {
+    "path": "research_output/sp500/factorwise_mean_routing.protocol.json",
+    "sha256": "d797d177ae81c6ef95b6b47543855049e6b9b8ff631980036ebf472f228f23b5",
+    "purpose": "post-diagnostic pre-2024 development; not confirmation",
+    "confirmation_data_loaded": false,
+    "consumed_external_samples_loaded": false,
+    "n_origins": 22,
+    "n_paths_per_seed": 20,
+    "seeds": [
+      42,
+      314,
+      2718
+    ]
+  },
+  "routing": {
+    "student_t_factors": [
+      "illiquidity",
+      "market"
+    ],
+    "phase2f_factors": [
+      "momentum",
+      "reversal",
+      "dispersion"
+    ],
+    "volatility_source": "Phase2F-Validation-Pooled-Diffusion",
+    "minimum_joint_validation_improvement": 0.02
+  },
+  "development": {
+    "metrics": {
+      "Factorwise-Mean-Routed-Pool": {
+        "state_rmse": {
+          "mean": 0.6609467560649198,
+          "std": 0.13783162894429882
+        },
+        "mean_factor_rmse": {
+          "mean": 0.8224236184950794,
+          "std": 0.20695409873646403
+        },
+        "logvol_factor_rmse": {
+          "mean": 0.4240722285163279,
+          "std": 0.1124654717644142
+        },
+        "state_energy_score": {
+          "mean": 0.48206978524626304,
+          "std": 0.1006433922849796
+        },
+        "state_variogram_score": {
+          "mean": 0.061270492082988286,
+          "std": 0.014833768936560772
+        },
+        "return_rmse_scaled": {
+          "mean": 1.0354547246744643,
+          "std": 0.017524248668855134
+        },
+        "daily_volatility_mae": {
+          "mean": 0.0033116622487826567,
+          "std": 0.000761781148695068
+        },
+        "tail_quantile_error": {
+          "mean": 0.005813869373334399,
+          "std": 0.004732589296715909
+        },
+        "max_drawdown_error": {
+          "mean": 0.0207018722943545,
+          "std": 0.019521224219771253
+        },
+        "portfolio_path_energy_score": {
+          "mean": 0.008218923831103304,
+          "std": 0.003200001455286471
+        },
+        "portfolio_volatility_error": {
+          "mean": 0.0033917447317087283,
+          "std": 0.002360762883330816
+        },
+        "portfolio_var_05_pinball": {
+          "mean": 0.0015055240919382312,
+          "std": 0.0010136118722639464
+        },
+        "portfolio_var_05_coverage_error": {
+          "mean": 0.08181818181818182,
+          "std": 0.07315216790650492
+        },
+        "covariance_frobenius_scaled_error": {
+          "mean": 0.8909193772813125,
+          "std": 0.30400722802314983
+        },
+        "return_energy_score": {
+          "mean": 0.7766766404334625,
+          "std": 0.15614267955449304
+        },
+        "return_variogram_score": {
+          "mean": 0.21212640722212633,
+          "std": 0.042123074263743614
+        }
+      },
+      "Phase2F-Validation-Pooled-Diffusion": {
+        "state_rmse": {
+          "mean": 0.6636861033220062,
+          "std": 0.13592339240107892
+        },
+        "mean_factor_rmse": {
+          "mean": 0.826924151695488,
+          "std": 0.20400866328132666
+        },
+        "logvol_factor_rmse": {
+          "mean": 0.4240722285163279,
+          "std": 0.1124654717644142
+        },
+        "state_energy_score": {
+          "mean": 0.4837150542222744,
+          "std": 0.09871841044241192
+        },
+        "state_variogram_score": {
+          "mean": 0.059682374985379656,
+          "std": 0.012706818426200415
+        },
+        "return_rmse_scaled": {
+          "mean": 1.0388724857927956,
+          "std": 0.026531786960328464
+        },
+        "daily_volatility_mae": {
+          "mean": 0.003313369603208649,
+          "std": 0.0007554619057799072
+        },
+        "tail_quantile_error": {
+          "mean": 0.005575547602459774,
+          "std": 0.004378935124413092
+        },
+        "max_drawdown_error": {
+          "mean": 0.02050690518307778,
+          "std": 0.017060994831042196
+        },
+        "portfolio_path_energy_score": {
+          "mean": 0.008242041204685267,
+          "std": 0.003078437872627874
+        },
+        "portfolio_volatility_error": {
+          "mean": 0.0033161025758176766,
+          "std": 0.0021921249853261472
+        },
+        "portfolio_var_05_pinball": {
+          "mean": 0.0015114981209364744,
+          "std": 0.0009197211846162506
+        },
+        "portfolio_var_05_coverage_error": {
+          "mean": 0.06893939393939394,
+          "std": 0.06499717448121711
+        },
+        "covariance_frobenius_scaled_error": {
+          "mean": 0.9107558931343838,
+          "std": 0.39098858825732347
+        },
+        "return_energy_score": {
+          "mean": 0.7779736484139915,
+          "std": 0.15182637387856468
+        },
+        "return_variogram_score": {
+          "mean": 0.21163706651300823,
+          "std": 0.04103536638451861
+        }
+      }
+    },
+    "mean_factor_rmse_ratio": 0.9945575018081393,
+    "state_composite_ratio": 0.996235537482871,
+    "state_metric_ratios": {
+      "state_energy_score": 0.9965986814723874,
+      "state_rmse": 0.9958725258169866
+    },
+    "return_composite_ratio": 1.010341870583515,
+    "return_metric_ratios": {
+      "return_energy_score": 0.998332838158242,
+      "return_variogram_score": 1.0023121692110963,
+      "daily_volatility_mae": 0.9994847075242259,
+      "tail_quantile_error": 1.0427441011837983,
+      "max_drawdown_error": 1.0095073883424206
+    },
+    "paired_origin_bootstrap": {
+      "state_rmse": {
+        "mean_difference": -0.0027393472570865066,
+        "ci_95": [
+          -0.006183611811238613,
+          0.0007034189177755107
+        ],
+        "one_sided_p_diffusion_not_better": 0.0598,
+        "origin_win_rate": 0.6363636363636364,
+        "n_origins": 22
+      },
+      "mean_factor_rmse": {
+        "mean_difference": -0.004500533200408507,
+        "ci_95": [
+          -0.010139027274061858,
+          0.0010529548305658661
+        ],
+        "one_sided_p_diffusion_not_better": 0.0536,
+        "origin_win_rate": 0.6363636363636364,
+        "n_origins": 22
+      },
+      "logvol_factor_rmse": {
+        "mean_difference": 0.0,
+        "ci_95": [
+          0.0,
+          0.0
+        ],
+        "one_sided_p_diffusion_not_better": 1.0,
+        "origin_win_rate": 0.0,
+        "n_origins": 22
+      },
+      "state_energy_score": {
+        "mean_difference": -0.0016452689760114159,
+        "ci_95": [
+          -0.004170637577692158,
+          0.001008610652051097
+        ],
+        "one_sided_p_diffusion_not_better": 0.1058,
+        "origin_win_rate": 0.5909090909090909,
+        "n_origins": 22
+      },
+      "state_variogram_score": {
+        "mean_difference": 0.0015881170976086213,
+        "ci_95": [
+          0.00014437762027942312,
+          0.0032420601511027928
+        ],
+        "one_sided_p_diffusion_not_better": 0.9856,
+        "origin_win_rate": 0.36363636363636365,
+        "n_origins": 22
+      },
+      "return_rmse_scaled": {
+        "mean_difference": -0.0034177611183308187,
+        "ci_95": [
+          -0.012024143165604897,
+          0.004881997815329101
+        ],
+        "one_sided_p_diffusion_not_better": 0.2152,
+        "origin_win_rate": 0.5909090909090909,
+        "n_origins": 22
+      },
+      "daily_volatility_mae": {
+        "mean_difference": -1.707354425991898e-06,
+        "ci_95": [
+          -1.7791029868596338e-05,
+          1.4979741119562535e-05
+        ],
+        "one_sided_p_diffusion_not_better": 0.4109,
+        "origin_win_rate": 0.5909090909090909,
+        "n_origins": 22
+      },
+      "tail_quantile_error": {
+        "mean_difference": 0.00023832177087462457,
+        "ci_95": [
+          -0.00048798164701906914,
+          0.0010271436488704041
+        ],
+        "one_sided_p_diffusion_not_better": 0.7257,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "max_drawdown_error": {
+        "mean_difference": 0.00019496711127672502,
+        "ci_95": [
+          -0.0024768273669407512,
+          0.0029813397087789474
+        ],
+        "one_sided_p_diffusion_not_better": 0.5524,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "portfolio_path_energy_score": {
+        "mean_difference": -2.3117373581962612e-05,
+        "ci_95": [
+          -0.00019570874912960753,
+          0.00015270495208352932
+        ],
+        "one_sided_p_diffusion_not_better": 0.3908,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "portfolio_volatility_error": {
+        "mean_difference": 7.564215589105217e-05,
+        "ci_95": [
+          -0.00034050940827919714,
+          0.0005269105064012112
+        ],
+        "one_sided_p_diffusion_not_better": 0.6292,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "portfolio_var_05_pinball": {
+        "mean_difference": -5.9740289982433655e-06,
+        "ci_95": [
+          -0.00019153048801956305,
+          0.00021416636397278733
+        ],
+        "one_sided_p_diffusion_not_better": 0.4494,
+        "origin_win_rate": 0.5909090909090909,
+        "n_origins": 22
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean_difference": 0.01287878787878788,
+        "ci_95": [
+          -0.006818181818181813,
+          0.03560606060606061
+        ],
+        "one_sided_p_diffusion_not_better": 0.894,
+        "origin_win_rate": 0.36363636363636365,
+        "n_origins": 22
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean_difference": -0.019836515853071113,
+        "ci_95": [
+          -0.0872537423667875,
+          0.04125256075828018
+        ],
+        "one_sided_p_diffusion_not_better": 0.2728,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "return_energy_score": {
+        "mean_difference": -0.0012970079805290182,
+        "ci_95": [
+          -0.006745302774077155,
+          0.004422097421745818
+        ],
+        "one_sided_p_diffusion_not_better": 0.329,
+        "origin_win_rate": 0.5454545454545454,
+        "n_origins": 22
+      },
+      "return_variogram_score": {
+        "mean_difference": 0.0004893407091181427,
+        "ci_95": [
+          -0.0021110645316676445,
+          0.0029061565264216346
+        ],
+        "one_sided_p_diffusion_not_better": 0.651,
+        "origin_win_rate": 0.4090909090909091,
+        "n_origins": 22
+      }
+    },
+    "gate": {
+      "accepted": false,
+      "requirements": {
+        "mean_factor_rmse_below_one": true,
+        "state_composite_below_one": true,
+        "no_state_metric_worse_by_over_half_percent": true,
+        "paired_state_energy_p_below_0_10": false,
+        "return_composite_not_worse_by_over_two_percent": true
+      }
+    },
+    "origins": [
+      {
+        "context_end": "2022-03-29",
+        "target_start": "2022-03-30",
+        "target_end": "2022-04-27"
+      },
+      {
+        "context_end": "2022-04-27",
+        "target_start": "2022-04-28",
+        "target_end": "2022-05-25"
+      },
+      {
+        "context_end": "2022-05-25",
+        "target_start": "2022-05-26",
+        "target_end": "2022-06-24"
+      },
+      {
+        "context_end": "2022-06-24",
+        "target_start": "2022-06-27",
+        "target_end": "2022-07-25"
+      },
+      {
+        "context_end": "2022-07-25",
+        "target_start": "2022-07-26",
+        "target_end": "2022-08-22"
+      },
+      {
+        "context_end": "2022-08-22",
+        "target_start": "2022-08-23",
+        "target_end": "2022-09-20"
+      },
+      {
+        "context_end": "2022-09-20",
+        "target_start": "2022-09-21",
+        "target_end": "2022-10-18"
+      },
+      {
+        "context_end": "2022-10-18",
+        "target_start": "2022-10-19",
+        "target_end": "2022-11-15"
+      },
+      {
+        "context_end": "2022-11-15",
+        "target_start": "2022-11-16",
+        "target_end": "2022-12-14"
+      },
+      {
+        "context_end": "2022-12-14",
+        "target_start": "2022-12-15",
+        "target_end": "2023-01-13"
+      },
+      {
+        "context_end": "2023-01-13",
+        "target_start": "2023-01-17",
+        "target_end": "2023-02-13"
+      },
+      {
+        "context_end": "2023-02-13",
+        "target_start": "2023-02-14",
+        "target_end": "2023-03-14"
+      },
+      {
+        "context_end": "2023-03-14",
+        "target_start": "2023-03-15",
+        "target_end": "2023-04-12"
+      },
+      {
+        "context_end": "2023-04-12",
+        "target_start": "2023-04-13",
+        "target_end": "2023-05-10"
+      },
+      {
+        "context_end": "2023-05-10",
+        "target_start": "2023-05-11",
+        "target_end": "2023-06-08"
+      },
+      {
+        "context_end": "2023-06-08",
+        "target_start": "2023-06-09",
+        "target_end": "2023-07-10"
+      },
+      {
+        "context_end": "2023-07-10",
+        "target_start": "2023-07-11",
+        "target_end": "2023-08-07"
+      },
+      {
+        "context_end": "2023-08-07",
+        "target_start": "2023-08-08",
+        "target_end": "2023-09-05"
+      },
+      {
+        "context_end": "2023-09-05",
+        "target_start": "2023-09-06",
+        "target_end": "2023-10-03"
+      },
+      {
+        "context_end": "2023-10-03",
+        "target_start": "2023-10-04",
+        "target_end": "2023-10-31"
+      },
+      {
+        "context_end": "2023-10-31",
+        "target_start": "2023-11-01",
+        "target_end": "2023-11-29"
+      },
+      {
+        "context_end": "2023-11-29",
+        "target_start": "2023-11-30",
+        "target_end": "2023-12-28"
+      }
+    ]
+  },
+  "decision": {
+    "candidate_promoted": false,
+    "reason": "The 2022-2023 panel informed the preceding diagnostic; this gate is descriptive even if its numerical requirements pass.",
+    "requires_cross_market_pre2024_replication_before_external_freeze": false,
+    "external_sample_reused": false
+  }
+}

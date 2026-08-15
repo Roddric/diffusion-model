@@ -101,6 +101,14 @@ low volatility, and its composite is 1.08874. Covariance and VaR safety bounds
 pass, but the recorded rule forbids external promotion. The candidate remains a
 useful exploratory mechanism rather than a new headline result.
 
+A subsequent mean-state diagnostic finds that market returns contribute 30.7% of
+mean-state MSE but are primarily a calibration problem; Phase 2F already performs
+well on momentum and reversal. A frozen factorwise route to Student-t VAR for
+market and illiquidity improves mean-factor RMSE (ratio 0.99456, paired p=0.0536)
+and both full-state losses. It nevertheless fails its descriptive gate because
+state-energy p=0.1058 misses the 0.10 threshold. Return reconstruction also
+worsens (composite 1.01034; tail ratio 1.04274). This route is not promoted.
+
 ## Disclosures that must accompany the result
 
 - The archive and protocol were locked on 2026-07-30, after the 2024–2026 period
