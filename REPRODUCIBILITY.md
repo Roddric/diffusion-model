@@ -179,3 +179,32 @@ losses, giving composite 1.009953. The HSI result therefore establishes genuine
 cross-market heterogeneity and narrows any generalization claim: pooling helps in
 S&P and FTSE under the recorded comparisons, but not reliably in HSI. The HSI
 2024–2026 sample is consumed and may only support post-hoc audits.
+
+The reconstruction oracle-ceiling attribution is a pre-2024 diagnostic and can
+be reproduced with:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/oracle_ceiling_attribution.py --overwrite
+```
+
+It evaluates all eight mean-state/volatility-state/innovation oracle coalitions
+on the 22 S&P development origins and checks both previously archived Phase 3A
+boundary results within `1e-12`. It reports paired-origin Shapley intervals and a
+five-block cross-fitted loading-representation diagnostic. The script rejects any
+configuration extending into 2024, and the artifact records that no confirmation
+or consumed HSI observation was loaded.
+
+The state-conditional innovation candidate uses the same split and can be
+reproduced with:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/state_conditional_innovation_experiment.py \
+  --overwrite
+```
+
+The script selects among `k=32,64,128,256` on 2021 and applies the unchanged
+Phase 3A gate once on 2022–2023. It must reproduce selected `k=32`, composite
+0.981565, and an accepted gate while recording that no post-2023 external sample
+was loaded. Promotion still requires a new external confirmation protocol.

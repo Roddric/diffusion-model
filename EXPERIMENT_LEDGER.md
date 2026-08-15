@@ -39,6 +39,8 @@ linked to a version-control commit.
 | 2026-08-12 | FTSE calibration and overlapping-origin power audit | Post-hoc audit | Locked FTSE origins; stride-5 overlapping origins | Both locked composites reproduced exactly; Gaussian-base pool edge-bin share equals the uniform value; at 116 overlapping origins the pool stays significant versus Gaussian VAR (HAC p≈0.03) and tied with Student-t VAR, with borderline Student-t-base separation on RMSE (HAC p=0.033) |
 | 2026-08-14 | HSI untouched-market dual-pool freeze | Preregistered untouched-market holdout | HSI training through 2022; 2023 checkpoint and weight selection | 61 eligible securities; Gaussian-base weights 0.50/0.75/0.75 and Student-t-base weights 0.25/0.50/1.00 for seeds 42/314/2718; checkpoint and pre-2024 panel hashes published at commit `e694256` before outcome access |
 | 2026-08-14 | One-time HSI dual-pool scoring | Preregistered untouched-market holdout | One-time 2024-01-02 → 2026-08-12 panel scoring (28 non-overlapping origins; targets 2024-03-28 → 2026-07-16) | Primary FAIL: Gaussian-base composite 1.016159 versus VAR-GARCH (energy ratio 0.99886, RMSE ratio 1.03376). Secondary FAIL: Student-t-base composite 1.009953 versus Student-t VAR (energy ratio 1.00584, RMSE ratio 1.01408). Both results preserved; HSI sample consumed |
+| 2026-08-15 | Reconstruction oracle-ceiling attribution | Post-primary diagnostic | S&P pre-2024 development only; 22 non-overlapping 2022–2023 origins | Eight-coalition Shapley diagnostic attributes 51.6% of the five-metric oracle loss reduction to mean-state error, 43.2% to innovations, and 5.1% to volatility-state error. Five-block cross-fitted loading diagnostics show modest representation headroom (mean ratio 0.982; volatility-PCA ratio 0.937). No candidate selected; no consumed external sample loaded. |
+| 2026-08-15 | State-conditional innovation reconstruction | Post-primary development | Train through 2020; select `k` on 2021; evaluate once on 22 pre-2024 2022–2023 origins | Validation selected a 32-neighbor log-volatility-state-conditioned full-vector bootstrap. Development composite 0.981565 versus Independent-GARCH; four of five metrics improve, energy ratio 0.99710 with paired one-sided p=0.0064, and the fixed Phase 3A gate passes. Candidate retained for a new external protocol; no post-2023 external sample loaded. |
 
 ## Trial families disclosed
 
@@ -59,6 +61,9 @@ The repository contains at least the following materially distinct trial familie
 13. regime-conditioned Student-t VAR;
 14. shared cross-market diffusion;
 15. shared trunk with low-rank market adapters.
+16. factorial oracle attribution of mean-state, volatility-state, and innovation
+    error, with cross-fitted loading-representation diagnostics.
+17. log-volatility-state-conditioned nearest-neighbor innovation resampling.
 
 This list should be treated as a lower bound rather than a formal historical trial
 count. It is why the 2024–2026 result is described as retrospective locked holdout

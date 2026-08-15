@@ -78,6 +78,21 @@ is -0.00093. All block-bootstrap intervals cross zero; HAC one-sided values are
   metrics and baselines have been added. Git history begins only at the audited
   baseline and cannot prove the earlier chronology.
 
+## Latest pre-2024 reconstruction development
+
+A factorial oracle diagnostic now attributes 51.6% of attainable five-metric
+return-loss reduction to mean-state error, 43.2% to innovations, and 5.1% to
+volatility-state error. Cross-fitted loading updates show smaller headroom (mean
+mapping ratio 0.982; volatility-PCA ratio 0.937).
+
+Following that result, a training-only nearest-neighbor sampler conditions full
+cross-sectional innovation vectors on each forecast log-volatility state. The
+2021-selected `k=32` candidate achieves a 2022–2023 return composite of 0.981565
+versus Independent-GARCH and passes the fixed development gate. Return energy
+improves at 77.3% of origins (paired one-sided p=0.0064), while the return
+variogram is effectively tied. This is the strongest reconstruction candidate so
+far, but it is exploratory and requires a new untouched confirmation sample.
+
 ## Disclosures that must accompany the result
 
 - The archive and protocol were locked on 2026-07-30, after the 2024–2026 period

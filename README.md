@@ -639,6 +639,46 @@ retaining the existing GARCH innovation layer. Its return composite is 0.49650
 relative to Phase 2F, indicating that state forecasting—not cross-stock
 innovation dependence—is currently the larger bottleneck.
 
+A subsequent pre-2024 factorial oracle diagnostic separates mean-state,
+volatility-state, and innovation uncertainty across all eight counterfactual
+coalitions. Shapley attribution of the attainable reduction in the five-metric
+return loss assigns **51.6% to mean-state error**, **43.2% to innovations**, and
+**5.1% to volatility-state error**. Paired-origin bootstrap intervals are
+[47.6%, 55.3%], [39.7%, 47.3%], and [3.4%, 7.0%], respectively. The result
+reproduces both archived Phase 3A boundary coalitions within `1e-12` and never
+loads post-2023 data.
+
+A separate five-block, outcome-informed cross-fit asks whether static loading
+representations explain the remaining error. Updated mean loadings reduce scaled
+RMSE only 1.8% (ratio 0.982), while an updated rank-five volatility PCA reduces
+log-variance reconstruction RMSE 6.3% (ratio 0.937). Because these mappings use
+development outcomes, they are ceilings rather than feasible forecasts. Together,
+the diagnostics prioritize mean-state dynamics and state-conditional innovations;
+they do not support a wholesale loading rewrite as the first intervention.
+
+The first intervention implied by that attribution conditions full
+cross-sectional innovation vectors on each forecast log-volatility state. Four
+training-only nearest-neighbor widths (`k=32,64,128,256`) were compared on the
+2021 validation origins; `k=32` was selected. On the untouched 2022–2023
+development origins, the selected reconstruction achieves a **0.981565**
+five-metric composite relative to Independent-GARCH and passes the previously
+defined Phase 3A gate:
+
+| Development return result ↓ | Ratio to Independent-GARCH |
+|---|---:|
+| Standardized return energy | **0.99710** |
+| Return variogram | 1.00013 |
+| Daily-volatility MAE | **0.98388** |
+| Tail-quantile error | **0.93920** |
+| Maximum-drawdown error | **0.98878** |
+
+The paired energy difference is -0.00226 (95% bootstrap interval
+[-0.00417, -0.00044], one-sided p=0.0064), with improvement at 77.3% of origins.
+Tail error and return RMSE are also supported at the exploratory 10% level. The
+candidate is therefore retained, but it is not confirmation evidence: it was
+developed after the original holdout result and now requires a new untouched
+market or prospectively accumulated period.
+
 Phase 3B therefore replaced the Gaussian VAR portion of the finite pool with
 either Student-t VAR or empirical-innovation VAR, with the classical component
 and diffusion weights selected on 2021. Validation selected Student-t VAR and
@@ -688,12 +728,20 @@ PYTHONPATH=diffusion_factor_model .venv/bin/python \
 
 PYTHONPATH=diffusion_factor_model .venv/bin/python \
   diffusion_factor_model/research/phase3b_state_pool.py
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/oracle_ceiling_attribution.py
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/state_conditional_innovation_experiment.py
 ```
 
 Artifacts:
 
 - `research_output/sp500/phase3a_reconstruction.json`
 - `research_output/sp500/phase3b_state_pool.json`
+- `research_output/sp500/oracle_ceiling_attribution.json`
+- `research_output/sp500/state_conditional_innovations.json`
 - `research_output/csi300_external/frozen_protocol.json`
 - `research_output/csi300_external/replication.json`
 

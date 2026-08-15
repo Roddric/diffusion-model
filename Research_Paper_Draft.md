@@ -742,6 +742,38 @@ future factor states with the incumbent innovation layer produced a composite
 ratio of 0.4965. This suggests that state uncertainty, rather than innovation
 dependence alone, is the larger remaining source of return-distribution error.
 
+To resolve that coarse oracle comparison, a factorial diagnostic evaluated all
+eight combinations of realized mean states, realized volatility states, and
+realized standardized innovations on the same 22 pre-2024 development origins.
+Shapley attribution of the attainable reduction in the five-metric normalized
+return loss assigns 51.6% to mean-state error (paired-origin bootstrap 95% CI
+47.6%--55.3%), 43.2% to innovation error (39.7%--47.3%), and 5.1% to
+volatility-state error (3.4%--7.0%). Metric-level effects are heterogeneous:
+innovation uncertainty dominates return energy, variogram, and daily-volatility
+loss, whereas mean-state error dominates the tail-quantile and drawdown losses.
+
+A complementary five-block cross-fitted representation diagnostic finds limited
+headroom from replacing the fixed training mappings: the development-updated mean
+mapping has a scaled-RMSE ratio of 0.982 and the rank-five volatility PCA a
+log-variance reconstruction ratio of 0.937. These outcome-informed mappings are
+diagnostic ceilings, not forecasts. The combined evidence therefore prioritizes
+improved mean-state dynamics and state-conditional innovations over a wholesale
+loading redesign. At this diagnostic stage, no post-2023 sample was loaded and
+no candidate was promoted.
+
+The resulting intervention resamples complete cross-sectional innovation vectors
+from training observations nearest to each forecast log-volatility state. The
+neighbor grid `k ∈ {32,64,128,256}` was fixed and selected on 2021; `k=32`
+minimized the validation composite. On the 22 untouched 2022--2023 development
+origins, its five-metric return composite is 0.9816 versus Independent-GARCH. Four
+metrics improve: standardized energy 0.9971, daily-volatility MAE 0.9839, tail
+error 0.9392, and drawdown error 0.9888; the variogram ratio is 1.0001. The paired
+energy difference is -0.00226 (bootstrap 95% CI [-0.00417, -0.00044], one-sided
+`p=0.0064`), and the candidate passes the fixed Phase 3A development gate. This
+is a promotable exploratory candidate, not confirmation: a new untouched market
+or prospectively accumulated period is required before it can alter the paper's
+primary claim.
+
 Second, the Gaussian VAR component of the diffusion pool was allowed to be
 replaced by Student-t VAR or empirical-innovation VAR. Validation selected
 Student-t VAR with diffusion weight 0.25 for all seeds. On the untouched
