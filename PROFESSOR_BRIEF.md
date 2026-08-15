@@ -93,6 +93,14 @@ improves at 77.3% of origins (paired one-sided p=0.0064), while the return
 variogram is effectively tied. This is the strongest reconstruction candidate so
 far, but it is exploratory and requires a new untouched confirmation sample.
 
+That candidate subsequently failed its publicly frozen all-requirements
+robustness gate. Although all five 20-path repetitions improve and the 100-path
+composite is 0.97644, 50-path energy is marginally worse (1.00028). A second
+failure comes from the training-defined regime check: only one origin is labeled
+low volatility, and its composite is 1.08874. Covariance and VaR safety bounds
+pass, but the recorded rule forbids external promotion. The candidate remains a
+useful exploratory mechanism rather than a new headline result.
+
 ## Disclosures that must accompany the result
 
 - The archive and protocol were locked on 2026-07-30, after the 2024–2026 period

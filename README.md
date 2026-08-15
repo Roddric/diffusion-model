@@ -679,6 +679,27 @@ candidate is therefore retained, but it is not confirmation evidence: it was
 developed after the original holdout result and now requires a new untouched
 market or prospectively accumulated period.
 
+Before external promotion, the exact `k=32` candidate and audit code were publicly
+frozen at commit `d0d67c6`. The fixed robustness audit evaluated five independent
+20-path repetitions, 50- and 100-path ensembles, unconditional full-vector
+resampling, training-defined volatility regimes, direct covariance losses, and
+5% VaR diagnostics. The candidate **failed the all-requirements survival gate**.
+
+Favorable diagnostics remain: all five 20-path repeats improve (median composite
+0.97651); at 100 paths the composite is 0.97644, energy is 0.99863 with paired
+one-sided p=0.0744, and the candidate beats unconditional resampling with
+composite 0.98139. Direct covariance Frobenius error (0.99915) and VaR pinball
+(0.99934) are tied relative to Independent-GARCH and stay within the 5% safety
+bounds. Two frozen requirements fail:
+
+- 50-path return energy is marginally worse (ratio 1.00028);
+- the training-median regime rule assigns only one origin to the low-volatility
+  group, where the composite is 1.08874, exceeding the 1.02 bound.
+
+The imbalanced 1/21 regime split limits interpretation but does not change the
+prespecified decision. `k=32` remains exploratory, cannot advance to an external
+evaluation under this route, and was not retuned after failure.
+
 Phase 3B therefore replaced the Gaussian VAR portion of the finite pool with
 either Student-t VAR or empirical-innovation VAR, with the classical component
 and diffusion weights selected on 2021. Validation selected Student-t VAR and
@@ -734,6 +755,9 @@ MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
 
 MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
   diffusion_factor_model/research/state_conditional_innovation_experiment.py
+
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/state_conditional_robustness_audit.py
 ```
 
 Artifacts:
@@ -742,6 +766,8 @@ Artifacts:
 - `research_output/sp500/phase3b_state_pool.json`
 - `research_output/sp500/oracle_ceiling_attribution.json`
 - `research_output/sp500/state_conditional_innovations.json`
+- `research_output/sp500/state_conditional_robustness.protocol.json`
+- `research_output/sp500/state_conditional_robustness.json`
 - `research_output/csi300_external/frozen_protocol.json`
 - `research_output/csi300_external/replication.json`
 

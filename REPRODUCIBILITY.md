@@ -208,3 +208,19 @@ The script selects among `k=32,64,128,256` on 2021 and applies the unchanged
 Phase 3A gate once on 2022–2023. It must reproduce selected `k=32`, composite
 0.981565, and an accepted gate while recording that no post-2023 external sample
 was loaded. Promotion still requires a new external confirmation protocol.
+
+The publicly frozen fixed-candidate robustness audit is reproduced with:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig PYTHONPATH=diffusion_factor_model .venv/bin/python \
+  diffusion_factor_model/research/state_conditional_robustness_audit.py \
+  --overwrite
+```
+
+The script first checks every frozen code, configuration, report, and candidate
+hash from `state_conditional_robustness.protocol.json`. It must reproduce all five
+improving 20-path composites, 50-path composite 0.971888 with energy ratio
+1.000281, and 100-path composite 0.976445 with energy ratio 0.998635. The final
+status is `robustness_failed`: the 50-path energy and low-volatility regime
+requirements fail, so external promotion is prohibited. No post-2023 external
+sample is loaded.

@@ -774,6 +774,21 @@ is a promotable exploratory candidate, not confirmation: a new untouched market
 or prospectively accumulated period is required before it can alter the paper's
 primary claim.
 
+Before promotion, the exact candidate and robustness code were publicly frozen.
+All five independent 20-path repetitions improve the five-metric composite
+(median 0.9765). At 100 paths the composite is 0.9764, the energy ratio is 0.9986
+(paired one-sided `p=0.0744`), and the conditional sampler beats an unconditional
+full-vector resampler. Direct covariance Frobenius error and equal-weight 5% VaR
+pinball are effectively tied with Independent-GARCH (ratios 0.9992 and 0.9993).
+
+However, the prespecified all-requirements gate fails. At 50 paths, energy is
+marginally worse (ratio 1.00028). In addition, the training-median regime rule
+places only one of 22 development origins in the low-volatility group, and that
+origin's composite is 1.0887, above the 1.02 safety bound. The 1/21 split makes
+the regime diagnosis unstable, but the rule was frozen before scoring and is not
+redefined post hoc. The candidate therefore remains exploratory and is not taken
+to a new external market under this route.
+
 Second, the Gaussian VAR component of the diffusion pool was allowed to be
 replaced by Student-t VAR or empirical-innovation VAR. Validation selected
 Student-t VAR with diffusion weight 0.25 for all seeds. On the untouched
