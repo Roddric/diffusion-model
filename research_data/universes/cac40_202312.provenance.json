@@ -1,0 +1,16 @@
+{
+  "index": "cac40",
+  "index_name": "CAC 40",
+  "universe_as_of_cutoff_utc": "2023-12-01T00:00:00Z",
+  "source": "English Wikipedia historical revision via MediaWiki API",
+  "source_page": "CAC_40",
+  "source_revision_id": 1184283644,
+  "source_revision_timestamp": "2023-11-09T13:10:35Z",
+  "source_url": "https://en.wikipedia.org/w/index.php?title=CAC_40&oldid=1184283644",
+  "source_html_sha256": "419adef943477537b4203b129a626bae31a3c20bb22e31975a2e0db271ad89b3",
+  "ticker_suffix_rule": ".PA",
+  "rows": 40,
+  "manifest_sha256": "85c98ecf959ebff647c9a5619d38aa112e7d133e64028dad5c83190d2171c3d4",
+  "retrieved_at_utc": "2026-08-15T15:27:59.743627+00:00",
+  "outcome_boundary": "Historical membership only; no price or post-2023 outcome requested."
+}

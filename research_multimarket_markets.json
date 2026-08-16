@@ -1,0 +1,69 @@
+{
+  "study_id": "prospective-multimarket-strong-baseline-2026",
+  "universe_cutoff": "2023-12-01T00:00:00Z",
+  "primary_markets": [
+    {
+      "code": "dax",
+      "name": "DAX",
+      "country": "Germany",
+      "universe_manifest": "research_data/universes/dax_202312.csv",
+      "universe_provenance": "research_data/universes/dax_202312.provenance.json",
+      "market_benchmark": "^GDAXI",
+      "max_stocks": 100
+    },
+    {
+      "code": "asx200",
+      "name": "S&P/ASX 200",
+      "country": "Australia",
+      "universe_manifest": "research_data/universes/asx200_202312.csv",
+      "universe_provenance": "research_data/universes/asx200_202312.provenance.json",
+      "market_benchmark": "^AXJO",
+      "max_stocks": 100
+    },
+    {
+      "code": "cac40",
+      "name": "CAC 40",
+      "country": "France",
+      "universe_manifest": "research_data/universes/cac40_202312.csv",
+      "universe_provenance": "research_data/universes/cac40_202312.provenance.json",
+      "market_benchmark": "^FCHI",
+      "max_stocks": 100
+    },
+    {
+      "code": "ibex35",
+      "name": "IBEX 35",
+      "country": "Spain",
+      "universe_manifest": "research_data/universes/ibex35_202312.csv",
+      "universe_provenance": "research_data/universes/ibex35_202312.provenance.json",
+      "market_benchmark": "^IBEX",
+      "max_stocks": 100
+    },
+    {
+      "code": "nifty50",
+      "name": "NIFTY 50",
+      "country": "India",
+      "universe_manifest": "research_data/universes/nifty50_202312.csv",
+      "universe_provenance": "research_data/universes/nifty50_202312.provenance.json",
+      "market_benchmark": "^NSEI",
+      "max_stocks": 100
+    },
+    {
+      "code": "smi",
+      "name": "Swiss Market Index",
+      "country": "Switzerland",
+      "universe_manifest": "research_data/universes/smi_202312.csv",
+      "universe_provenance": "research_data/universes/smi_202312.provenance.json",
+      "market_benchmark": "^SSMI",
+      "max_stocks": 100
+    },
+    {
+      "code": "tsx60",
+      "name": "S&P/TSX 60",
+      "country": "Canada",
+      "universe_manifest": "research_data/universes/tsx60_202312.csv",
+      "universe_provenance": "research_data/universes/tsx60_202312.provenance.json",
+      "market_benchmark": "^GSPTSE",
+      "max_stocks": 100
+    }
+  ]
+}

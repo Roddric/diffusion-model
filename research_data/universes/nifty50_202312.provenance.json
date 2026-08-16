@@ -1,0 +1,16 @@
+{
+  "index": "nifty50",
+  "index_name": "NIFTY 50",
+  "universe_as_of_cutoff_utc": "2023-12-01T00:00:00Z",
+  "source": "English Wikipedia historical revision via MediaWiki API",
+  "source_page": "NIFTY_50",
+  "source_revision_id": 1180543575,
+  "source_revision_timestamp": "2023-10-17T09:05:28Z",
+  "source_url": "https://en.wikipedia.org/w/index.php?title=NIFTY_50&oldid=1180543575",
+  "source_html_sha256": "c90395107e997ce4f1ececb64d8605f4cf7ef424ebea0b4c5cf15932fe0933e2",
+  "ticker_suffix_rule": ".NS",
+  "rows": 50,
+  "manifest_sha256": "7dc6123845b3d66fee28e80ce80271974329bee66f6cc46b3a50139435d0cd29",
+  "retrieved_at_utc": "2026-08-15T15:28:11.742132+00:00",
+  "outcome_boundary": "Historical membership only; no price or post-2023 outcome requested."
+}

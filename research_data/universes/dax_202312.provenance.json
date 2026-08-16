@@ -1,0 +1,10 @@
+{
+  "index": "dax",
+  "archive_month": "2023-12",
+  "source_url": "https://raw.githubusercontent.com/yfiua/index-constituents/main/docs/2023/12/constituents-dax.csv",
+  "source_repository": "https://github.com/yfiua/index-constituents",
+  "sha256": "71af65f921febd5c5bf60b32fc99e5110d24d56ab393e4122e6c84b6235c277e",
+  "rows": 40,
+  "retrieved_at_utc": "2026-08-15T12:44:32.610715+00:00",
+  "purpose": "Universe frozen before the 2024-01-01 confirmation boundary."
+}

@@ -1,0 +1,29 @@
+{
+  "index": "smi",
+  "index_name": "Swiss Market Index",
+  "universe_as_of_cutoff_utc": "2023-12-01T00:00:00Z",
+  "source": "English Wikipedia historical revision via MediaWiki API",
+  "source_page": "Swiss_Market_Index",
+  "source_revision_id": 1169958955,
+  "source_revision_timestamp": "2023-08-12T11:26:07Z",
+  "source_url": "https://en.wikipedia.org/w/index.php?title=Swiss_Market_Index&oldid=1169958955",
+  "source_html_sha256": "784c49166e5e9506b8c898cebc1f63d11593efe18757c03e8d634686100c7e52",
+  "ticker_suffix_rule": ".SW",
+  "rows": 20,
+  "excluded_source_rows_missing_symbol": [
+    {
+      "source_row_index": 20,
+      "values": {
+        "rank": "",
+        "name": "",
+        "industry": "",
+        "ticker": "",
+        "canton": "",
+        "weighting in": ""
+      }
+    }
+  ],
+  "manifest_sha256": "d02e6f3fef8a4f2d25bb1a68ae7eccd780ede411da6f07bd9accb8b6ddcd814f",
+  "retrieved_at_utc": "2026-08-15T15:40:23.160722+00:00",
+  "outcome_boundary": "Historical membership only; no price or post-2023 outcome requested."
+}

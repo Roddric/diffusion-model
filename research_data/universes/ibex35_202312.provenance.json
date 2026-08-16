@@ -1,0 +1,16 @@
+{
+  "index": "ibex35",
+  "index_name": "IBEX 35",
+  "universe_as_of_cutoff_utc": "2023-12-01T00:00:00Z",
+  "source": "English Wikipedia historical revision via MediaWiki API",
+  "source_page": "IBEX_35",
+  "source_revision_id": 1187141782,
+  "source_revision_timestamp": "2023-11-27T18:52:46Z",
+  "source_url": "https://en.wikipedia.org/w/index.php?title=IBEX_35&oldid=1187141782",
+  "source_html_sha256": "cc4b34692dca3a74bc079260dcfd244cf96aafa746cde936286f5c750a73cbbc",
+  "ticker_suffix_rule": ".MC",
+  "rows": 35,
+  "manifest_sha256": "505d4df9e507f39cfeee8143a358aafa546a284fed641719cb3a9f6ef55f7a34",
+  "retrieved_at_utc": "2026-08-15T15:28:04.418588+00:00",
+  "outcome_boundary": "Historical membership only; no price or post-2023 outcome requested."
+}

@@ -51,6 +51,16 @@ SNAPSHOTS = {
         ),
         "rows": 80,
     },
+    "dax": {
+        "url": (
+            "https://raw.githubusercontent.com/yfiua/index-constituents/"
+            "main/docs/2023/12/constituents-dax.csv"
+        ),
+        "sha256": (
+            "71af65f921febd5c5bf60b32fc99e5110d24d56ab393e4122e6c84b6235c277e"
+        ),
+        "rows": 40,
+    },
 }
 
 
@@ -121,4 +131,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,18 @@
+{
+  "index": "tsx60",
+  "index_name": "S&P/TSX 60",
+  "universe_as_of_cutoff_utc": "2023-12-01T00:00:00Z",
+  "source": "English Wikipedia historical revision via MediaWiki API",
+  "source_page": "S&P/TSX_60",
+  "source_revision_id": 1185763152,
+  "source_revision_timestamp": "2023-11-18T21:46:46Z",
+  "source_url": "https://en.wikipedia.org/w/index.php?title=S&P/TSX_60&oldid=1185763152",
+  "source_html_sha256": "6bf0b63ad1a6ebe1af30a89cf84d032722510e05409c6c73322c8222de04516a",
+  "ticker_suffix_rule": ".TO",
+  "internal_dot_replacement": "-",
+  "rows": 60,
+  "excluded_source_rows_missing_symbol": [],
+  "manifest_sha256": "511439df6fd93f8169c18523af6dfce8efcaf1b3eb2718e717aab7dbc449bcbd",
+  "retrieved_at_utc": "2026-08-16T00:10:40.097530+00:00",
+  "outcome_boundary": "Historical membership only; no price or post-2023 outcome requested."
+}

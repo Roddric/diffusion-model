@@ -64,6 +64,21 @@ def test_yahoo_manifest_hkg_convention_keeps_dot_suffix(config, tmp_path):
     ]
 
 
+def test_yahoo_manifest_verbatim_convention_keeps_exchange_suffix(config, tmp_path):
+    manifest = tmp_path / "global.csv"
+    manifest.write_text(
+        "Symbol,Name\n7203.T,Toyota\nSAP.DE,SAP\nNESN.SW,Nestle\n",
+        encoding="utf-8",
+    )
+    config.data.universe_manifest = str(manifest)
+    config.data.ticker_convention = "verbatim"
+    assert YFinanceDataPipeline(config)._stock_list() == [
+        "7203.T",
+        "SAP.DE",
+        "NESN.SW",
+    ]
+
+
 def test_yahoo_unknown_ticker_convention_rejected(config):
     config.data.ticker_convention = "tokyo"
     with pytest.raises(ValueError, match="ticker_convention"):
