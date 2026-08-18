@@ -1,0 +1,10 @@
+{
+  "study_id": "prospective-multimarket-strong-baseline-2026",
+  "frozen_protocol_sha256": "64feb617ea84fe4b3c0a0eaabd1c0745c96d88debcef31bcd3353723941d4472",
+  "public_commit": "50c7ce7f10c64bc4e62125851d8f21c5268b2436",
+  "public_url": "https://github.com/Roddric/diffusion-model/commit/50c7ce7f10c64bc4e62125851d8f21c5268b2436",
+  "public_tag": "multimarket-freeze-2026-08-18",
+  "post2023_evaluation_started": false,
+  "notarized_at_utc": "2026-08-18T09:45:38.372143+00:00",
+  "mechanism": "frozen protocol commit pushed publicly to github.com/Roddric/diffusion-model before any post-2023 candidate-market observation is downloaded"
+}
