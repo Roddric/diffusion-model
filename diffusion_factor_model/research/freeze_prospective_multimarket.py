@@ -25,6 +25,9 @@ from phase2c_benchmark import _checkpoint_payload
 from research.freeze_ftse100_pools import POOL_BASES, _select_weight_for_base
 from research.freeze_phase2f import _panel_fingerprint
 from research.prospective_multimarket import (
+    EUROPE_BLOCK_CODES,
+    MIN_SURVIVING_ASSETS,
+    POST2023_MIN_SESSION_COVERAGE,
     market_config,
     sha256,
     validate_pre2024_inputs,
@@ -240,6 +243,35 @@ def run(args):
                 "mean-within-path covariance Frobenius error, scaled by the "
                 "realized covariance Frobenius norm"
             ),
+            "prespecified_evaluation_policies": {
+                "claim_trichotomy": (
+                    "each population claim is pass if the 95% interval upper "
+                    "endpoint is below 0 with enough individual market passes, "
+                    "fail if the interval lower endpoint is above 0, otherwise "
+                    "inconclusive; the one-time outcome is terminal for this "
+                    "candidate regardless of classification"
+                ),
+                "post2023_ticker_attrition": (
+                    "a frozen asset survives only if it resolves in the one-time "
+                    "download and has non-missing returns on at least "
+                    f"{POST2023_MIN_SESSION_COVERAGE:.0%} of post-2023 benchmark "
+                    f"sessions; survivors keep frozen manifest order; at least "
+                    f"{MIN_SURVIVING_ASSETS} survivors are required; population "
+                    "inference additionally requires every eligible market to be "
+                    "scored; dropped assets are recorded and never replaced"
+                ),
+                "europe_block_sensitivity_codes": list(EUROPE_BLOCK_CODES),
+                "resume_policy": (
+                    "transient pipeline failures may be retried under the "
+                    "evaluation end pinned by the first attempt; scored or "
+                    "terminal-attrition markets are never rescored; every "
+                    "attempt is appended to the attempt log"
+                ),
+                "raw_download_pinning": (
+                    "frozen and current raw price downloads are copied and "
+                    "content-hashed into the one-time artifact directory"
+                ),
+            },
             "post2023_data_loaded": False,
         },
         "input_checks": checks,

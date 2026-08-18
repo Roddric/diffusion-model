@@ -79,15 +79,20 @@ class YFinanceDataPipeline:
     def _fmt(self, d):
         return f"{d[:4]}-{d[4:6]}-{d[6:]}" if len(d) == 8 else d
 
-    def _download(self):
+    def _universe_key(self):
         if self.universe_manifest:
             manifest_bytes = Path(self.universe_manifest).read_bytes()
-            universe_key = hashlib.sha256(manifest_bytes).hexdigest()[:12]
-        else:
-            universe_key = "sp100"
-        cache = self.cache_dir / (
-            f"prices_{universe_key}_{self.start_date}_{self.end_date}.parquet"
+            return hashlib.sha256(manifest_bytes).hexdigest()[:12]
+        return "sp100"
+
+    def cache_path(self):
+        """Deterministic parquet path for this pipeline's raw price download."""
+        return self.cache_dir / (
+            f"prices_{self._universe_key()}_{self.start_date}_{self.end_date}.parquet"
         )
+
+    def _download(self):
+        cache = self.cache_path()
         if cache.exists():
             return pd.read_parquet(cache)
 

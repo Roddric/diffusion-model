@@ -1,6 +1,12 @@
 # Prospective multi-market strong-baseline study — design draft
 
 Status: **pre-outcome design draft; not yet frozen or preregistered**.
+Amended 2026-08-18 (pre-lock): endpoint-hierarchy rationale, claim trichotomy
+and stop rule, operational resume policy, post-2023 ticker attrition rule,
+Europe-block sensitivity, raw-download pinning, and factor-quality diagnostics
+were prespecified below and implemented in the runners before any outcome
+access. All amendments precede the lock and are therefore design choices, not
+post-outcome changes.
 
 No post-2023 price observation from any candidate market may be downloaded until
 the evaluation runner, tests, protocol hashes, trained checkpoints, and this
@@ -45,6 +51,16 @@ IBEX 35 is excluded because 13 assets, fewer than the prespecified minimum of
 15, pass the coverage rule. No replacement market is permitted. Thus `K = 6`
 and the individual-market requirement below is fixed at five passes.
 
+On 2026-08-18, pre-lock factor-quality diagnostics revealed that the recorded
+TSX 60 panel fingerprint did not reproduce from its pinned pre-2024 price
+cache, while all six other markets reproduced exactly. No TSX 60 checkpoint,
+pool weight, decision, or post-2023 observation existed, so the screen was
+re-executed on 2026-08-18 from the unchanged caches under the unchanged rules.
+Only `screened_at_utc` and the TSX 60 fingerprint changed; eligibility,
+columns, exclusions, and `K = 6` are unchanged. The superseded 2026-08-16
+artifact copy is preserved for audit. This incident motivates the
+raw-download pinning policy below.
+
 ## Frozen model candidate
 
 Architecture, factor construction, three seeds, 8,000-step budget, checkpoint
@@ -86,6 +102,29 @@ secondary claim. VaR pinball, portfolio-path energy, volatility error, coverage
 error, tails, and drawdowns are supporting endpoints and cannot replace a failed
 covariance result.
 
+### Endpoint hierarchy rationale
+
+The prior review recommended covariance forecasting as the main observable
+endpoint. This design deliberately keeps the latent-state composite as the sole
+primary claim and treats covariance as the key secondary. Three reasons are
+recorded before outcome access:
+
+1. **Mechanism locality.** The candidate modifies the state-path distribution;
+   the state composite measures exactly that mechanism. Covariance adds the
+   reconstruction layer, which prior audits attribute most of its error to
+   mean-state and innovation components that the pool does not claim to fix.
+2. **Prior observable-risk evidence.** The locked S&P observable-risk audit
+   found no consistent risk advantage and worse 5% VaR pinball loss than
+   Gaussian VAR. Promoting the endpoint where prior evidence is weakest would
+   risk selecting the primary claim on expected outcome direction.
+3. **Claim honesty.** If the state claim passes and covariance fails, the
+   supported conclusion is a mechanism gain without established economic value,
+   which the follow-up paper must state as such. If state fails, covariance
+   cannot rescue it. This ordering is fixed here and cannot be reversed later.
+
+The deviation from the recommended hierarchy is disclosed in the paper's
+limitations rather than silently absorbed.
+
 ## Prespecified moderators
 
 1. **Horizon:** repeat the state composite at cumulative 5-, 10-, and 20-day
@@ -106,8 +145,70 @@ a failed state claim. Moderator and other economic endpoints are secondary and
 clearly labeled. All markets and failures remain in the report. No market,
 endpoint, horizon, regime, seed, or baseline can be removed after outcome access.
 
+### Decision trichotomy and program stop rule
+
+Each population claim (primary state, key secondary covariance) is classified
+by a prespecified trichotomy implemented in the shared helper:
+
+- **pass** — the 95% interval's upper log endpoint is below zero and at least
+  five of six markets pass individually;
+- **fail** — the interval's lower log endpoint is above zero, so the population
+  effect is confidently unfavorable;
+- **inconclusive** — anything else, including a favorable interval that fails
+  the individual-market count rule.
+
+Whatever the classification, the one-time evaluation is terminal for this
+candidate. No third-generation market sample, extended window, or replacement
+market may be opened for the Student-t-base pool after the one-time run. A
+failed or inconclusive outcome is published as a bounded result, not as a
+mandate for further holdout consumption.
+
+## Prespecified one-time evaluation policies
+
+These policies are implemented in the one-time runner and recorded verbatim in
+the frozen protocol. They may drop data deterministically; they may never add,
+re-select, or rescore.
+
+1. **Operational failure and resume.** Markets are scored in frozen protocol
+   order. Each market's terminal result is written atomically to its own
+   artifact file. A transient pipeline failure (network crash, code error)
+   writes no artifact and may be retried by rerunning the runner with the same
+   pinned evaluation end. A scored market or a terminal-attrition market is
+   never rescored. Every invocation is appended to an attempt log recording the
+   evaluation end and the per-market disposition. The evaluation end is pinned
+   by the first attempt; later attempts with a different end are refused.
+2. **Post-2023 ticker attrition.** A frozen asset survives the one-time
+   download only if it resolves and has non-missing returns on at least 80% of
+   post-2023 benchmark sessions. Survivors keep frozen manifest order; dropped
+   assets are recorded and never replaced. A market needs at least 15
+   survivors (the same floor as the eligibility screen); otherwise it is
+   preserved as a terminal data-attrition outcome. Population inference
+   additionally requires every eligible market to be scored; a terminal
+   attrition market makes the population claim not evaluable, while all
+   individual-market results remain in the report.
+3. **Raw download pinning.** Vendor-adjusted closes can be recomputed silently
+   after the fact. Both the frozen pre-2024 and the one-time current raw price
+   downloads are therefore copied into the immutable artifact directory with
+   content hashes and pin timestamps before any scoring.
+4. **Europe-block sensitivity.** DAX, CAC 40, and SMI are integrated
+   Alpine/Eurozone-adjacent markets, so treating all six markets as independent
+   overstates the effective replication count. A prespecified sensitivity
+   analysis collapses the three block markets into one unit (equal-weight mean
+   log ratio), giving four units with a Student-t interval, for both the
+   primary state claim and the key secondary covariance claim. The block is
+   fixed by registry country, never by observed outcomes, and cannot replace
+   the primary population decision.
+5. **Pre-lock factor-quality diagnostics.** Before the lock, each market's
+   pre-2024 panel is summarized descriptively: cross-sectional mean-factor OLS
+   R² and log-volatility PCA explained variance on the training window only
+   (`research_output/prospective_multimarket/factor_quality/`). These numbers
+   contextualize heterogeneity (for example, SMI's 18-security cross-section)
+   and cannot change any frozen decision.
+
 ## Required lock sequence
 
+0. Merge the development branch into the main branch so the locked protocol
+   sits on mainline history, and commit the factor-quality diagnostics.
 1. Materialize and hash universes.
 2. Run the pre-2024-only eligibility screen.
 3. Complete and test the generic freeze and one-time evaluation runners.

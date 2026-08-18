@@ -1,6 +1,6 @@
 {
   "status": "pre2024_feasibility_complete",
-  "screened_at_utc": "2026-08-18T08:00:06.726768+00:00",
+  "screened_at_utc": "2026-08-16T00:11:50.862775+00:00",
   "study_id": "prospective-multimarket-strong-baseline-2026",
   "base_config": "research_multimarket_base.yaml",
   "base_config_sha256": "c9d07f67c70e22876caa42965bbb118bc6e091254ebac56e72be713a9e5ee1fc",
@@ -476,7 +476,7 @@
       "data_start": "2015-01-05",
       "data_end": "2023-12-29",
       "n_validation_origins": 9,
-      "pre2024_panel_fingerprint": "53a1103d1dbecaf887cc245b3051a692669bf55510f17e0a37df5ccae482c737",
+      "pre2024_panel_fingerprint": "434554ed864aff65ef2a886e609aeb9da8d857a07d3a573e6eec6a080275eefa",
       "post2023_data_loaded": false
     }
   ],

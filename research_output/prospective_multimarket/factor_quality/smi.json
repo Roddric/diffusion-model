@@ -1,0 +1,54 @@
+{
+  "code": "smi",
+  "name": "Swiss Market Index",
+  "country": "Switzerland",
+  "status": "diagnosed_pre2024",
+  "data_start": "2015-01-06",
+  "data_end": "2023-12-29",
+  "train_window": {
+    "start": "2015-01-06",
+    "end": "2022-12-30"
+  },
+  "n_assets": 18,
+  "n_vol_pca_assets": 18,
+  "pre2024_panel_fingerprint": "f47f24f35d7d27c2517089ea572d01d27d9269d268c62e2de53b23bda1df09df",
+  "mean_factor_r2": {
+    "n_fitted": 18,
+    "mean": 0.4301200363122116,
+    "median": 0.412688497297377,
+    "min": 0.2673133975011158,
+    "max": 0.6172027855545242,
+    "per_stock": {
+      "NESN.SW": 0.5329991805175117,
+      "NOVN.SW": 0.6172027855545242,
+      "CFR.SW": 0.37969071095242013,
+      "ZURN.SW": 0.5524032201193465,
+      "UBSG.SW": 0.4758699827249545,
+      "ABBN.SW": 0.5472549143937993,
+      "LONN.SW": 0.4096129737350992,
+      "SIKA.SW": 0.4120514359115647,
+      "GIVN.SW": 0.37458767698083195,
+      "HOLN.SW": 0.4728326283087193,
+      "SCMN.SW": 0.31164037678428025,
+      "PGHN.SW": 0.41251615155617594,
+      "SREN.SW": 0.41286084303857806,
+      "SOON.SW": 0.3100345017964722,
+      "GEBN.SW": 0.4495015266907836,
+      "SLHN.SW": 0.5156843059687315,
+      "LOGN.SW": 0.2673133975011158,
+      "KNIN.SW": 0.2881040410848985
+    }
+  },
+  "volatility_pca": {
+    "n_components": 5,
+    "explained_variance_ratio": [
+      0.48373105358401675,
+      0.07235317500558934,
+      0.05794558588568381,
+      0.048459680614511,
+      0.04271989971668697
+    ],
+    "cumulative_explained_variance": 0.7052093948064878
+  },
+  "post2023_data_loaded": false
+}

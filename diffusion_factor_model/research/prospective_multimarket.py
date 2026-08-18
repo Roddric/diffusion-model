@@ -15,6 +15,17 @@ STRONG_BASELINES = ("Gaussian-VAR", "Student-t-VAR")
 CANDIDATE_NAME = "Student-t-Base-Pool"
 DIRECT_COVARIANCE_METRIC = "direct_covariance_frobenius_scaled_error"
 
+# Prespecified evaluation policies. These constants are part of the locked
+# protocol: the freeze runner records them and the one-time runner enforces
+# them. They may not change after the protocol is frozen.
+MIN_SURVIVING_ASSETS = 15
+POST2023_MIN_SESSION_COVERAGE = 0.80
+# DAX, CAC 40, and SMI are geographically and economically integrated Alpine /
+# Eurozone-adjacent markets, so their effects are treated as one replication
+# unit in a prespecified sensitivity analysis. The block is fixed by registry
+# country, never by observed outcomes.
+EUROPE_BLOCK_CODES = ("cac40", "dax", "smi")
+
 
 def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -139,6 +150,61 @@ def market_t_interval(ratios, confidence=0.95):
     }
 
 
+def classify_population_claim(interval, individual_passes, required_passes):
+    """Apply the prespecified pass / fail / inconclusive trichotomy.
+
+    pass: the 95% interval's upper endpoint is below zero on the log scale and
+    at least the required number of markets pass individually.
+    fail: the interval's lower endpoint is above zero, so the population effect
+    is confidently unfavorable.
+    inconclusive: anything else. The claim is not established, and the
+    prespecified stop rule forbids further market sampling for this candidate.
+    """
+    if interval["ci_log_upper"] < 0.0 and individual_passes >= required_passes:
+        return "pass"
+    if interval["ci_log_lower"] > 0.0:
+        return "fail"
+    return "inconclusive"
+
+
+def block_sensitivity_interval(
+    decisions_by_code, block_codes=EUROPE_BLOCK_CODES, confidence=0.95
+):
+    """Collapse a prespecified correlated market block into one replication unit.
+
+    The block's unit is the equal-weight mean of its members' log strong-baseline
+    ratios. Market order follows the insertion order of ``decisions_by_code``
+    (frozen protocol order), with the block unit appended last.
+    """
+    present_block = [code for code in block_codes if code in decisions_by_code]
+    missing = [code for code in block_codes if code not in decisions_by_code]
+    if missing:
+        raise ValueError(f"Block sensitivity is missing markets: {missing}")
+    if len(present_block) < 2:
+        raise ValueError("Block sensitivity requires at least two block markets.")
+    logs = []
+    units = []
+    for code, decision in decisions_by_code.items():
+        if code in present_block:
+            continue
+        logs.append(math.log(decision["strong_baseline_ratio"]))
+        units.append(code)
+    block_log = float(
+        np.mean(
+            [
+                math.log(decisions_by_code[code]["strong_baseline_ratio"])
+                for code in present_block
+            ]
+        )
+    )
+    logs.append(block_log)
+    units.append("block:" + "+".join(present_block))
+    interval = market_t_interval(np.exp(np.asarray(logs, dtype=float)), confidence)
+    interval["units"] = units
+    interval["block_codes"] = list(present_block)
+    return interval
+
+
 def population_decision(market_decisions, required_passes):
     ratios = [row["strong_baseline_ratio"] for row in market_decisions]
     interval = market_t_interval(ratios)
@@ -149,6 +215,9 @@ def population_decision(market_decisions, required_passes):
     )
     return {
         "passed": passed,
+        "claim_classification": classify_population_claim(
+            interval, individual_passes, required_passes
+        ),
         "required_individual_passes": int(required_passes),
         "individual_passes": int(individual_passes),
         "interval": interval,

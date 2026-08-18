@@ -1,0 +1,63 @@
+{
+  "diagnosed_at_utc": "2026-08-18T08:00:24.818548+00:00",
+  "status": "pre2024_factor_quality_descriptive",
+  "study_id": "prospective-multimarket-strong-baseline-2026",
+  "role": "descriptive pre-lock diagnostics; cannot change any frozen decision and uses no post-2023 observations",
+  "input_checks": {
+    "smoke_complete": true,
+    "no_post2023_data_loaded": true,
+    "base_config_hash_match": true,
+    "registry_hash_match": true,
+    "study_id_match": true
+  },
+  "markets": [
+    {
+      "code": "dax",
+      "n_assets": 35,
+      "n_vol_pca_assets": 35,
+      "mean_factor_r2_mean": 0.4339576738552824,
+      "mean_factor_r2_min": 0.11352959032016607,
+      "volatility_pca_cumulative_explained_variance": 0.6277998098521914
+    },
+    {
+      "code": "asx200",
+      "n_assets": 100,
+      "n_vol_pca_assets": 100,
+      "mean_factor_r2_mean": 0.22653908347088403,
+      "mean_factor_r2_min": 0.024674187904323852,
+      "volatility_pca_cumulative_explained_variance": 0.47850996578541705
+    },
+    {
+      "code": "cac40",
+      "n_assets": 38,
+      "n_vol_pca_assets": 38,
+      "mean_factor_r2_mean": 0.4334595582368048,
+      "mean_factor_r2_min": 0.1458756657986756,
+      "volatility_pca_cumulative_explained_variance": 0.6737218665661047
+    },
+    {
+      "code": "nifty50",
+      "n_assets": 46,
+      "n_vol_pca_assets": 46,
+      "mean_factor_r2_mean": 0.28785204959296673,
+      "mean_factor_r2_min": 0.0938583228960731,
+      "volatility_pca_cumulative_explained_variance": 0.5460085689295421
+    },
+    {
+      "code": "smi",
+      "n_assets": 18,
+      "n_vol_pca_assets": 18,
+      "mean_factor_r2_mean": 0.4301200363122116,
+      "mean_factor_r2_min": 0.2673133975011158,
+      "volatility_pca_cumulative_explained_variance": 0.7052093948064878
+    },
+    {
+      "code": "tsx60",
+      "n_assets": 57,
+      "n_vol_pca_assets": 57,
+      "mean_factor_r2_mean": 0.303745023854479,
+      "mean_factor_r2_min": 0.040359685418152935,
+      "volatility_pca_cumulative_explained_variance": 0.6162810404260781
+    }
+  ]
+}
