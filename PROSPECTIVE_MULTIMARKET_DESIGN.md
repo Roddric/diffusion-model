@@ -1,6 +1,13 @@
-# Prospective multi-market strong-baseline study — design draft
+# Prospective multi-market strong-baseline study — completed
 
-Status: **pre-outcome design draft; not yet frozen or preregistered**.
+Status: **one-time evaluation executed 2026-08-19 (evaluation end pinned at
+20260818). Primary state claim: inconclusive — 4 of 6 individual market
+passes (required 5), population geometric-mean strong-baseline ratio 0.99385,
+95% CI [0.98085, 1.00703]. Key secondary covariance claim: inconclusive —
+3 of 6 passes, ratio 0.99073, 95% CI [0.95016, 1.03304].** Per the
+prespecified stop rule this outcome is terminal for the Student-t-base pool
+candidate: no further market sampling, window extension, or replacement
+market is permitted for it.
 Amended 2026-08-18 (pre-lock): endpoint-hierarchy rationale, claim trichotomy
 and stop rule, operational resume policy, post-2023 ticker attrition rule,
 Europe-block sensitivity, raw-download pinning, and factor-quality diagnostics
