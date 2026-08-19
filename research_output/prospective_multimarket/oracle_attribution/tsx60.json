@@ -1,0 +1,778 @@
+{
+  "code": "tsx60",
+  "country": "Canada",
+  "status": "diagnosed_pre2024",
+  "protocol": {
+    "phase": "final_route_phase_b_cross_market_oracle_attribution",
+    "train_end": "2022-12-30",
+    "validation_buffer_end": "2023-01-31",
+    "development_period": "2023-04-28 through 2023-12-14",
+    "n_assets": 57,
+    "n_origins": 8,
+    "n_paths_per_seed": 20,
+    "seeds": [
+      42,
+      314,
+      2718
+    ],
+    "pool_weights": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "checkpoint_hashes_match": true,
+    "post2023_data_loaded": false,
+    "candidate_selected": false
+  },
+  "coalition_metrics": {
+    "current_forecast": {
+      "state_rmse": {
+        "mean": 0.6558819049185022,
+        "std_across_origins": 0.08465405365712145
+      },
+      "mean_factor_rmse": {
+        "mean": 0.7459988548367295,
+        "std_across_origins": 0.08069548090722176
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.5390469603046233,
+        "std_across_origins": 0.14130429695450697
+      },
+      "state_energy_score": {
+        "mean": 0.47495147487611117,
+        "std_across_origins": 0.06030969615151259
+      },
+      "state_variogram_score": {
+        "mean": 0.06278376390612254,
+        "std_across_origins": 0.005758484342132979
+      },
+      "return_rmse_scaled": {
+        "mean": 1.033642081424298,
+        "std_across_origins": 0.03020350635953295
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0035143198434959807,
+        "std_across_origins": 0.0009547686801035443
+      },
+      "tail_quantile_error": {
+        "mean": 0.004188451850748006,
+        "std_across_origins": 0.0022732560222956154
+      },
+      "max_drawdown_error": {
+        "mean": 0.008136412189250257,
+        "std_across_origins": 0.0035417364108559593
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.005351460017923027,
+        "std_across_origins": 0.0006752616129125618
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.0013856645931689194,
+        "std_across_origins": 0.0006640863054960168
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.0008974935680547089,
+        "std_across_origins": 0.0001307182935740021
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.05,
+        "std_across_origins": 0.03632415786283894
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.8560068138063843,
+        "std_across_origins": 0.12527691229245114
+      },
+      "return_energy_score": {
+        "mean": 0.6644729181869811,
+        "std_across_origins": 0.07459096567387821
+      },
+      "return_variogram_score": {
+        "mean": 0.1726018084557593,
+        "std_across_origins": 0.025251967656606845
+      }
+    },
+    "oracle_mean_state": {
+      "state_rmse": {
+        "mean": 0.38116376100939475,
+        "std_across_origins": 0.0999172265873295
+      },
+      "mean_factor_rmse": {
+        "mean": 1.9733921247504487e-16,
+        "std_across_origins": 2.4153503922608522e-17
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.5390469603046233,
+        "std_across_origins": 0.14130429695450697
+      },
+      "state_energy_score": {
+        "mean": 0.27647152878483733,
+        "std_across_origins": 0.07148302633576627
+      },
+      "state_variogram_score": {
+        "mean": 0.011477922730021347,
+        "std_across_origins": 0.0017478466562422595
+      },
+      "return_rmse_scaled": {
+        "mean": 0.9061505667793903,
+        "std_across_origins": 0.03777339221065725
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0034066622287948567,
+        "std_across_origins": 0.0009024608853907936
+      },
+      "tail_quantile_error": {
+        "mean": 0.0026106808408130717,
+        "std_across_origins": 0.0011113345005185956
+      },
+      "max_drawdown_error": {
+        "mean": 0.0020662560449349883,
+        "std_across_origins": 0.001611659356459329
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.001209802552758446,
+        "std_across_origins": 0.0002455257751665049
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.0006735825614893362,
+        "std_across_origins": 0.00046606795804871645
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.00024142986986049994,
+        "std_across_origins": 9.247180160339343e-05
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.058333333333333334,
+        "std_across_origins": 0.04166666666666666
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.773470499528606,
+        "std_across_origins": 0.0666886484868388
+      },
+      "return_energy_score": {
+        "mean": 0.573418167394555,
+        "std_across_origins": 0.07169918851385713
+      },
+      "return_variogram_score": {
+        "mean": 0.16021729773494964,
+        "std_across_origins": 0.026039473353219007
+      }
+    },
+    "oracle_volatility_state": {
+      "state_rmse": {
+        "mean": 0.5275008490124503,
+        "std_across_origins": 0.05706032176060609
+      },
+      "mean_factor_rmse": {
+        "mean": 0.7459988548367295,
+        "std_across_origins": 0.08069548090722176
+      },
+      "logvol_factor_rmse": {
+        "mean": 2.03519121878469e-16,
+        "std_across_origins": 5.348438941633961e-17
+      },
+      "state_energy_score": {
+        "mean": 0.3816605029261226,
+        "std_across_origins": 0.04015202854991719
+      },
+      "state_variogram_score": {
+        "mean": 0.0513058411761012,
+        "std_across_origins": 0.004480290066135274
+      },
+      "return_rmse_scaled": {
+        "mean": 1.0314077490215323,
+        "std_across_origins": 0.02716030502142343
+      },
+      "daily_volatility_mae": {
+        "mean": 0.00317871494229912,
+        "std_across_origins": 0.0008890384471792372
+      },
+      "tail_quantile_error": {
+        "mean": 0.0033745360975541254,
+        "std_across_origins": 0.001666405522685448
+      },
+      "max_drawdown_error": {
+        "mean": 0.007942206571062631,
+        "std_across_origins": 0.0036426256736019702
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.00534588821288196,
+        "std_across_origins": 0.0006748293233353699
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.0013798960835287148,
+        "std_across_origins": 0.000658035763230006
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.0008906885523851779,
+        "std_across_origins": 0.00012823535773929596
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.05,
+        "std_across_origins": 0.03632415786283894
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.8414517056381212,
+        "std_across_origins": 0.12239880566153671
+      },
+      "return_energy_score": {
+        "mean": 0.6626684847487363,
+        "std_across_origins": 0.07450896635196555
+      },
+      "return_variogram_score": {
+        "mean": 0.17053686184365474,
+        "std_across_origins": 0.024789128428767997
+      }
+    },
+    "oracle_all_states": {
+      "state_rmse": {
+        "mean": 2.025712707380536e-16,
+        "std_across_origins": 2.946633635670134e-17
+      },
+      "mean_factor_rmse": {
+        "mean": 1.9733921247504487e-16,
+        "std_across_origins": 2.4153503922608522e-17
+      },
+      "logvol_factor_rmse": {
+        "mean": 2.03519121878469e-16,
+        "std_across_origins": 5.348438941633961e-17
+      },
+      "state_energy_score": {
+        "mean": 0.0,
+        "std_across_origins": 0.0
+      },
+      "state_variogram_score": {
+        "mean": 2.0111477909324647e-32,
+        "std_across_origins": 2.164872433325018e-33
+      },
+      "return_rmse_scaled": {
+        "mean": 0.9037672596630614,
+        "std_across_origins": 0.03751037330832962
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0030624138965735072,
+        "std_across_origins": 0.0008466210528545379
+      },
+      "tail_quantile_error": {
+        "mean": 0.001326439207625979,
+        "std_across_origins": 0.0011296494165067609
+      },
+      "max_drawdown_error": {
+        "mean": 0.0021391232490032774,
+        "std_across_origins": 0.001451776334433468
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.0012003715168521232,
+        "std_across_origins": 0.0002458720664886278
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.0006715423195964398,
+        "std_across_origins": 0.0004546198386045189
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.00024036211347126067,
+        "std_across_origins": 9.164864155802773e-05
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.05625,
+        "std_across_origins": 0.03903123748998998
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.7595382515179967,
+        "std_across_origins": 0.06513561964445108
+      },
+      "return_energy_score": {
+        "mean": 0.5712098808023487,
+        "std_across_origins": 0.07209839351316454
+      },
+      "return_variogram_score": {
+        "mean": 0.15845540961337587,
+        "std_across_origins": 0.025042286431792033
+      }
+    },
+    "oracle_innovation": {
+      "state_rmse": {
+        "mean": 0.6558819049185022,
+        "std_across_origins": 0.08465405365712145
+      },
+      "mean_factor_rmse": {
+        "mean": 0.7459988548367295,
+        "std_across_origins": 0.08069548090722176
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.5390469603046233,
+        "std_across_origins": 0.14130429695450697
+      },
+      "state_energy_score": {
+        "mean": 0.47495147487611117,
+        "std_across_origins": 0.06030969615151259
+      },
+      "state_variogram_score": {
+        "mean": 0.06278376390612254,
+        "std_across_origins": 0.005758484342132979
+      },
+      "return_rmse_scaled": {
+        "mean": 0.4853557686456372,
+        "std_across_origins": 0.057303627783126046
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0011917681912545722,
+        "std_across_origins": 0.00031671656218849235
+      },
+      "tail_quantile_error": {
+        "mean": 0.0034337274723704706,
+        "std_across_origins": 0.0017344478964307474
+      },
+      "max_drawdown_error": {
+        "mean": 0.00784660315780792,
+        "std_across_origins": 0.0041470298243736076
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.00474501427904138,
+        "std_across_origins": 0.0005235042409186951
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.001327372023858136,
+        "std_across_origins": 0.0005957431901866614
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.000765801348146262,
+        "std_across_origins": 0.00010929244557908429
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.03541666666666667,
+        "std_across_origins": 0.017554478694117415
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.5385713659044092,
+        "std_across_origins": 0.13021467798790595
+      },
+      "return_energy_score": {
+        "mean": 0.30900049697255577,
+        "std_across_origins": 0.032955912122875276
+      },
+      "return_variogram_score": {
+        "mean": 0.07189383633975041,
+        "std_across_origins": 0.006632771557831083
+      }
+    },
+    "oracle_mean_and_innovation": {
+      "state_rmse": {
+        "mean": 0.38116376100939475,
+        "std_across_origins": 0.0999172265873295
+      },
+      "mean_factor_rmse": {
+        "mean": 1.9733921247504487e-16,
+        "std_across_origins": 2.4153503922608522e-17
+      },
+      "logvol_factor_rmse": {
+        "mean": 0.5390469603046233,
+        "std_across_origins": 0.14130429695450697
+      },
+      "state_energy_score": {
+        "mean": 0.27647152878483733,
+        "std_across_origins": 0.07148302633576627
+      },
+      "state_variogram_score": {
+        "mean": 0.011477922730021347,
+        "std_across_origins": 0.0017478466562422595
+      },
+      "return_rmse_scaled": {
+        "mean": 0.10978533146386152,
+        "std_across_origins": 0.021111612535494987
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0010594640816987194,
+        "std_across_origins": 0.00028190510729330206
+      },
+      "tail_quantile_error": {
+        "mean": 0.0013253402893826198,
+        "std_across_origins": 0.0005864190954137791
+      },
+      "max_drawdown_error": {
+        "mean": 0.00045727899514970633,
+        "std_across_origins": 0.0002988661804472085
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.000167895993049813,
+        "std_across_origins": 5.9341913335606865e-05
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.00010160595042252135,
+        "std_across_origins": 6.65411350075425e-05
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 2.4285657060266678e-05,
+        "std_across_origins": 7.619050258810271e-06
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.08333333333333334,
+        "std_across_origins": 0.05773502691896258
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.15522847677209184,
+        "std_across_origins": 0.02325780642188399
+      },
+      "return_energy_score": {
+        "mean": 0.06741664743061673,
+        "std_across_origins": 0.011974049498861853
+      },
+      "return_variogram_score": {
+        "mean": 0.003982566830694446,
+        "std_across_origins": 0.0012411259431960797
+      }
+    },
+    "oracle_volatility_and_innovation": {
+      "state_rmse": {
+        "mean": 0.5275008490124503,
+        "std_across_origins": 0.05706032176060609
+      },
+      "mean_factor_rmse": {
+        "mean": 0.7459988548367295,
+        "std_across_origins": 0.08069548090722176
+      },
+      "logvol_factor_rmse": {
+        "mean": 2.03519121878469e-16,
+        "std_across_origins": 5.348438941633961e-17
+      },
+      "state_energy_score": {
+        "mean": 0.3816605029261226,
+        "std_across_origins": 0.04015202854991719
+      },
+      "state_variogram_score": {
+        "mean": 0.0513058411761012,
+        "std_across_origins": 0.004480290066135274
+      },
+      "return_rmse_scaled": {
+        "mean": 0.47362788919956,
+        "std_across_origins": 0.05891896460230323
+      },
+      "daily_volatility_mae": {
+        "mean": 0.0006354915946078675,
+        "std_across_origins": 8.105808330155146e-05
+      },
+      "tail_quantile_error": {
+        "mean": 0.0025649152840696043,
+        "std_across_origins": 0.0016404139420653976
+      },
+      "max_drawdown_error": {
+        "mean": 0.007654791701248968,
+        "std_across_origins": 0.004098720222381768
+      },
+      "portfolio_path_energy_score": {
+        "mean": 0.004728480691454186,
+        "std_across_origins": 0.0005011268082993891
+      },
+      "portfolio_volatility_error": {
+        "mean": 0.0013175075406298851,
+        "std_across_origins": 0.000577959288927566
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 0.0007626980349314399,
+        "std_across_origins": 0.0001069682496442711
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.03125,
+        "std_across_origins": 0.017554478694117415
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.5185947294931559,
+        "std_across_origins": 0.13264514275266628
+      },
+      "return_energy_score": {
+        "mean": 0.2979818028019283,
+        "std_across_origins": 0.030594817446494883
+      },
+      "return_variogram_score": {
+        "mean": 0.06867932570750734,
+        "std_across_origins": 0.00585307119703022
+      }
+    },
+    "full_oracle": {
+      "state_rmse": {
+        "mean": 2.025712707380536e-16,
+        "std_across_origins": 2.946633635670134e-17
+      },
+      "mean_factor_rmse": {
+        "mean": 1.9733921247504487e-16,
+        "std_across_origins": 2.4153503922608522e-17
+      },
+      "logvol_factor_rmse": {
+        "mean": 2.03519121878469e-16,
+        "std_across_origins": 5.348438941633961e-17
+      },
+      "state_energy_score": {
+        "mean": 0.0,
+        "std_across_origins": 0.0
+      },
+      "state_variogram_score": {
+        "mean": 2.0111477909324647e-32,
+        "std_across_origins": 2.164872433325018e-33
+      },
+      "return_rmse_scaled": {
+        "mean": 1.354084410237513e-16,
+        "std_across_origins": 6.537154616451602e-17
+      },
+      "daily_volatility_mae": {
+        "mean": 2.7755575615628915e-18,
+        "std_across_origins": 5.854691731421723e-19
+      },
+      "tail_quantile_error": {
+        "mean": 8.673617379884035e-18,
+        "std_across_origins": 6.009258394948637e-18
+      },
+      "max_drawdown_error": {
+        "mean": 0.0,
+        "std_across_origins": 0.0
+      },
+      "portfolio_path_energy_score": {
+        "mean": 4.41074598589001e-20,
+        "std_across_origins": 3.783890003694138e-20
+      },
+      "portfolio_volatility_error": {
+        "mean": 8.673617379884035e-19,
+        "std_across_origins": 6.133173666733497e-19
+      },
+      "portfolio_var_05_pinball": {
+        "mean": 7.995991022080596e-21,
+        "std_across_origins": 8.941892176029163e-21
+      },
+      "portfolio_var_05_coverage_error": {
+        "mean": 0.03125000000000001,
+        "std_across_origins": 0.02420614591379636
+      },
+      "covariance_frobenius_scaled_error": {
+        "mean": 0.04761904761904767,
+        "std_across_origins": 9.729927740162569e-17
+      },
+      "return_energy_score": {
+        "mean": 8.006128710811784e-17,
+        "std_across_origins": 2.2532756333874267e-17
+      },
+      "return_variogram_score": {
+        "mean": 4.102852026944464e-31,
+        "std_across_origins": 5.951625389709198e-31
+      }
+    }
+  },
+  "shapley_attribution": {
+    "loss_definition": "arithmetic mean of the five return-metric loss ratios versus the current Phase 2F pool; lower is better",
+    "coalition_normalized_losses": {
+      "current_forecast": 1.0,
+      "oracle_mean_state": 0.7275674559392865,
+      "oracle_volatility_state": 0.9343263786557638,
+      "oracle_all_states": 0.6457382044343548,
+      "oracle_innovation": 0.6009736500050167,
+      "oracle_mean_and_innovation": 0.1597263901684109,
+      "oracle_volatility_and_innovation": 0.5160736798226516,
+      "full_oracle": 5.96222887947842e-16
+    },
+    "full_oracle_normalized_loss_reduction": 0.9999999999999994,
+    "efficiency_check_sum_of_components": 0.9999999999999994,
+    "components": {
+      "mean_state": {
+        "normalized_loss_reduction": 0.38447464697079065,
+        "share_of_full_oracle_reduction": 0.38447464697079087,
+        "paired_origin_bootstrap_ci_95": [
+          0.3220441454861132,
+          0.4298562860930203
+        ],
+        "bootstrap_probability_positive": 1.0
+      },
+      "volatility_state": {
+        "normalized_loss_reduction": 0.10292154078543161,
+        "share_of_full_oracle_reduction": 0.10292154078543167,
+        "paired_origin_bootstrap_ci_95": [
+          0.08649506305384526,
+          0.12216294433615102
+        ],
+        "bootstrap_probability_positive": 1.0
+      },
+      "innovation": {
+        "normalized_loss_reduction": 0.5126038122437772,
+        "share_of_full_oracle_reduction": 0.5126038122437775,
+        "paired_origin_bootstrap_ci_95": [
+          0.47115867305635295,
+          0.5751887264612514
+        ],
+        "bootstrap_probability_positive": 1.0
+      }
+    },
+    "by_metric": {
+      "return_energy_score": {
+        "coalition_loss_ratios": {
+          "current_forecast": 1.0,
+          "oracle_mean_state": 0.8629669497428585,
+          "oracle_volatility_state": 0.9972844138732273,
+          "oracle_all_states": 0.8596435839114388,
+          "oracle_innovation": 0.46503098698990736,
+          "oracle_mean_and_innovation": 0.1014588338898198,
+          "oracle_volatility_and_innovation": 0.4484483786261353,
+          "full_oracle": 1.204884125700196e-16
+        },
+        "component_loss_reductions": {
+          "mean_state": 0.27869597347140485,
+          "volatility_state": 0.03804246903806275,
+          "innovation": 0.6832615574905321
+        },
+        "component_shares": {
+          "mean_state": 0.2786959734714049,
+          "volatility_state": 0.03804246903806276,
+          "innovation": 0.6832615574905322
+        }
+      },
+      "return_variogram_score": {
+        "coalition_loss_ratios": {
+          "current_forecast": 1.0,
+          "oracle_mean_state": 0.9282480824991819,
+          "oracle_volatility_state": 0.9880363558726337,
+          "oracle_all_states": 0.9180402629094736,
+          "oracle_innovation": 0.41653002933731137,
+          "oracle_mean_and_innovation": 0.023073725972664095,
+          "oracle_volatility_and_innovation": 0.39790617677746404,
+          "full_oracle": 2.3770620155443468e-30
+        },
+        "component_loss_reductions": {
+          "mean_state": 0.23379476414739525,
+          "volatility_state": 0.01648440205826939,
+          "innovation": 0.7497208337943353
+        },
+        "component_shares": {
+          "mean_state": 0.23379476414739525,
+          "volatility_state": 0.01648440205826939,
+          "innovation": 0.7497208337943353
+        }
+      },
+      "daily_volatility_mae": {
+        "coalition_loss_ratios": {
+          "current_forecast": 1.0,
+          "oracle_mean_state": 0.9693660168978735,
+          "oracle_volatility_state": 0.904503597810549,
+          "oracle_all_states": 0.8714101257007598,
+          "oracle_innovation": 0.3391177366682206,
+          "oracle_mean_and_innovation": 0.30147059143165067,
+          "oracle_volatility_and_innovation": 0.1808291854208956,
+          "full_oracle": 7.89785132021967e-16
+        },
+        "component_loss_reductions": {
+          "mean_state": 0.08227782573206696,
+          "volatility_state": 0.17502973828110674,
+          "innovation": 0.7426924359868254
+        },
+        "component_shares": {
+          "mean_state": 0.08227782573206703,
+          "volatility_state": 0.17502973828110688,
+          "innovation": 0.742692435986826
+        }
+      },
+      "tail_quantile_error": {
+        "coalition_loss_ratios": {
+          "current_forecast": 1.0,
+          "oracle_mean_state": 0.6233044890672041,
+          "oracle_volatility_state": 0.8056762302165357,
+          "oracle_all_states": 0.31668961585152117,
+          "oracle_innovation": 0.819808271583031,
+          "oracle_mean_and_innovation": 0.31642724725268845,
+          "oracle_volatility_and_innovation": 0.6123778845903509,
+          "full_oracle": 2.070840895147221e-15
+        },
+        "component_loss_reductions": {
+          "mean_state": 0.4950857382902744,
+          "volatility_state": 0.2559245490467774,
+          "innovation": 0.2489897126629461
+        },
+        "component_shares": {
+          "mean_state": 0.49508573829027547,
+          "volatility_state": 0.25592454904677797,
+          "innovation": 0.24898971266294662
+        }
+      },
+      "max_drawdown_error": {
+        "coalition_loss_ratios": {
+          "current_forecast": 1.0,
+          "oracle_mean_state": 0.25395174148931443,
+          "oracle_volatility_state": 0.9761312955058732,
+          "oracle_all_states": 0.2629074337985807,
+          "oracle_innovation": 0.9643812254466128,
+          "oracle_mean_and_innovation": 0.056201552295231376,
+          "oracle_volatility_and_innovation": 0.940806773698412,
+          "full_oracle": 0.0
+        },
+        "component_loss_reductions": {
+          "mean_state": 0.8325189332128113,
+          "volatility_state": 0.029126545502941796,
+          "innovation": 0.1383545212842467
+        },
+        "component_shares": {
+          "mean_state": 0.8325189332128113,
+          "volatility_state": 0.029126545502941796,
+          "innovation": 0.1383545212842467
+        }
+      }
+    },
+    "bootstrap": {
+      "method": "paired resampling of development origins",
+      "samples": 10000,
+      "seed": 20260815,
+      "n_origins": 8
+    }
+  },
+  "loading_representation_diagnostic": {
+    "description": "Five-block cross-fitted, outcome-informed representation test on 2022-2023 development origins; diagnostic only and not feasible forecasting.",
+    "fold_unit": "non-overlapping 20-session forecast origin",
+    "n_folds": 5,
+    "n_rows": 160,
+    "mean_loading_scaled_rmse": {
+      "fixed_2015_2020_mapping": 0.8656655638391526,
+      "crossfit_development_mapping": 0.8825955190870368,
+      "ratio_crossfit_vs_fixed": 1.0195571545815005
+    },
+    "volatility_loading_logvariance_rmse": {
+      "fixed_2015_2020_pca": 0.5763369968171359,
+      "crossfit_development_pca": 0.4756912372550985,
+      "ratio_crossfit_vs_fixed": 0.8253699482805006
+    },
+    "interpretation_guardrail": "Ratios below one indicate representation drift/headroom, not a valid out-of-sample forecasting improvement."
+  },
+  "origins": [
+    {
+      "context_end": "2023-04-27",
+      "target_start": "2023-04-28",
+      "target_end": "2023-05-26"
+    },
+    {
+      "context_end": "2023-05-26",
+      "target_start": "2023-05-29",
+      "target_end": "2023-06-23"
+    },
+    {
+      "context_end": "2023-06-23",
+      "target_start": "2023-06-26",
+      "target_end": "2023-07-24"
+    },
+    {
+      "context_end": "2023-07-24",
+      "target_start": "2023-07-25",
+      "target_end": "2023-08-22"
+    },
+    {
+      "context_end": "2023-08-22",
+      "target_start": "2023-08-23",
+      "target_end": "2023-09-20"
+    },
+    {
+      "context_end": "2023-09-20",
+      "target_start": "2023-09-21",
+      "target_end": "2023-10-19"
+    },
+    {
+      "context_end": "2023-10-19",
+      "target_start": "2023-10-20",
+      "target_end": "2023-11-16"
+    },
+    {
+      "context_end": "2023-11-16",
+      "target_start": "2023-11-17",
+      "target_end": "2023-12-14"
+    }
+  ]
+}

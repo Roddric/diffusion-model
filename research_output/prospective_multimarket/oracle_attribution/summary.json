@@ -1,0 +1,146 @@
+{
+  "created_at_utc": "2026-08-19T03:14:19.448832+00:00",
+  "status": "final_route_phase_b_complete",
+  "study_id": "prospective-multimarket-strong-baseline-2026",
+  "role": "Cross-market oracle-ceiling attribution on pre-2024 data with the frozen candidate. Diagnostic only; the proceed gate decides whether the final route continues to candidate development or ends.",
+  "input_checks": {
+    "smoke_complete": true,
+    "no_post2023_data_loaded": true,
+    "base_config_hash_match": true,
+    "registry_hash_match": true,
+    "study_id_match": true
+  },
+  "frozen_protocol_sha256": "64feb617ea84fe4b3c0a0eaabd1c0745c96d88debcef31bcd3353723941d4472",
+  "markets": [
+    {
+      "code": "dax",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.48217696939994303,
+        "volatility_state": 0.06223092085284583,
+        "innovation": 0.45559210974721115
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.0212744390557418,
+        "vol_ratio_crossfit_vs_fixed": 0.8732332097290006
+      }
+    },
+    {
+      "code": "asx200",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.3330407652983384,
+        "volatility_state": 0.0936515274946043,
+        "innovation": 0.5733077072070571
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.0083747125895919,
+        "vol_ratio_crossfit_vs_fixed": 0.9268409242048042
+      }
+    },
+    {
+      "code": "cac40",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.42950918708284486,
+        "volatility_state": 0.09431748717943576,
+        "innovation": 0.4761733257377193
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.0041709218869583,
+        "vol_ratio_crossfit_vs_fixed": 0.866859046364763
+      }
+    },
+    {
+      "code": "nifty50",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.41711971946281345,
+        "volatility_state": 0.08955178003899425,
+        "innovation": 0.4933285004981923
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.017017397950536,
+        "vol_ratio_crossfit_vs_fixed": 0.8750148669052751
+      }
+    },
+    {
+      "code": "smi",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.41126024079175233,
+        "volatility_state": 0.08202783962694775,
+        "innovation": 0.5067119195812998
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.0186751913689207,
+        "vol_ratio_crossfit_vs_fixed": 0.8905338442413674
+      }
+    },
+    {
+      "code": "tsx60",
+      "n_origins": 8,
+      "component_shares": {
+        "mean_state": 0.38447464697079087,
+        "volatility_state": 0.10292154078543167,
+        "innovation": 0.5126038122437775
+      },
+      "representation_drift": {
+        "mean_ratio_crossfit_vs_fixed": 1.0195571545815005,
+        "vol_ratio_crossfit_vs_fixed": 0.8253699482805006
+      }
+    }
+  ],
+  "population_summary": {
+    "unit_of_replication": "market",
+    "component_share_intervals": {
+      "mean_state": {
+        "mean": 0.40959692150108046,
+        "ci_lower": 0.35772529226687577,
+        "ci_upper": 0.46146855073528514,
+        "n": 6
+      },
+      "volatility_state": {
+        "mean": 0.08745018266304326,
+        "ci_lower": 0.07264749099057957,
+        "ci_upper": 0.10225287433550695,
+        "n": 6
+      },
+      "innovation": {
+        "mean": 0.5029528958358761,
+        "ci_lower": 0.46068815165467136,
+        "ci_upper": 0.5452176400170808,
+        "n": 6
+      }
+    },
+    "mean_state_plus_innovation": {
+      "per_market": [
+        0.9377690791471542,
+        0.9063484725053956,
+        0.9056825128205641,
+        0.9104482199610058,
+        0.9179721603730522,
+        0.8970784592145684
+      ],
+      "mean": 0.9125498173369567,
+      "ci_lower": 0.897747125664493,
+      "ci_upper": 0.9273525090094205,
+      "n": 6,
+      "markets_above_floor": 6
+    },
+    "proceed_gate": {
+      "point_threshold": 0.8,
+      "interval_lower_threshold": 0.6,
+      "min_markets_above_floor": 5,
+      "per_market_floor": 0.5,
+      "passed": true,
+      "consequence": "proceed to Phase C candidate development under the frozen rules"
+    }
+  },
+  "decision": {
+    "model_modified": false,
+    "external_sample_reused": false,
+    "candidate_selected": false,
+    "post2023_data_loaded": false
+  }
+}
