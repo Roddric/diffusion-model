@@ -61,12 +61,18 @@ def test_merge_refetch_tolerates_response_without_close(monkeypatch):
 
 def test_merge_refetch_merges_close_columns(monkeypatch):
     base = _frame(A=[1.0, 2.0])
-    response = pd.DataFrame(
-        {"A": [10.0, 20.0], "B": [3.0, 4.0], "^X": [5.0, 6.0]},
-        index=pd.date_range("2024-01-01", periods=2),
+    values = {"A": [10.0, 20.0], "B": [3.0, 4.0], "^X": [5.0, 6.0]}
+    flat = pd.DataFrame(values, index=pd.date_range("2024-01-01", periods=2))
+    price_first = pd.DataFrame(
+        values, index=flat.index
     )
-    response.columns = pd.MultiIndex.from_product([["Close"], response.columns])
-    monkeypatch.setattr(yf_loader.yf, "download", lambda *a, **k: response)
-    result = _merge_refetch(base.copy(), ["B", "^X"], "2024-01-01", "2024-02-01")
-    assert list(result.columns) == ["A", "B", "^X"]
-    assert result["B"].tolist() == [3.0, 4.0]
+    price_first.columns = pd.MultiIndex.from_product([["Close"], flat.columns])
+    ticker_first = pd.DataFrame(
+        values, index=flat.index
+    )
+    ticker_first.columns = pd.MultiIndex.from_product([flat.columns, ["Close"]])
+    for response in (price_first, ticker_first):
+        monkeypatch.setattr(yf_loader.yf, "download", lambda *a, **k: response)
+        result = _merge_refetch(base.copy(), ["B", "^X"], "2024-01-01", "2024-02-01")
+        assert list(result.columns) == ["A", "B", "^X"]
+        assert result["B"].tolist() == [3.0, 4.0]
