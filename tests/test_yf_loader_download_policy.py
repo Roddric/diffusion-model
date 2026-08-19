@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
 
+from data import yf_loader
 from data.yf_loader import (
     MAX_MISSING_FRACTION_FOR_CACHE,
     _classify_incomplete_download,
+    _merge_refetch,
     _missing_tickers,
 )
 
@@ -35,3 +37,36 @@ def test_classify_isolated_missing_as_asset_level():
     tickers = [f"S{i}" for i in range(20)] + ["^X"]
     missing = ["S3"]
     assert _classify_incomplete_download(missing, tickers, "^X") == "asset_level"
+
+
+def _frame(**columns):
+    return pd.DataFrame(
+        columns, index=pd.date_range("2024-01-01", periods=2)
+    )
+
+
+def test_merge_refetch_tolerates_response_without_close(monkeypatch):
+    base = _frame(A=[1.0, 2.0])
+    for bad_response in (
+        None,
+        pd.DataFrame(index=pd.date_range("2024-01-01", periods=2)),
+        _frame(Open=[1.0, 2.0]),
+    ):
+        monkeypatch.setattr(
+            yf_loader.yf, "download", lambda *a, **k: bad_response
+        )
+        result = _merge_refetch(base.copy(), ["B"], "2024-01-01", "2024-02-01")
+        assert list(result.columns) == ["A"]
+
+
+def test_merge_refetch_merges_close_columns(monkeypatch):
+    base = _frame(A=[1.0, 2.0])
+    response = pd.DataFrame(
+        {"A": [10.0, 20.0], "B": [3.0, 4.0], "^X": [5.0, 6.0]},
+        index=pd.date_range("2024-01-01", periods=2),
+    )
+    response.columns = pd.MultiIndex.from_product([["Close"], response.columns])
+    monkeypatch.setattr(yf_loader.yf, "download", lambda *a, **k: response)
+    result = _merge_refetch(base.copy(), ["B", "^X"], "2024-01-01", "2024-02-01")
+    assert list(result.columns) == ["A", "B", "^X"]
+    assert result["B"].tolist() == [3.0, 4.0]

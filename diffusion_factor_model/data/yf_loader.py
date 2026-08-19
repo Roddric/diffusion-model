@@ -57,11 +57,15 @@ def _merge_refetch(df, missing, start, end):
         auto_adjust=True,
         progress=False,
     )
-    if retry is None or len(retry) == 0:
+    if retry is None or retry.empty:
         return df
     if isinstance(retry.columns, pd.MultiIndex):
+        if "Close" not in retry.columns.get_level_values(0):
+            return df
         retry = retry.xs("Close", axis=1, level=1)
     else:
+        if "Close" not in retry.columns:
+            return df
         retry = retry["Close"]
         if isinstance(retry, pd.Series):
             retry = retry.to_frame(missing[0])
