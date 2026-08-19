@@ -26,6 +26,50 @@ SP100 = [
 MARKET = "SPY"
 TICKER_CONVENTIONS = ("us", "lse", "hkg", "verbatim")
 
+# Transport-failure policy for incomplete downloads. A missing benchmark or a
+# wide missing fraction indicates a vendor transport failure (for example rate
+# limiting) and is retried with long backoff, never cached. Isolated missing
+# tickers are an asset-level condition that downstream attrition rules handle.
+RATE_LIMIT_BACKOFF_SECONDS = (60, 120, 300, 600, 900, 1200)
+MAX_MISSING_FRACTION_FOR_CACHE = 0.20
+
+
+def _missing_tickers(df, tickers):
+    return [t for t in tickers if t not in df.columns or df[t].isna().all()]
+
+
+def _classify_incomplete_download(missing, tickers, market_ticker):
+    """Deterministic transport-vs-asset policy for incomplete downloads."""
+    if not missing:
+        return "asset_level"
+    if market_ticker in missing:
+        return "transport"
+    if tickers and len(missing) / len(tickers) > MAX_MISSING_FRACTION_FOR_CACHE:
+        return "transport"
+    return "asset_level"
+
+
+def _merge_refetch(df, missing, start, end):
+    retry = yf.download(
+        missing,
+        start=start,
+        end=end,
+        auto_adjust=True,
+        progress=False,
+    )
+    if retry is None or len(retry) == 0:
+        return df
+    if isinstance(retry.columns, pd.MultiIndex):
+        retry = retry.xs("Close", axis=1, level=1)
+    else:
+        retry = retry["Close"]
+        if isinstance(retry, pd.Series):
+            retry = retry.to_frame(missing[0])
+    for ticker in missing:
+        if ticker in retry.columns and not retry[ticker].isna().all():
+            df[ticker] = retry[ticker]
+    return df
+
 
 class YFinanceDataPipeline:
     def __init__(self, config):
@@ -104,21 +148,44 @@ class YFinanceDataPipeline:
         # Yahoo drops tickers on transient network/rate-limit errors. Retry them explicitly:
         # silently accepting the gap would let the universe vary run to run.
         for attempt in range(3):
-            missing = [t for t in tickers if t not in df.columns or df[t].isna().all()]
+            missing = _missing_tickers(df, tickers)
             if not missing:
                 break
             print(f"  retry {attempt + 1}: refetching {len(missing)} tickers {missing}")
             time.sleep(2)
-            retry = yf.download(missing, start=start, end=end,
-                                auto_adjust=True, progress=False)["Close"]
-            if isinstance(retry, pd.Series):
-                retry = retry.to_frame(missing[0])
-            for t in retry.columns:
-                df[t] = retry[t]
+            df = _merge_refetch(df, missing, start, end)
 
-        still_missing = [t for t in tickers if t not in df.columns or df[t].isna().all()]
-        if still_missing:
-            print(f"  WARNING: {len(still_missing)} tickers unavailable after retries: {still_missing}")
+        missing = _missing_tickers(df, tickers)
+        if missing and _classify_incomplete_download(
+            missing, tickers, self.market_ticker
+        ) == "transport":
+            # Wide failures (benchmark missing or a large missing fraction)
+            # indicate vendor transport failure such as rate limiting. Back off
+            # and retry; never cache an incomplete panel.
+            for wait_seconds in RATE_LIMIT_BACKOFF_SECONDS:
+                print(
+                    f"  transport failure: {len(missing)} of {len(tickers)} "
+                    f"tickers missing; waiting {wait_seconds}s before retry."
+                )
+                time.sleep(wait_seconds)
+                df = _merge_refetch(df, missing, start, end)
+                missing = _missing_tickers(df, tickers)
+                if _classify_incomplete_download(
+                    missing, tickers, self.market_ticker
+                ) != "transport":
+                    break
+            if _classify_incomplete_download(
+                missing, tickers, self.market_ticker
+            ) == "transport":
+                raise RuntimeError(
+                    "Refusing to cache an incomplete download after extended "
+                    f"backoff: {len(missing)} of {len(tickers)} tickers still "
+                    f"missing: {missing[:10]}"
+                )
+
+        missing = _missing_tickers(df, tickers)
+        if missing:
+            print(f"  WARNING: {len(missing)} tickers unavailable after retries: {missing}")
 
         df.to_parquet(cache)
         return df
